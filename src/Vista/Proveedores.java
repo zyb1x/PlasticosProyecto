@@ -50,7 +50,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(121, 145, 168));
+        jPanel1.setBackground(new java.awt.Color(56, 80, 106));
 
         jLabel1.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(7, 16, 24));
@@ -157,7 +157,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
                 .addContainerGap(23, Short.MAX_VALUE))
         );
 
-        jPanel2.setBackground(new java.awt.Color(56, 80, 106));
+        jPanel2.setBackground(new java.awt.Color(7, 16, 24));
 
         jLabel6.setFont(new java.awt.Font("Gadugi", 1, 36)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(220, 225, 235));
@@ -180,7 +180,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25))
         );
 
-        jPanel3.setBackground(new java.awt.Color(28, 43, 56));
+        jPanel3.setBackground(new java.awt.Color(121, 145, 168));
 
         jTable1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
