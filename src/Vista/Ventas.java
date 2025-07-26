@@ -10,9 +10,7 @@ package Vista;
  */
 public class Ventas extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Ventas
-     */
+    
     public Ventas() {
         initComponents();
     }

@@ -35,6 +35,30 @@ public class ControllersDetalleVenta {
         }
         
     }
+    
+    public int getIdDetalleVenta(int idVenta){
+        String sql = "SELECT idDetalle FROM DETALLE_VENTA WHERE idVenta=?";
+        int idDetalle = -1; // Valor por defecto que indica no encontrado
+
+    try (Connection conn = connection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        pstmt.setInt(1, idVenta);
+        
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                idDetalle = rs.getInt("idDetalle");
+                System.out.println("ID Detalle de venta obtenido: " + idDetalle);
+            } else {
+                System.out.println("No se encontró el detalle para la venta: " + idVenta);
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener idDetalle ");
+        e.printStackTrace();
+    }
+    return idDetalle;
+    }
 
     public void buscarDetalle(int idDetalle, JTable table){
         String sqlString = "SELECT * FROM DETALLE_VENTA WHERE idDetalle=?";

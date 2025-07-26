@@ -260,15 +260,15 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         int IdProducto = Integer.parseInt(idProducto.getText());
-        String Producto = producto.getText();
+        String Nameroducto = producto.getText();
         int Cant = Integer.parseInt(cantidad.getText());
         double Precio = Double.parseDouble(precio.getText());
         double subtotal = Cant*Precio;
         double impuesto = subtotal*0.16;
         double total = subtotal+impuesto;
         
-        
-        //Crear cliente
+        try{
+            //Crear cliente
         ControllersCliente cliente = new ControllersCliente();
         cliente.crearCliente(rfc.getText(), nombreCliente.getText(), domicilio.getText(), telefono.getText());
         int idCliente = cliente.getIdCliente(nombreCliente.getText(), telefono.getText());
@@ -278,12 +278,19 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         int IdEmpleado = empleado.getIdEmpleado(correo);
         //Crear venta
         ControllersVenta venta = new ControllersVenta();
-        venta.crearVenta(IdEmpleado, idCliente);
-        int idVenta = venta.getIdVenta(idCliente);
+        venta.crearVenta(IdEmpleado, idCliente);     
+        venta.setIdVenta(idCliente, idCliente);
+        int newidVenta = venta.getIdVenta(idCliente);
+
         //Crear detalleVenta
         ControllersDetalleVenta detalle = new ControllersDetalleVenta();
-        detalle.crearDetalle(idVenta, IdProducto, Cant, Precio, total);
-        detalle.buscarDetalle(idVenta, tablaNuevaVenta);
+        detalle.crearDetalle(newidVenta, IdProducto, Cant, Precio, total);
+        int idDetalle = detalle.getIdDetalleVenta(newidVenta);
+        detalle.buscarDetalle(idDetalle, tablaNuevaVenta);
+        }
+        catch(Exception e){
+            System.out.println(e);
+        }
     }//GEN-LAST:event_guardarActionPerformed
 
     private void guardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar1ActionPerformed

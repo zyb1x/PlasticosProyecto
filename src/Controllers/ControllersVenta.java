@@ -22,10 +22,12 @@ public class ControllersVenta {
 
        try(Connection conn = connection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+           
         pstmt.setInt(1, idEmpleado);
         pstmt.setInt(2, idCliente);
 
         pstmt.executeUpdate();
+        System.out.print("Venta registrada");
        } catch (Exception e) {
         System.out.println("Error al conectar con la base de datos" + e.getMessage());
        }
@@ -40,6 +42,7 @@ public class ControllersVenta {
             pstmt.setInt(1, idVenta);
             pstmt.executeUpdate();
 
+            System.out.println("Venta eliminada");
         }
         catch(SQLException e) {
             System.out.println("Error al conectar con la base de datos" + e.getMessage());
@@ -85,6 +88,22 @@ public class ControllersVenta {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+    
+    public void setIdVenta(int idCliente, int idVenta){
+        String sql = "UPDATE VENTA SET idVenta=? WHERE idCliente=?";
+        
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idCliente);
+            pstmt.setInt(2, idVenta);
+            
+            pstmt.executeUpdate();
+            System.out.println("Id De venta cambiado");
+        }
+        catch(SQLException e){
+            System.out.println("Error al cambiar el id de venta" + e.getMessage());
         }
     }
 
