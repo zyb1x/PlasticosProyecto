@@ -1,7 +1,10 @@
 package Controllers;
 
+import Modelo.connection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class ControllersEmpleado {
     private Connection conn;
@@ -30,6 +33,30 @@ public class ControllersEmpleado {
 
     public void borrarEmpleado(){
 
+    }
+    public int getIdEmpleado(String correo){
+        String sql = "SELECT idEmpleado FROM EMPLEADO WHERE correo=?";
+
+         int idEmpleado = -1; // Valor por defecto que indica no encontrado
+
+    try (Connection conn = connection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        pstmt.setString(1, correo);
+        
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                idEmpleado = rs.getInt("idEmpleado");
+                System.out.println("ID de Empleado: " + idEmpleado);
+            } else {
+                System.out.println("No se encontró el cliente con el correo: " + correo);
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener ID de venta: ");
+        e.printStackTrace();
+    }
+    return idEmpleado;
     }
 }
 
