@@ -16,14 +16,14 @@ public class ControllersVenta {
 
     }
 
-    public void crearVenta(int idEmpleado,int idClienteSF){
-        String sql = "INSERT INTO VENTA (idEmpleado, fecha, idClienteSF)"
+    public void crearVenta(int idEmpleado,int idCliente){
+        String sql = "INSERT INTO VENTA (idEmpleado, fecha, idCliente)"
        + "VALUES(?, NOW(), ?)";
 
        try(Connection conn = connection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setInt(1, idEmpleado);
-        pstmt.setInt(2, idClienteSF);
+        pstmt.setInt(2, idCliente);
 
         pstmt.executeUpdate();
        } catch (Exception e) {
@@ -47,7 +47,7 @@ public class ControllersVenta {
     }
 
     public void buscarVenta(int idVenta, JTable table){
-        String sql = "SELECT * FROM VENTA WHERE idVenta=";
+        String sql = "SELECT * FROM VENTA WHERE idVenta=?";
         DefaultTableModel modelo = new DefaultTableModel();
 
         modelo.addColumn("Id Venta");
@@ -89,7 +89,7 @@ public class ControllersVenta {
     }
 
     public int getIdVenta(int idCliente) {
-    String sql = "SELECT idVenta FROM VENTA WHERE idClienteSF=?";
+    String sql = "SELECT idVenta FROM VENTA WHERE idCliente=?";
     int idVenta = -1; // Valor por defecto que indica no encontrado
 
     try (Connection conn = connection.getConnection();

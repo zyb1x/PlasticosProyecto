@@ -1,5 +1,6 @@
 package Controllers;
 
+import Modelo.connection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class ControllersDetalleVenta {
-    private Connection conn;
 
     public ControllersDetalleVenta(){
     }
@@ -19,7 +19,8 @@ public class ControllersDetalleVenta {
         String sql = "INSERT INTO DETALLE_VENTA (idVenta, idProductos, cantidad, precio, subtotal)"
         + "VALUES(?,?,?,?,?)";
 
-        try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, idVenta);
             pstmt.setInt(2, idProductos);
             pstmt.setInt(3, cantidad);
@@ -45,7 +46,8 @@ public class ControllersDetalleVenta {
         model.addColumn("Precio");
         model.addColumn("Subtotal");
         table.setModel(model);
-        try (Statement st = conn.createStatement();
+        try (Connection conn = connection.getConnection();
+                Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sqlString)){
              while (rs.next()) {
                 String[] datos = new String[6];
