@@ -1,5 +1,6 @@
 package Controllers;
 
+import Modelo.connection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +11,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class ControllersDetalleVenta {
-    private Connection conn;
 
     public ControllersDetalleVenta(){
     }
@@ -19,7 +19,8 @@ public class ControllersDetalleVenta {
         String sql = "INSERT INTO DETALLE_VENTA (idVenta, idProductos, cantidad, precio, subtotal)"
         + "VALUES(?,?,?,?,?)";
 
-        try(PreparedStatement pstmt = conn.prepareStatement(sql)){
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, idVenta);
             pstmt.setInt(2, idProductos);
             pstmt.setInt(3, cantidad);
@@ -34,6 +35,30 @@ public class ControllersDetalleVenta {
         }
         
     }
+    
+    public int getIdDetalleVenta(int idVenta){
+        String sql = "SELECT idDetalle FROM DETALLE_VENTA WHERE idVenta=?";
+        int idDetalle = -1; // Valor por defecto que indica no encontrado
+
+    try (Connection conn = connection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        pstmt.setInt(1, idVenta);
+        
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                idDetalle = rs.getInt("idDetalle");
+                System.out.println("ID Detalle de venta obtenido: " + idDetalle);
+            } else {
+                System.out.println("No se encontró el detalle para la venta: " + idVenta);
+            }
+        }
+    } catch (SQLException e) {
+        System.err.println("Error al obtener idDetalle ");
+        e.printStackTrace();
+    }
+    return idDetalle;
+    }
 
     public void buscarDetalle(int idDetalle, JTable table){
         String sqlString = "SELECT * FROM DETALLE_VENTA WHERE idDetalle=?";
@@ -45,7 +70,8 @@ public class ControllersDetalleVenta {
         model.addColumn("Precio");
         model.addColumn("Subtotal");
         table.setModel(model);
-        try (Statement st = conn.createStatement();
+        try (Connection conn = connection.getConnection();
+                Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sqlString)){
              while (rs.next()) {
                 String[] datos = new String[6];
