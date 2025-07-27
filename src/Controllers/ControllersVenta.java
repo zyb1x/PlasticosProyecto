@@ -16,16 +16,18 @@ public class ControllersVenta {
 
     }
 
-    public void crearVenta(int idEmpleado,int idClienteSF){
-        String sql = "INSERT INTO VENTA (idEmpleado, fecha, idClienteSF)"
+    public void crearVenta(int idEmpleado,int idCliente){
+        String sql = "INSERT INTO VENTA (idEmpleado, fecha, idCliente)"
        + "VALUES(?, NOW(), ?)";
 
        try(Connection conn = connection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+           
         pstmt.setInt(1, idEmpleado);
-        pstmt.setInt(2, idClienteSF);
+        pstmt.setInt(2, idCliente);
 
         pstmt.executeUpdate();
+        System.out.print("Venta registrada");
        } catch (Exception e) {
         System.out.println("Error al conectar con la base de datos" + e.getMessage());
        }
@@ -40,6 +42,7 @@ public class ControllersVenta {
             pstmt.setInt(1, idVenta);
             pstmt.executeUpdate();
 
+            System.out.println("Venta eliminada");
         }
         catch(SQLException e) {
             System.out.println("Error al conectar con la base de datos" + e.getMessage());
@@ -47,7 +50,7 @@ public class ControllersVenta {
     }
 
     public void buscarVenta(int idVenta, JTable table){
-        String sql = "SELECT * FROM VENTA WHERE idVenta=";
+        String sql = "SELECT * FROM VENTA WHERE idVenta=?";
         DefaultTableModel modelo = new DefaultTableModel();
 
         modelo.addColumn("Id Venta");
@@ -87,9 +90,25 @@ public class ControllersVenta {
             e.printStackTrace();
         }
     }
+    
+    public void setIdVenta(int idCliente, int idVenta){
+        String sql = "UPDATE VENTA SET idVenta=? WHERE idCliente=?";
+        
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idCliente);
+            pstmt.setInt(2, idVenta);
+            
+            pstmt.executeUpdate();
+            System.out.println("Id De venta cambiado");
+        }
+        catch(SQLException e){
+            System.out.println("Error al cambiar el id de venta" + e.getMessage());
+        }
+    }
 
     public int getIdVenta(int idCliente) {
-    String sql = "SELECT idVenta FROM VENTA WHERE idClienteSF=?";
+    String sql = "SELECT idVenta FROM VENTA WHERE idCliente=?";
     int idVenta = -1; // Valor por defecto que indica no encontrado
 
     try (Connection conn = connection.getConnection();
