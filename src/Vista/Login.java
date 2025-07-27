@@ -265,7 +265,7 @@ public class Login extends javax.swing.JFrame {
             .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
         );
 
-        jLabel14.setIcon(new javax.swing.ImageIcon("C:\\Users\\Pablo\\Downloads\\oficialplasticos.png")); // NOI18N
+        jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/oficialplasticos.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
