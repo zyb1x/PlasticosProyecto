@@ -27,6 +27,35 @@ public class ControllersEmpleado {
             System.out.println("Error al conectar con la base de datos " + e.getMessage());
         }
     }
+    public void mostrarEmpleados(){
+        String sql = "SELECT * FROM EMPLEADO";
+        DefaultTableModel model = new DefaultTableModel();
+        model.addColumn("Codigo");
+        model.addColumn("Turno");
+        model.addColumn("Contraseña");
+        model.addColumn("Correo");
+        model.addColumn("Puesto");
+        
+         try (Connection conn = connection.getConnection();
+                Statement st = conn.createStatement();
+        ResultSet rs = st.executeQuery(sql)){
+             
+             while (rs.next()) {
+                String[] datos = new String[6];
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                datos[3] = rs.getString(4);
+                datos[4] = rs.getString(5);
+                datos[5] = rs.getString(6);
+                model.addRow(datos);
+                
+             }
+         }
+         catch(SQLException e){
+             e.printStackTrace();
+         }
+    }
     public void buscarEmpleado(int idEmpleado){
         String sql = "SELECT * FROM EMPLEADO WHERE idEmpleado=?";
         DefaultTableModel model = new DefaultTableModel();
@@ -91,6 +120,7 @@ public class ControllersEmpleado {
     }
     return idEmpleado;
     }
+    
     public void setContrasennia(int idEmpleado, String newPwd){
         String sql = "UPDATE EMPLEADO SET password=? WHERE idEmpleado=?";
         try(Connection conn = connection.getConnection();

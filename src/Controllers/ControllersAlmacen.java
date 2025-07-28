@@ -32,7 +32,7 @@ public class ControllersAlmacen {
     }
 
     public void actualizarFecha(int idProducto, String fechaEntrada, String fechaSalida){
-        String sql = "UPDATE ALMACEN fechaEntrada=? AND fechaSalida=? WHERE idProductos=?";
+        String sql = "UPDATE ALMACEN SET fechaEntrada=? AND fechaSalida=? WHERE idProductos=?";
 
         try (Connection conn = connection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)){
