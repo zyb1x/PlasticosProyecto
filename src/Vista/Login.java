@@ -59,6 +59,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Gadugi", 0, 36)); // NOI18N
         jLabel2.setText("TECNOPLAST");
 
+        iniciar.setBackground(new java.awt.Color(7, 16, 36));
         iniciar.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
         iniciar.setText("INICIAR SESIÓN");
         iniciar.addActionListener(new java.awt.event.ActionListener() {
@@ -72,7 +73,7 @@ public class Login extends javax.swing.JFrame {
 
         registro.setBackground(new java.awt.Color(56, 80, 106));
         registro.setFont(new java.awt.Font("Gadugi", 0, 10)); // NOI18N
-        registro.setForeground(new java.awt.Color(51, 102, 255));
+        registro.setForeground(new java.awt.Color(91, 132, 255));
         registro.setText("Registrar");
         registro.setBorder(null);
         registro.addActionListener(new java.awt.event.ActionListener() {
@@ -162,12 +163,11 @@ public class Login extends javax.swing.JFrame {
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
                                     .addGap(8, 8, 8)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(jLabel3)
-                                            .addGap(0, 0, 0)
-                                            .addComponent(registro))
-                                        .addComponent(iniciar, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(iniciar)
+                                        .addComponent(jLabel3))
+                                    .addGap(0, 0, 0)
+                                    .addComponent(registro))))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                             .addContainerGap()
                             .addComponent(jLabel2)))
@@ -210,17 +210,17 @@ public class Login extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(83, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(122, 122, 122)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addGap(30, 30, 30)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 471, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
