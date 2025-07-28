@@ -17,7 +17,7 @@ public class ControllersVenta {
     }
 
     public void crearVenta(int idEmpleado,int idCliente){
-        String sql = "INSERT INTO VENTA (idEmpleado, fecha, idCliente)"
+        String sql = "INSERT INTO VENTA (idVEnta, idEmpleado, fecha, idCliente)"
        + "VALUES(?, NOW(), ?)";
 
        try(Connection conn = connection.getConnection();

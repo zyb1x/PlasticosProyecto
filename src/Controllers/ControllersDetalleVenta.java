@@ -11,8 +11,28 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 public class ControllersDetalleVenta {
-
-    public ControllersDetalleVenta(){
+    private int idProducto;
+    private int cantidad;
+    private double precio;
+    private double total;
+    public ControllersDetalleVenta(int idProducto, int cantidad, double precio, double total){
+        this.idProducto = idProducto;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.total = total;
+    }
+    
+    public int getId(){
+        return idProducto;
+    }
+    public int getCantidad(){
+        return cantidad;
+    }
+    public double getPrecio(){
+        return precio;
+    }
+    public double getTotal(){
+        return total;
     }
 
     public void crearDetalle(int idVenta, int idProductos, int cantidad, double precio, double total){
@@ -87,4 +107,6 @@ public class ControllersDetalleVenta {
             System.out.println("Error al conectar con la base de datos" + e.getMessage());
         }
     }
+    
+    
 }

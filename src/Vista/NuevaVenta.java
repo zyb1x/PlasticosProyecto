@@ -8,6 +8,7 @@ import Controllers.ControllersCliente;
 import Controllers.ControllersDetalleVenta;
 import Controllers.ControllersEmpleado;
 import Controllers.ControllersVenta;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -15,12 +16,19 @@ import javax.swing.table.DefaultTableModel;
  * @author viann
  */
 public class NuevaVenta extends javax.swing.JInternalFrame {
-
+    DefaultTableModel model = new DefaultTableModel();
+    ArrayList<ControllersDetalleVenta> detalles = new ArrayList<>();
     /**
      * Creates new form NuevaVenta
      */
     public NuevaVenta() {
         initComponents();
+        
+        model.addColumn("ID Producto");
+        model.addColumn("Nombre");
+        model.addColumn("Cantidad");
+        model.addColumn("Precio");
+        model.addColumn("Total");
     }
 
     /**
@@ -54,6 +62,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         jLabel10 = new javax.swing.JLabel();
         idProducto = new javax.swing.JTextField();
         guardar1 = new javax.swing.JButton();
+        guardar2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(121, 145, 168));
         jPanel1.setForeground(new java.awt.Color(7, 16, 24));
@@ -151,6 +160,16 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
             }
         });
 
+        guardar2.setBackground(new java.awt.Color(83, 120, 161));
+        guardar2.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
+        guardar2.setForeground(new java.awt.Color(7, 16, 24));
+        guardar2.setText("Agregar");
+        guardar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardar2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -175,9 +194,12 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                             .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(32, 32, 32)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(305, 305, 305))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(guardar2)))
+                        .addGap(211, 211, 211))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(nombreCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -218,7 +240,8 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                     .addComponent(producto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(idProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(guardar2))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
@@ -235,7 +258,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                     .addComponent(domicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(rfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(guardar)
                     .addComponent(guardar1))
@@ -260,12 +283,13 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         int IdProducto = Integer.parseInt(idProducto.getText());
-        String Nameroducto = producto.getText();
+        String NameProducto = producto.getText();
         int Cant = Integer.parseInt(cantidad.getText());
         double Precio = Double.parseDouble(precio.getText());
         double subtotal = Cant*Precio;
         double impuesto = subtotal*0.16;
         double total = subtotal+impuesto;
+        
         
         try{
             //Crear cliente
@@ -282,11 +306,17 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         venta.setIdVenta(idCliente, idCliente);
         int newidVenta = venta.getIdVenta(idCliente);
 
+        ControllersDetalleVenta detalle = new ControllersDetalleVenta(IdProducto, Cant, Precio, total);//Para crear el array
+        
         //Crear detalleVenta
-        ControllersDetalleVenta detalle = new ControllersDetalleVenta();
-        detalle.crearDetalle(newidVenta, IdProducto, Cant, Precio, total);
-        int idDetalle = detalle.getIdDetalleVenta(newidVenta);
-        detalle.buscarDetalle(idDetalle, tablaNuevaVenta);
+        for (int i=0; i<detalles.size(); i++){
+            int IDProducto = detalles.get(i).getId();
+            int Cantidad = detalles.get(i).getCantidad();
+            double PRECIO = detalles.get(i).getPrecio();
+            double TOTAL = detalles.get(i).getTotal();
+            
+           detalle.crearDetalle(newidVenta,IDProducto,Cantidad,PRECIO,TOTAL);
+        }
         }
         catch(Exception e){
             System.out.println(e);
@@ -302,12 +332,45 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         Inicio.principal.add(v);
     }//GEN-LAST:event_guardar1ActionPerformed
 
+    private void guardar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar2ActionPerformed
+        ControllersVenta venta = new ControllersVenta();
+        ControllersCliente cliente = new ControllersCliente();
+        int idCliente = cliente.getIdCliente(nombreCliente.getText(), telefono.getText());
+        
+        int newidVenta = venta.getIdVenta(idCliente);
+        int IdProducto = Integer.parseInt(idProducto.getText());
+        int Cant = Integer.parseInt(cantidad.getText());
+        double Precio = Double.parseDouble(precio.getText());
+        double subtotal = Cant*Precio;
+        double iva =subtotal * 0.16;
+        double total = subtotal + iva;
+        
+        ControllersDetalleVenta detalle = new ControllersDetalleVenta(IdProducto, Cant, Precio, total);//Para crear el array
+        
+        detalles.add(detalle);
+        tablaNuevaVenta.setModel(model); //Cambiar el modelo
+        for(int i=0; i<detalles.size(); i++){
+            int IDProducto = detalles.get(i).getId();
+            int Cantidad = detalles.get(i).getCantidad();
+            double PRECIO = detalles.get(i).getPrecio();
+            double TOTAL = detalles.get(i).getTotal();
+            
+           detalle.crearDetalle(newidVenta,IDProducto,Cantidad,PRECIO,TOTAL);
+            int idDetalle = detalle.getIdDetalleVenta(newidVenta);
+            //detalle.buscarDetalle(idDetalle, tablaNuevaVenta);
+            model.addRow(new Object[]{
+           IDProducto, Cantidad, PRECIO, TOTAL
+        });
+        }
+    }//GEN-LAST:event_guardar2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cantidad;
     private javax.swing.JTextField domicilio;
     private javax.swing.JButton guardar;
     private javax.swing.JButton guardar1;
+    private javax.swing.JButton guardar2;
     private javax.swing.JTextField idProducto;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
