@@ -1,13 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package Vista;
 
-/**
- *
- * @author LENOVO
- */
+
 public class Inicio extends javax.swing.JFrame {
 
     public Inicio() {
@@ -101,6 +95,11 @@ public class Inicio extends javax.swing.JFrame {
         proveedores.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
         proveedores.setForeground(new java.awt.Color(7, 16, 24));
         proveedores.setText("Proveedores");
+        proveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                proveedoresActionPerformed(evt);
+            }
+        });
 
         administracion.setBackground(new java.awt.Color(121, 145, 168));
         administracion.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
@@ -209,6 +208,13 @@ public class Inicio extends javax.swing.JFrame {
         p.pack();
         p.setVisible(true);
     }//GEN-LAST:event_produccionActionPerformed
+
+    private void proveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_proveedoresActionPerformed
+        Proveedores pro = new Proveedores();
+        principal.add(pro);
+        pro.pack();
+        pro.setVisible(true);        
+    }//GEN-LAST:event_proveedoresActionPerformed
 
     /**
      * @param args the command line arguments
