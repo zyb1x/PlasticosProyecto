@@ -13,15 +13,16 @@ public class ControllersEmpleado {
     public ControllersEmpleado(){
 
     }
-    public void crearEmpleado(int idEmpleado, String turno, String password, String correo, String puesto){
-        String sql = "INSERT INTO EMPLEADO (idEmpleado, turno, password, correo,puesto)"+
-        "VALUES (?,?,?,?,?)";
+    public void crearEmpleado(int idEmpleado,String nombre, String turno, String password, String correo, String puesto){
+        String sql = "INSERT INTO EMPLEADO (idEmpleado,nombre, turno, password, correo,puesto)"+
+        "VALUES (?,?,?,?,?,?)";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(1, idEmpleado);
-            pstmt.setString(2, turno);
-            pstmt.setString(3, password);
-            pstmt.setString(4, correo);
-            pstmt.setString(5, puesto);
+            pstmt.setString(2, nombre);
+            pstmt.setString(3, turno);
+            pstmt.setString(4, password);
+            pstmt.setString(5, correo);
+            pstmt.setString(6, puesto);
         } catch (Exception e) {
             System.out.println("Error al conectar con la base de datos " + e.getMessage());
         }
@@ -89,6 +90,22 @@ public class ControllersEmpleado {
         e.printStackTrace();
     }
     return idEmpleado;
+    }
+    public void setContrasennia(int idEmpleado, String newPwd){
+        String sql = "UPDATE EMPLEADO SET password=? WHERE idEmpleado=?";
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idEmpleado);
+            pstmt.setString(2, newPwd);
+            pstmt.executeUpdate();
+            System.out.print("New Password is: " + newPwd);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public int getPuesto(int idEmpleado){
+        return idEmpleado;
     }
 }
 

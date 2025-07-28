@@ -60,9 +60,11 @@ public class Administrador extends javax.swing.JInternalFrame {
         IDEmpleado = new javax.swing.JTextField();
         buscar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        btnGuardarE = new javax.swing.JButton();
 
         jPanel5.setBackground(new java.awt.Color(56, 80, 106));
 
+        txtIdEmpleado.setEditable(false);
         txtIdEmpleado.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(121, 145, 171), null));
 
         txtNombreE.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(121, 145, 171), null));
@@ -159,7 +161,7 @@ public class Administrador extends javax.swing.JInternalFrame {
 
         crud.setBackground(new java.awt.Color(7, 16, 24));
         crud.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        crud.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Actualizar", "Eliminar" }));
+        crud.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Actualizar", "Eliminar", "Buscar" }));
 
         IDEmpleado.setBackground(new java.awt.Color(255, 255, 255));
         IDEmpleado.setForeground(new java.awt.Color(56, 80, 106));
@@ -184,18 +186,20 @@ public class Administrador extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(crud, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(btnActualizarE, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1)
-                        .addGap(17, 17, 17)
-                        .addComponent(IDEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 541, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 521, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(17, 17, 17)
+                                .addComponent(IDEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(259, 259, 259)
                 .addComponent(buscar))
         );
@@ -204,15 +208,13 @@ public class Administrador extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(60, 60, 60)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(IDEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(8, 8, 8)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1)
+                    .addComponent(IDEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(11, 11, 11)
                         .addComponent(buscar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnActualizarE, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -220,41 +222,60 @@ public class Administrador extends javax.swing.JInternalFrame {
                 .addContainerGap(129, Short.MAX_VALUE))
         );
 
+        btnGuardarE.setBackground(new java.awt.Color(7, 16, 24));
+        btnGuardarE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnGuardarE.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/guardar16px.png"))); // NOI18N
+        btnGuardarE.setText("Guardar");
+        btnGuardarE.setActionCommand("GUARDAR");
+        btnGuardarE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGuardarE.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnGuardarE.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarEActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(11, 11, 11)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel37)
-                        .addComponent(jLabel36)
-                        .addComponent(jLabel35)
-                        .addComponent(jLabel34)
-                        .addComponent(txtNombreE)
-                        .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel38)
-                        .addGap(183, 183, 183))
-                    .addComponent(jLabel39)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtContrasenaE1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(comboTurnoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboPuestoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCorreoE)
-                        .addComponent(txtContrasenaE, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING))
-                    .addComponent(jLabel3))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel37)
+                                .addComponent(jLabel36)
+                                .addComponent(jLabel35)
+                                .addComponent(jLabel34)
+                                .addComponent(txtNombreE)
+                                .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel38)
+                                .addGap(183, 183, 183))
+                            .addComponent(jLabel39)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtContrasenaE1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(comboTurnoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboPuestoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCorreoE)
+                                .addComponent(txtContrasenaE, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addComponent(btnGuardarE, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addGap(454, 454, 454))
@@ -289,8 +310,12 @@ public class Administrador extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel40)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtContrasenaE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtContrasenaE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuardarE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -326,23 +351,23 @@ public class Administrador extends javax.swing.JInternalFrame {
         int idEmpleado = Integer.parseInt(IDEmpleado.getText());
         
         switch(crud.getSelectedIndex()){
-            case 0:
-                JOptionPane.showMessageDialog(null, "Elige una opcion");
-            break;
-            case 1: 
+            case 0 -> JOptionPane.showMessageDialog(null, "Elige una opcion");
+            case 1 -> { 
+                //Actualizar
                 txtIdEmpleado.setText(model.getValueAt(tablaEmpleado.getSelectedRow(), tablaEmpleado.getSelectedColumn()).toString());
                 txtNombreE.setText(model.getValueAt(tablaEmpleado.getSelectedRow(), tablaEmpleado.getSelectedColumn()).toString());
-                
-            break;
-            case 2:
-               int fila = tablaEmpleado.getSelectedRow();
-        if (fila >= 0) {
-            c.borrarEmpleado(idEmpleado);
-            JOptionPane.showMessageDialog(null, "Empleado eliminado correctamente");
-        } else {
-            javax.swing.JOptionPane.showMessageDialog(null, "Selecciona una tarea para borrar");
-        }
-            break;
+                txtCorreoE.setText(model.getValueAt(tablaEmpleado.getSelectedRow(), tablaEmpleado.getSelectedColumn()).toString());
+                txtContrasenaE.setText(model.getValueAt(tablaEmpleado.getSelectedRow(), tablaEmpleado.getSelectedColumn()).toString());
+                txtContrasenaE1.setText(model.getValueAt(tablaEmpleado.getSelectedRow(), tablaEmpleado.getSelectedColumn()).toString());
+            }
+            case 2 -> {
+                int fila = tablaEmpleado.getSelectedRow();
+                if (fila >= 0) {
+                    c.borrarEmpleado(idEmpleado);
+                    JOptionPane.showMessageDialog(null, "Empleado eliminado correctamente");
+                } else {
+                    javax.swing.JOptionPane.showMessageDialog(null, "Selecciona una tarea para borrar");
+                }   }
         }
         
         
@@ -364,10 +389,44 @@ public class Administrador extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtContrasenaE1ActionPerformed
 
+    private void btnGuardarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEActionPerformed
+        // TODO add your handling code here:
+        int fila = tablaEmpleado.getSelectedRow();
+        
+        if(fila >=0){
+        int id = Integer.parseInt(txtIdEmpleado.getText());
+        String nombre = txtNombreE.getText();
+        String turno = comboTurnoE.getSelectedItem().toString();
+        String correo = txtCorreoE.getText();
+        String pwd = txtContrasenaE.getText();
+        String puesto = comboPuestoE.getSelectedItem().toString();
+        ControllersEmpleado e = new ControllersEmpleado();
+        
+        int idOld = e.getIdEmpleado(correo);
+        if(idOld == id){
+            e.borrarEmpleado(idOld);
+            
+            e.crearEmpleado(id, nombre, turno, puesto, turno, puesto);
+            e.buscarEmpleado(id);
+        } else {
+            JOptionPane.showMessageDialog(null, "Si deseas registrar un empleado utiliza el registro de empleados");
+        }
+        System.out.println("Empleado Actualizado");        
+        } else {
+            JOptionPane.showMessageDialog(null, "Selecciona un empleado en la tabla para continuar");
+        }
+        
+        Login l = new Login();
+        l.setVisible(true);
+        l.pack();
+        l.setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnGuardarEActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField IDEmpleado;
     private javax.swing.JButton btnActualizarE;
+    private javax.swing.JButton btnGuardarE;
     private javax.swing.JButton buscar;
     private javax.swing.JComboBox<String> comboPuestoE;
     private javax.swing.JComboBox<String> comboTurnoE;
