@@ -16,9 +16,10 @@ public class ControllersMateriaPrima {
     private int cantidad;
     private String tipo;
     private String proveedor;
-    private String fechaingreso;
+    //private String fechaingreso;
 
-    public ControllersMateriaPrima(String nombre, String codigo, String unidad, String medida, int cantidad, String tipo, String proveedor, String fechaingreso) {
+    //public ControllersMateriaPrima(String nombre, String codigo, String unidad, String medida, int cantidad, String tipo, String proveedor, String fechaingreso) {
+      public ControllersMateriaPrima(String nombre, String codigo, String unidad, String medida, int cantidad, String tipo, String proveedor) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.unidad = unidad;
@@ -26,11 +27,12 @@ public class ControllersMateriaPrima {
         this.cantidad = cantidad;
         this.tipo = tipo;
         this.proveedor = proveedor;
-        this.fechaingreso = fechaingreso;
+        //this.fechaingreso = fechaingreso;
     }
     
     public Object[] toRow() {
-        return new Object[]{ nombre, codigo, unidad, medida, cantidad, tipo, proveedor, fechaingreso};
+        //return new Object[]{ nombre, codigo, unidad, medida, cantidad, tipo, proveedor, fechaingreso};
+        return new Object[]{ nombre, codigo, unidad, medida, cantidad, tipo, proveedor};
     }
     
 }

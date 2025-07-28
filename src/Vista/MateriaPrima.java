@@ -56,12 +56,12 @@ public class MateriaPrima extends javax.swing.JInternalFrame {
         namemp = new javax.swing.JTextField();
         cantmp = new javax.swing.JTextField();
         provmp = new javax.swing.JComboBox<>();
-        datemp = new com.toedter.calendar.JDateChooser();
         medmp = new javax.swing.JComboBox<>();
         unitmp = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         typemp = new javax.swing.JComboBox<>();
         entermp = new javax.swing.JButton();
+        jTextField2 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         existenciasmp = new javax.swing.JTable();
@@ -127,6 +127,8 @@ public class MateriaPrima extends javax.swing.JInternalFrame {
             }
         });
 
+        jTextField2.setText("fecha");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -152,11 +154,11 @@ public class MateriaPrima extends javax.swing.JInternalFrame {
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(namemp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(codemp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(namemp)
+                            .addComponent(codemp)
                             .addComponent(provmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(datemp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jTextField2))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,11 +201,11 @@ public class MateriaPrima extends javax.swing.JInternalFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(provmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15))
-                .addGap(36, 36, 36)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(datemp, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(61, 61, 61)
+                .addGap(38, 38, 38)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(59, 59, 59)
                 .addComponent(entermp)
                 .addContainerGap(86, Short.MAX_VALUE))
         );
@@ -337,10 +339,12 @@ public class MateriaPrima extends javax.swing.JInternalFrame {
            String tipo = typemp.getSelectedItem().toString();
            String proveedor = provmp.getSelectedItem().toString();
            
-           SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-           String fecha = sdf.format(datemp.getDate());
+           //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+           //String fecha = sdf.format(datemp.getDate());
            
-           ControllersMateriaPrima mp = new ControllersMateriaPrima(nombre, codigo, unidad, medida, cantidad, tipo, proveedor, fecha);
+           //ControllersMateriaPrima mp = new ControllersMateriaPrima(nombre, codigo, unidad, medida, cantidad, tipo, proveedor, fecha);
+          // listaMateriaPrima.add(mp);
+           ControllersMateriaPrima mp = new ControllersMateriaPrima(nombre, codigo, unidad, medida, cantidad, tipo, proveedor);
            listaMateriaPrima.add(mp);
            
            modeloTabla.addRow(mp.toRow());
@@ -348,7 +352,7 @@ public class MateriaPrima extends javax.swing.JInternalFrame {
            namemp.setText("");
            codemp.setText("");
            cantmp.setText("");
-           datemp.setDate(null);
+           //datemp.setDate(null);
            
            
            
@@ -362,15 +366,8 @@ public class MateriaPrima extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField cantmp;
     private javax.swing.JTextField codemp;
-    private com.toedter.calendar.JDateChooser datemp;
     private javax.swing.JButton entermp;
     private javax.swing.JTable existenciasmp;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -380,22 +377,12 @@ public class MateriaPrima extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField5;
+    private javax.swing.JTextField jTextField2;
     private javax.swing.JComboBox<String> medmp;
     private javax.swing.JTextField namemp;
     private javax.swing.JComboBox<String> provmp;
