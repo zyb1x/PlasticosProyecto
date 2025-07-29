@@ -19,37 +19,38 @@ public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form Login
+     *
      * @param password
      * @param correo
-     * @return 
+     * @return
      */
-    public static boolean validarCredenciales(String password,String correo) {
-    String sql = "SELECT correo,password FROM EMPLEADO WHERE correo = ?";
-    
-    try (Connection con = connection.getConnection();
-         PreparedStatement pstmt = con.prepareStatement(sql)) {
-        
-        pstmt.setString(1, correo);  // Previene SQL Injection
-        
-        try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                String storedPassword = rs.getString("password");
-                
-                // Comparación directa (texto plano)
-                if (password.equals(storedPassword)) {
-                    JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
-                    return true;
+    public static boolean validarCredenciales(String password, String correo) {
+        String sql = "SELECT correo,password FROM EMPLEADO WHERE correo = ?";
+
+        try (Connection con = connection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+            pstmt.setString(1, correo);  // Previene SQL Injection
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    String storedPassword = rs.getString("password");
+
+                    // Comparación directa (texto plano)
+                    if (password.equals(storedPassword)) {
+                        JOptionPane.showMessageDialog(null, "Inicio de sesión exitoso");
+                        return true;
+                    }
                 }
+                JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos");
+                return false;
             }
-            JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos");
+            System.err.println("Error SQL: " + e.getMessage());
             return false;
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos");
-        System.err.println("Error SQL: " + e.getMessage());
-        return false;
     }
-}
+
     public Login() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -94,7 +95,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("TECNOPLAST");
 
         iniciar.setBackground(new java.awt.Color(7, 16, 36));
-        iniciar.setFont(new java.awt.Font("Gadugi", 0, 12)); // NOI18N
+        iniciar.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
         iniciar.setText("INICIAR SESIÓN");
         iniciar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -258,28 +259,27 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void iniciarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarActionPerformed
-       String corre = email.getText();
-       String pwd = password.getText();
-       
-       if (validarCredenciales(pwd,corre)) {
-           this.dispose();
-        Inicio i = new Inicio();
-        i.setVisible(true);
-        i.pack();
-        i.setLocationRelativeTo(null);
-    }
-       else {
-           System.out.print("Falla en evento del boton");
-       }
+        String corre = email.getText();
+        String pwd = password.getText();
+
+        if (validarCredenciales(pwd, corre)) {
+            this.dispose();
+            Inicio i = new Inicio();
+            i.setVisible(true);
+            i.pack();
+            i.setLocationRelativeTo(null);
+        } else {
+            System.out.print("Falla en evento del boton");
+        }
     }//GEN-LAST:event_iniciarActionPerformed
 
     private void registroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroActionPerformed
         // TODO add your handling code here:
-       
+
         RegistroEmpl r = new RegistroEmpl();
         r.setVisible(true);
         r.pack();
-        r.setLocationRelativeTo(null); 
+        r.setLocationRelativeTo(null);
     }//GEN-LAST:event_registroActionPerformed
 
     /**
@@ -318,7 +318,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField email;
+    public static javax.swing.JTextField email;
     private javax.swing.JButton iniciar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

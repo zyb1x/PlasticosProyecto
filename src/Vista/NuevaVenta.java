@@ -64,6 +64,12 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         guardar1 = new javax.swing.JButton();
         guardar2 = new javax.swing.JButton();
 
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jPanel1.setBackground(new java.awt.Color(121, 145, 168));
         jPanel1.setForeground(new java.awt.Color(7, 16, 24));
 
@@ -296,27 +302,32 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         ControllersCliente cliente = new ControllersCliente();
         cliente.crearCliente(rfc.getText(), nombreCliente.getText(), domicilio.getText(), telefono.getText());
         int idCliente = cliente.getIdCliente(nombreCliente.getText(), telefono.getText());
+        System.out.println(idCliente);
         //Obtener idEmpleado
         ControllersEmpleado empleado = new ControllersEmpleado();
-        String correo = "212410@gmail.com";
+        String correo = Login.email.getText();
         int IdEmpleado = empleado.getIdEmpleado(correo);
+        System.out.println(IdEmpleado);
         //Crear venta
         ControllersVenta venta = new ControllersVenta();
-        venta.crearVenta(IdEmpleado, idCliente);     
-        venta.setIdVenta(idCliente, idCliente);
-        int newidVenta = venta.getIdVenta(idCliente);
+        venta.crearVenta(IdEmpleado, idCliente);   
+        
+        int IDVenta = venta.getIdVenta(idCliente);
 
         ControllersDetalleVenta detalle = new ControllersDetalleVenta(IdProducto, Cant, Precio, total);//Para crear el array
         
         //Crear detalleVenta
-        for (int i=0; i<detalles.size(); i++){
+        
+        for(int i=0; i<detalles.size(); i++){
             int IDProducto = detalles.get(i).getId();
             int Cantidad = detalles.get(i).getCantidad();
             double PRECIO = detalles.get(i).getPrecio();
             double TOTAL = detalles.get(i).getTotal();
             
-           detalle.crearDetalle(newidVenta,IDProducto,Cantidad,PRECIO,TOTAL);
+            detalle.crearDetalle(IDVenta, IDProducto, Cantidad, PRECIO, TOTAL);
         }
+        
+        
         }
         catch(Exception e){
             System.out.println(e);
@@ -325,6 +336,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
     private void guardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar1ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
         Ventas v = new Ventas();
         v.setVisible(true);
         v.pack();
@@ -333,12 +345,8 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_guardar1ActionPerformed
 
     private void guardar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar2ActionPerformed
-        ControllersVenta venta = new ControllersVenta();
-        ControllersCliente cliente = new ControllersCliente();
-        int idCliente = cliente.getIdCliente(nombreCliente.getText(), telefono.getText());
-        
-        int newidVenta = venta.getIdVenta(idCliente);
         int IdProducto = Integer.parseInt(idProducto.getText());
+        String nom = producto.getText();
         int Cant = Integer.parseInt(cantidad.getText());
         double Precio = Double.parseDouble(precio.getText());
         double subtotal = Cant*Precio;
@@ -348,20 +356,11 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         ControllersDetalleVenta detalle = new ControllersDetalleVenta(IdProducto, Cant, Precio, total);//Para crear el array
         
         detalles.add(detalle);
-        tablaNuevaVenta.setModel(model); //Cambiar el modelo
-        for(int i=0; i<detalles.size(); i++){
-            int IDProducto = detalles.get(i).getId();
-            int Cantidad = detalles.get(i).getCantidad();
-            double PRECIO = detalles.get(i).getPrecio();
-            double TOTAL = detalles.get(i).getTotal();
-            
-           detalle.crearDetalle(newidVenta,IDProducto,Cantidad,PRECIO,TOTAL);
-            int idDetalle = detalle.getIdDetalleVenta(newidVenta);
-            //detalle.buscarDetalle(idDetalle, tablaNuevaVenta);
-            model.addRow(new Object[]{
-           IDProducto, Cantidad, PRECIO, TOTAL
+        
+        model.addRow(new Object[]{
+           IdProducto, nom, Cant, Precio, total
         });
-        }
+        tablaNuevaVenta.setModel(model); //Cambiar el modelo
     }//GEN-LAST:event_guardar2ActionPerformed
 
 

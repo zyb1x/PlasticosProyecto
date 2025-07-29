@@ -45,7 +45,6 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
         txtContrasenaE1 = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnActualizarE = new javax.swing.JButton();
         btnEliminarE = new javax.swing.JButton();
@@ -134,7 +133,6 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
         btnGuardarE.setBackground(new java.awt.Color(7, 16, 24));
         btnGuardarE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardarE.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/guardar16px.png"))); // NOI18N
         btnGuardarE.setText("Guardar");
         btnGuardarE.setActionCommand("GUARDAR");
         btnGuardarE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -156,8 +154,6 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
         jLabel40.setForeground(new java.awt.Color(255, 255, 255));
         jLabel40.setText("Confirmar contraseña");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo-empleado (1).png"))); // NOI18N
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -169,29 +165,24 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
                         .addComponent(btnGuardarE, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(78, 78, 78))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel37)
-                                .addComponent(jLabel36)
-                                .addComponent(jLabel35)
-                                .addComponent(jLabel34)
-                                .addComponent(txtNombreE2)
-                                .addComponent(txtIdEmpleado2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel38)
-                                .addGap(183, 183, 183))
-                            .addComponent(jLabel39)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtContrasenaE1, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(comboTurnoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(comboPuestoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtCorreoE)
-                                .addComponent(txtContrasenaE, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING)))
-                        .addGroup(jPanel5Layout.createSequentialGroup()
-                            .addGap(53, 53, 53)
-                            .addComponent(jLabel3)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel37)
+                            .addComponent(jLabel36)
+                            .addComponent(jLabel35)
+                            .addComponent(jLabel34)
+                            .addComponent(txtNombreE2)
+                            .addComponent(txtIdEmpleado2, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                            .addComponent(jLabel38)
+                            .addGap(183, 183, 183))
+                        .addComponent(jLabel39)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtContrasenaE1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(comboTurnoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(comboPuestoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCorreoE)
+                            .addComponent(txtContrasenaE, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING))))
                 .addGap(36, 36, 36)
                 .addComponent(jLabel2)
                 .addContainerGap(54, Short.MAX_VALUE))
@@ -203,9 +194,7 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addGap(454, 454, 454))
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(jLabel3)
-                .addGap(38, 38, 38)
+                .addGap(202, 202, 202)
                 .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtIdEmpleado2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,7 +232,6 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
         btnActualizarE.setBackground(new java.awt.Color(7, 16, 24));
         btnActualizarE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnActualizarE.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizarE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/actualizar16px.png"))); // NOI18N
         btnActualizarE.setText("Actualizar");
         btnActualizarE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnActualizarE.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -251,7 +239,6 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
         btnEliminarE.setBackground(new java.awt.Color(7, 16, 24));
         btnEliminarE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnEliminarE.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar16px.png"))); // NOI18N
         btnEliminarE.setText("Eliminar");
         btnEliminarE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnEliminarE.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -259,7 +246,6 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
         btnNuevoE.setBackground(new java.awt.Color(7, 16, 24));
         btnNuevoE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnNuevoE.setForeground(new java.awt.Color(255, 255, 255));
-        btnNuevoE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo16px.png"))); // NOI18N
         btnNuevoE.setText("Nuevo");
         btnNuevoE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnNuevoE.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -360,7 +346,6 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> comboTurnoE;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
@@ -369,20 +354,14 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable tableEmpleado;
     private javax.swing.JTextField txtContrasenaE;
     private javax.swing.JTextField txtContrasenaE1;
     private javax.swing.JTextField txtCorreoE;
-    private javax.swing.JTextField txtIdEmpleado;
-    private javax.swing.JTextField txtIdEmpleado1;
     private javax.swing.JTextField txtIdEmpleado2;
-    private javax.swing.JTextField txtNombreE;
-    private javax.swing.JTextField txtNombreE1;
     private javax.swing.JTextField txtNombreE2;
     // End of variables declaration//GEN-END:variables
 }

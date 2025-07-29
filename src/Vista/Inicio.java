@@ -196,7 +196,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaActionPerformed
         // TODO add your handling code here:
-        NuevaVenta v = new NuevaVenta();
+        Ventas v = new Ventas();
         principal.add(v);        
         v.pack();
         v.setVisible(true);

@@ -15,6 +15,7 @@ public class ControllersDetalleVenta {
     private int cantidad;
     private double precio;
     private double total;
+    
     public ControllersDetalleVenta(int idProducto, int cantidad, double precio, double total){
         this.idProducto = idProducto;
         this.cantidad = cantidad;

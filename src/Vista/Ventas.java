@@ -3,24 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Vista;
-import Modelo.connection;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Date;
+import Controllers.ControllersVenta;
 import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author LENOVO
  */
 public class Ventas extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form ventas1
-     */
+    DefaultTableModel modelo = new DefaultTableModel();
+    ControllersVenta v = new ControllersVenta();
+    
     public Ventas() {
         initComponents();
+        v.CargarDatos(ventas, modelo);
     }
 
     /**
@@ -33,20 +28,26 @@ public class Ventas extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        buscarPor = new javax.swing.JComboBox<>();
+        txtBuscar = new javax.swing.JTextField();
         buscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ventas = new javax.swing.JTable();
         guardar2 = new javax.swing.JButton();
         chooser = new com.toedter.calendar.JDateChooser();
 
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+
         jPanel1.setBackground(new java.awt.Color(121, 145, 168));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar Por", "Nombre", "ID Venta", "ID Cliente", "Fecha" }));
+        buscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar Por", "Nombre", "ID Venta", "ID Cliente", "Fecha" }));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setForeground(new java.awt.Color(56, 80, 106));
+        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscar.setForeground(new java.awt.Color(56, 80, 106));
 
         buscar.setBackground(new java.awt.Color(83, 120, 161));
         buscar.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
@@ -60,13 +61,10 @@ public class Ventas extends javax.swing.JInternalFrame {
 
         ventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "idVenta", "idEmpleado", "fecha", "idCliente"
             }
         ));
         jScrollPane1.setViewportView(ventas);
@@ -95,9 +93,9 @@ public class Ventas extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(buscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(66, 66, 66)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(30, 30, 30)
                                 .addComponent(buscar)))))
                 .addContainerGap(104, Short.MAX_VALUE))
@@ -113,8 +111,8 @@ public class Ventas extends javax.swing.JInternalFrame {
                 .addComponent(chooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(65, 65, 65)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,55 +142,23 @@ public class Ventas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-        String sql = "SELECT * FROM VENTA WHERE fecha=?";
-        try (Connection conn = connection.getConnection();
-            PreparedStatement pstmt = conn.prepareStatement(sql)){
-            Date fechaSelect = chooser.getDate();
-            String fecha = String.valueOf(fechaSelect);
 
-            pstmt.setString(1, fecha);
-
-            DefaultTableModel model = new DefaultTableModel();
-
-            model.addColumn("ID venta");
-            model.addColumn("ID Cliente");
-            model.addColumn("Fecha");
-
-            ventas.setModel(model);
-            try(ResultSet rs = pstmt.executeQuery()){
-
-                while (rs.next()) {
-                    String[] datos = new String[3];
-                    datos[0] = rs.getString(1);
-                    datos[1] = rs.getString(2);
-                    datos[2] = rs.getString(3);
-
-                    model.addRow(datos);
-                }
-
-            }
-            catch(SQLException e){
-                System.out.println("Error al obtener la(s) ventas");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error al conectar con la base de datos");
-        }
+     
     }//GEN-LAST:event_buscarActionPerformed
 
     private void guardar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar2ActionPerformed
-        // TODO add your handling code here:
+    
     }//GEN-LAST:event_guardar2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buscar;
+    private javax.swing.JComboBox<String> buscarPor;
     private com.toedter.calendar.JDateChooser chooser;
     private javax.swing.JButton guardar2;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTable ventas;
     // End of variables declaration//GEN-END:variables
 }

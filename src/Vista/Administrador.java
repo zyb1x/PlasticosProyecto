@@ -51,7 +51,6 @@ public class Administrador extends javax.swing.JInternalFrame {
         txtContrasenaE1 = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         btnActualizarE = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -129,14 +128,11 @@ public class Administrador extends javax.swing.JInternalFrame {
         jLabel40.setForeground(new java.awt.Color(255, 255, 255));
         jLabel40.setText("Confirmar contraseña");
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo-empleado (1).png"))); // NOI18N
-
         jPanel1.setBackground(new java.awt.Color(121, 145, 171));
 
         btnActualizarE.setBackground(new java.awt.Color(7, 16, 24));
         btnActualizarE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnActualizarE.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizarE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/actualizar16px.png"))); // NOI18N
         btnActualizarE.setText("Actualizar");
         btnActualizarE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnActualizarE.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -225,7 +221,6 @@ public class Administrador extends javax.swing.JInternalFrame {
         btnGuardarE.setBackground(new java.awt.Color(7, 16, 24));
         btnGuardarE.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnGuardarE.setForeground(new java.awt.Color(255, 255, 255));
-        btnGuardarE.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/guardar16px.png"))); // NOI18N
         btnGuardarE.setText("Guardar");
         btnGuardarE.setActionCommand("GUARDAR");
         btnGuardarE.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -262,8 +257,7 @@ public class Administrador extends javax.swing.JInternalFrame {
                                 .addComponent(comboPuestoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtCorreoE)
                                 .addComponent(txtContrasenaE, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(jLabel3))
+                                .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2))
                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -282,8 +276,7 @@ public class Administrador extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(12, 12, 12)
+                        .addGap(140, 140, 140)
                         .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -433,7 +426,6 @@ public class Administrador extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox<String> crud;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
