@@ -4,15 +4,21 @@
  */
 package Vista;
 
+import Controllers.ControllersVenta;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author viann
  */
 public class Ventas extends javax.swing.JInternalFrame {
 
-    
+    DefaultTableModel modelo = new DefaultTableModel();
+    ControllersVenta v = new ControllersVenta();
+
     public Ventas() {
         initComponents();
+        v.CargarDatos(ventas, modelo);
     }
 
     /**
@@ -27,9 +33,14 @@ public class Ventas extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
         jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        ventas = new javax.swing.JTable();
         jComboBox1 = new javax.swing.JComboBox<>();
-        guardar1 = new javax.swing.JButton();
+        venta = new javax.swing.JButton();
+        Buscar = new javax.swing.JButton();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
 
         jPanel1.setBackground(new java.awt.Color(121, 145, 168));
         jPanel1.setForeground(new java.awt.Color(7, 16, 24));
@@ -37,7 +48,7 @@ public class Ventas extends javax.swing.JInternalFrame {
         jTextField1.setBackground(new java.awt.Color(255, 255, 255));
         jTextField1.setForeground(new java.awt.Color(56, 80, 106));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        ventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -45,20 +56,30 @@ public class Ventas extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID Venta", "ID Empleado", "Fecha", "ID Cliente"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(ventas);
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar Por", "Nombre", "ID Venta", "ID Cliente" }));
 
-        guardar1.setBackground(new java.awt.Color(83, 120, 161));
-        guardar1.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
-        guardar1.setForeground(new java.awt.Color(7, 16, 24));
-        guardar1.setText("Realizar una venta");
-        guardar1.addActionListener(new java.awt.event.ActionListener() {
+        venta.setBackground(new java.awt.Color(83, 120, 161));
+        venta.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
+        venta.setForeground(new java.awt.Color(7, 16, 24));
+        venta.setText("Realizar una venta");
+        venta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardar1ActionPerformed(evt);
+                ventaActionPerformed(evt);
+            }
+        });
+
+        Buscar.setBackground(new java.awt.Color(83, 120, 161));
+        Buscar.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
+        Buscar.setForeground(new java.awt.Color(7, 16, 24));
+        Buscar.setText("Buscar");
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarActionPerformed(evt);
             }
         });
 
@@ -73,8 +94,10 @@ public class Ventas extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(guardar1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Buscar))
+                    .addComponent(venta, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap(85, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -83,12 +106,13 @@ public class Ventas extends javax.swing.JInternalFrame {
                 .addGap(114, 114, 114)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Buscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40)
-                .addComponent(guardar1)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addComponent(venta)
+                .addContainerGap(87, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -105,22 +129,27 @@ public class Ventas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void guardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar1ActionPerformed
+    private void ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaActionPerformed
         // TODO add your handling code here:
         NuevaVenta v = new NuevaVenta();
         v.setVisible(true);
         v.pack();
         v.show();
         Inicio.principal.add(v);
-    }//GEN-LAST:event_guardar1ActionPerformed
+    }//GEN-LAST:event_ventaActionPerformed
+
+    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
+        
+    }//GEN-LAST:event_BuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton guardar1;
+    private javax.swing.JButton Buscar;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JButton venta;
+    private javax.swing.JTable ventas;
     // End of variables declaration//GEN-END:variables
 }

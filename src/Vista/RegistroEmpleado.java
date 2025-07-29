@@ -53,6 +53,10 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         tableEmpleado = new javax.swing.JTable();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+
         jPanel3.setBackground(new java.awt.Color(7, 16, 24));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -235,7 +239,7 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
                 .addComponent(txtContrasenaE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGuardarE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(121, 145, 171));
@@ -369,20 +373,14 @@ public class RegistroEmpleado extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel39;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTable tableEmpleado;
     private javax.swing.JTextField txtContrasenaE;
     private javax.swing.JTextField txtContrasenaE1;
     private javax.swing.JTextField txtCorreoE;
-    private javax.swing.JTextField txtIdEmpleado;
-    private javax.swing.JTextField txtIdEmpleado1;
     private javax.swing.JTextField txtIdEmpleado2;
-    private javax.swing.JTextField txtNombreE;
-    private javax.swing.JTextField txtNombreE1;
     private javax.swing.JTextField txtNombreE2;
     // End of variables declaration//GEN-END:variables
 }

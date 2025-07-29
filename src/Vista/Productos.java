@@ -49,6 +49,10 @@ public class Productos extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+
         jPanel2.setBackground(new java.awt.Color(7, 16, 24));
 
         jLabel1.setFont(new java.awt.Font("Gadugi", 1, 24)); // NOI18N

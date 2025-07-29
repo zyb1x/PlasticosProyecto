@@ -45,6 +45,10 @@ public class Proveedores extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+
         jPanel1.setBackground(new java.awt.Color(56, 80, 106));
 
         jLabel2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
