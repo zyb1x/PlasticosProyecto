@@ -24,12 +24,10 @@ public class Proveedores extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        idProveedor = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
         telefono = new javax.swing.JTextField();
         direccion = new javax.swing.JTextField();
@@ -48,10 +46,6 @@ public class Proveedores extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(56, 80, 106));
-
-        jLabel1.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(7, 16, 24));
-        jLabel1.setText("ID");
 
         jLabel2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(7, 16, 24));
@@ -111,18 +105,13 @@ public class Proveedores extends javax.swing.JInternalFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGap(23, 23, 23)
-                                    .addComponent(jLabel1))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addContainerGap()
                                     .addComponent(jLabel2))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(19, 19, 19)
                                     .addComponent(jLabel3)))
                             .addGap(18, 18, 18)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(nombre)
-                                .addComponent(idProveedor))))
+                            .addComponent(nombre)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addComponent(agregar)))
@@ -134,11 +123,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
                 .addComponent(jLabel7)
                 .addGap(5, 5, 5)
                 .addComponent(jLabel9)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(idProveedor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -154,7 +139,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
                 .addComponent(agregar)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
@@ -284,7 +269,7 @@ public class Proveedores extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
-        if (idProveedor.getText().isEmpty() || nombre.getText().isEmpty() || rfc.getText().isEmpty() ||
+      /*  if (idProveedor.getText().isEmpty() || nombre.getText().isEmpty() || rfc.getText().isEmpty() ||
             direccion.getText().isEmpty() || telefono.getText().isEmpty()) {  
            JOptionPane.showMessageDialog(null, "Favor de llenar todos los campos");
            return;
@@ -302,7 +287,30 @@ public class Proveedores extends javax.swing.JInternalFrame {
              rfc.setText("");
              direccion.setText("");
              telefono.setText("");        
-        } 
+        } */
+      
+      if (nombre.getText().isEmpty() || rfc.getText().isEmpty() ||
+        direccion.getText().isEmpty() || telefono.getText().isEmpty()) {
+
+        JOptionPane.showMessageDialog(null, "Favor de llenar todos los campos");
+        return;
+    }
+      
+      
+      pr.setNombre(nombre.getText());
+      pr.setRfc(rfc.getText());
+      pr.setDireccion(direccion.getText());
+      pr.setTelefono(telefono.getText());
+
+      pr.crearProveedor(); // Aquí ya no necesitas setId
+
+        JOptionPane.showMessageDialog(null, "Proveedor agregado correctamente");
+
+       // Limpieza de campos
+         nombre.setText("");
+         rfc.setText("");
+         direccion.setText("");
+         telefono.setText("");
      
     }//GEN-LAST:event_agregarActionPerformed
 
@@ -310,11 +318,9 @@ public class Proveedores extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
     private javax.swing.JTextField direccion;
-    private javax.swing.JTextField idProveedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

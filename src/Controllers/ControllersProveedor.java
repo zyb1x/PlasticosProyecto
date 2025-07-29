@@ -62,25 +62,25 @@ public class ControllersProveedor {
     }
     
     
-   // Metodo para crear proveedor con retorno booleano 
-    public void crearProveedor(){
-        
-        String sql = "INSERT INTO proveedor(id, nombre, rfc, telefono, direccion) VALUES (?, ?, ?, ?, ?)";
-      
-        try(Connection conn = connection.getConnection();
-        PreparedStatement pstmt = conn.prepareStatement(sql)) {
-           
-        pstmt.setInt(1, id);
-        pstmt.setString(2, nombre);
-        pstmt.setString(3, rfc);
-        pstmt.setString(4, telefono);
-        pstmt.setString(5, direccion);
-        pstmt.executeUpdate();        
-        System.out.print("Proveedor registrado");
-       } catch (Exception e) {
-        System.out.println("Error al conectar con la base de datos" + e.getMessage());
-       }
+   // Metodo para crear proveedor   
+    public void crearProveedor() {
+    String sql = "INSERT INTO proveedor(nombre, rfc, telefono, direccion) VALUES (?, ?, ?, ?)";
+
+    try (Connection conn = connection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setString(1, this.getNombre());
+        pstmt.setString(2, this.getRfc());
+        pstmt.setString(3, this.getTelefono());
+        pstmt.setString(4, this.getDireccion());
+
+        pstmt.executeUpdate();
+        System.out.println("Proveedor registrado correctamente.");
+
+    } catch (Exception e) {
+        System.out.println("Error al insertar proveedor: " + e.getMessage());
     }
+}
     
     public void buscarProveedor(){
 
