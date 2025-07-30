@@ -1,8 +1,10 @@
 package Controllers;
 
 import Modelo.connection;
+import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.util.ArrayList;
 
 public class ControllersProveedor {
     private int id;
@@ -85,6 +87,35 @@ public class ControllersProveedor {
     public void buscarProveedor(){
 
     }
+    
+    public List<ControllersProveedor> listarProveedor() {
+    List<ControllersProveedor> listaPr = new ArrayList();
+   
+    String sql = "SELECT * FROM proveedor";
+         try (Connection conn = connection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql);
+         java.sql.ResultSet rs = pstmt.executeQuery()) {
+
+        while (rs.next()) {
+            ControllersProveedor pr = new ControllersProveedor();
+            pr.setId(rs.getInt("idProveedor"));
+            pr.setNombre(rs.getString("nombre"));
+            pr.setRfc(rs.getString("rfc"));
+            pr.setDireccion(rs.getString("direccion"));
+            pr.setTelefono(rs.getString("telefono"));
+            listaPr.add(pr);
+        }
+
+    } catch (Exception e) {
+        System.out.println("Error al listar proveedores: " + e.getMessage());
+    }
+
+    return listaPr;
+ }
+     
+    
+            
+            
     public void actualizarProveedor(){
 
     }

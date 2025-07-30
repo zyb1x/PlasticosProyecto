@@ -213,7 +213,10 @@ public class Inicio extends javax.swing.JFrame {
         Proveedores pro = new Proveedores();
         principal.add(pro);
         pro.pack();
-        pro.setVisible(true);        
+        pro.setVisible(true); 
+        
+       // pro.limpiarTable();
+        pro.listarProveedor(); //trae el metodo que carga la tabla con proveedores 
     }//GEN-LAST:event_proveedoresActionPerformed
 
     /**
