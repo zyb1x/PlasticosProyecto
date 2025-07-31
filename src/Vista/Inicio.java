@@ -196,13 +196,13 @@ public class Inicio extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
        Login L = new Login();
-   L.setVisible(true);
-        L.show();
-         L.pack();
+       L.setVisible(true);
+       L.show();
+       L.pack();
     }//GEN-LAST:event_loginActionPerformed
 
     private void ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaActionPerformed
-        // TODO add your handling code here:
+
         NuevaVenta v = new NuevaVenta();
         principal.add(v);        
         v.pack();
@@ -210,7 +210,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_ventaActionPerformed
 
     private void produccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_produccionActionPerformed
-        // TODO add your handling code here:
+      
         Produccion p = new Produccion();
         principal.add(p);        
         p.pack();
@@ -223,7 +223,6 @@ public class Inicio extends javax.swing.JFrame {
         pro.pack();
         pro.setVisible(true); 
         
-       // pro.limpiarTable();
         pro.listarProveedor(); //trae el metodo que carga la tabla con proveedores 
     }//GEN-LAST:event_proveedoresActionPerformed
 

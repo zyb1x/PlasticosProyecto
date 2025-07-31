@@ -63,8 +63,7 @@ public class ControllersProveedor {
         this.direccion = direccion;
     }
     
-    
-   // Metodo para crear proveedor   
+      
     public void crearProveedor() {
     String sql = "INSERT INTO proveedor(nombre, rfc, telefono, direccion) VALUES (?, ?, ?, ?)";
 
@@ -113,13 +112,43 @@ public class ControllersProveedor {
     return listaPr;
  }
      
-    
-            
-            
-    public void actualizarProveedor(){
+  
+    public boolean actualizarProveedor(ControllersProveedor pr) {
+    String sql = "UPDATE proveedor SET nombre=?, rfc=?, direccion=?, telefono=? WHERE idProveedor=?";
+    try (Connection conn = connection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+        pstmt.setString(1, pr.getNombre());     
+        pstmt.setString(2, pr.getRfc());
+        pstmt.setString(3, pr.getDireccion());
+        pstmt.setString(4, pr.getTelefono());
+        pstmt.setInt(5, pr.getId());             
+
+        pstmt.executeUpdate(); 
+        return true;
+
+    } catch (Exception e) {
+        System.out.println("Error al actualizar proveedor: " + e.getMessage());
+        return false;
     }
-    public void eliminarProveedor(){
-        
+}
+ 
+    
+    public boolean eliminarProveedor(int id) {
+    String sql = "DELETE FROM proveedor WHERE idProveedor = ?";
+    try (Connection conn = connection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+        pstmt.setInt(1, id);
+        pstmt.execute();
+        return true;
+
+    } catch (Exception e) {
+        System.out.println("Error al eliminar proveedor: " + e.getMessage());
+        return false;
     }
+  }
+    
+    
+    
 }
