@@ -5,6 +5,7 @@
 package Vista;
 
 import Controllers.ControllersEmpleado;
+import Modelo.ClaseEmpleado;
 import javax.swing.JOptionPane;
 
 /**
@@ -68,6 +69,7 @@ public class RegistroEm extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(56, 80, 106));
 
+        id.setEditable(false);
         id.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(121, 145, 171), null));
 
         nombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(121, 145, 171), null));
@@ -251,8 +253,45 @@ public class RegistroEm extends javax.swing.JFrame {
     }//GEN-LAST:event_correoActionPerformed
 
     private void btnGuardarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEActionPerformed
-        int idEmpleado = Integer.parseInt(id.getText());
-        String name = nombre.getText();
+        ControllersEmpleado ce = new ControllersEmpleado();
+        Administrador adm = new Administrador();
+        Login l = new Login();
+        // Verificar que todos los campos estén llenos
+        if (!"".equals(nombre.getText())
+                && puesto.getSelectedItem() != null
+                && turno.getSelectedItem() != null
+                && !"".equals(correo.getText())
+                && !"".equals(password.getText())
+                && !"".equals(confPassword.getText())) {
+
+            // Verificar que las contraseñas coincidan
+            if (!password.getText().equals(confPassword.getText())) {
+                JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.");
+                return;
+            }
+
+            // Crear objeto de empleado
+            ClaseEmpleado clem = new ClaseEmpleado();
+            clem.setNombre(nombre.getText());
+            clem.setPuesto(puesto.getSelectedItem().toString());
+            clem.setTurno(turno.getSelectedItem().toString());
+            clem.setCorreo(correo.getText());
+            clem.setContrasena(password.getText());
+
+            // Guardar en la base de datos
+            if (ce.guardarEmpleado(clem)) {
+                JOptionPane.showMessageDialog(null, "Empleado registrado correctamente.");
+                this.dispose();
+                l.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Error al guardar el empleado.");
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos.");
+        }
+        
+        /*String name = nombre.getText();
         String Puesto = puesto.getSelectedItem().toString();
         String Turno = turno.getSelectedItem().toString();
         String Correo = correo.getText();
@@ -261,11 +300,11 @@ public class RegistroEm extends javax.swing.JFrame {
         validar();
         if(pwd.equals(confpwd)){
         ControllersEmpleado e = new ControllersEmpleado();
-        e.crearEmpleado(idEmpleado, Turno, pwd, Correo, Puesto);  
+        e.crearEmpleado(idEmpleado, Turno, pwd, Correo, Puesto, name);
         }
         else {
-            JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden, intenta de nuevo");
-        }
+        JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden, intenta de nuevo");
+        }*/
         
     }//GEN-LAST:event_btnGuardarEActionPerformed
 

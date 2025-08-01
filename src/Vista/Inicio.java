@@ -1,6 +1,8 @@
 
 package Vista;
 
+import Modelo.ClaseEmpleado;
+
 
 public class Inicio extends javax.swing.JFrame {
 
@@ -110,6 +112,11 @@ public class Inicio extends javax.swing.JFrame {
         administracion.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
         administracion.setForeground(new java.awt.Color(7, 16, 24));
         administracion.setText("Administracion");
+        administracion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                administracionActionPerformed(evt);
+            }
+        });
 
         jButton7.setBackground(new java.awt.Color(121, 145, 168));
         jButton7.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
@@ -233,6 +240,14 @@ public class Inicio extends javax.swing.JFrame {
      p.setVisible(true);
      
     }//GEN-LAST:event_productosActionPerformed
+
+    private void administracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_administracionActionPerformed
+        Administrador adm = new Administrador();
+        principal.add(adm);
+        adm.pack();
+        adm.setVisible(true);
+        adm.ListarEmpleado();
+    }//GEN-LAST:event_administracionActionPerformed
 
     /**
      * @param args the command line arguments

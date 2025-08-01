@@ -5,20 +5,101 @@
 package Vista;
 
 import Controllers.ControllersEmpleado;
+import Modelo.ClaseEmpleado;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
  * @author viann
  */
 public class Administrador extends javax.swing.JInternalFrame {
+    ControllersEmpleado ce = new ControllersEmpleado();
     DefaultTableModel model = new DefaultTableModel();
+    ClaseEmpleado clem = new ClaseEmpleado();
+    TableRowSorter<DefaultTableModel> sorter;
     
     public Administrador() {
         initComponents();
         ControllersEmpleado em = new ControllersEmpleado();
-        em.CargarDatos(tablaEmpleado, model);
+        // Se agrega un "DocumentListener" al campo de texto "txtBuscarE"
+        // Esto permite detectar cambios en el contenido del campo de texto (por ejemplo, cuando el usuario escribe o borra texto)
+        txtBuscarE.getDocument().addDocumentListener(new DocumentListener() {
+            
+            // Este método se ejecuta cuando se inserta texto en el campo (cuando el usuario escribe algo)
+            public void insertUpdate(DocumentEvent e) { filtrar(); }// Se llama al método 'filtrar' para actualizar los resultados según el texto ingresado
+            
+            // Este método se ejecuta cuando se elimina texto del campo (cuando el usuario borra algo)
+            public void removeUpdate(DocumentEvent e) { filtrar(); }// Se vuelve a llamar a 'filtrar' para ajustar los resultados
+            
+            // Este método se ejecuta cuando hay un cambio en los atributos del documento,
+            // como el formato del texto (normalmente no se usa con campos de texto simples)
+            public void changedUpdate(DocumentEvent e) { filtrar(); }// También se llama a 'filtrar', aunque rara vez se activa en JTextField
+    });
+
+        /*em.CargarDatos(tablaEmpleado, model);*/
+    }
+    
+    public void ListarEmpleado(){
+        List<ClaseEmpleado> Listarclem = ce.listarEmpleado();//Se obtiene la lista de empleados desde el controlador "ce"
+        model = (DefaultTableModel) tablaEmpleado.getModel();//Se obtiene el modelo de la tabla donde se mostraran os empleados
+        model.setRowCount(0);//se limpia cualaquier fila existente de la tabla
+        
+        Object[] obj = new Object[6];// se crea un objeto donde se almacenaran los datos de cada empleado
+        for (int i = 0; i < Listarclem.size(); i++) {
+            obj[0] = Listarclem.get(i).getIdEmpleado();
+            obj[1] = Listarclem.get(i).getTurno();
+            obj[2] = Listarclem.get(i).getContrasena();
+            obj[3] = Listarclem.get(i).getCorreo();
+            obj[4] = Listarclem.get(i).getPuesto();
+            obj[5] = Listarclem.get(i).getNombre();
+      
+            model.addRow(obj);//se agrega una fila a la tabla con esos datos ^
+        }
+        tablaEmpleado.setModel(model);// se actualiza la tabla con el modelo
+        
+        //se aplica un ordenamiento y filtro de la tabla
+        sorter = new TableRowSorter<>(model);
+        tablaEmpleado.setRowSorter(sorter);
+    }
+    
+    public void filtrar() {
+    String texto = txtBuscarE.getText();//con esto se obtiene lo que se ingrese en el textfield de buscar
+    String criterio = comboFiltroE.getSelectedItem().toString();//se obtiene la opcion seleccionadaa del combo
+
+    //se define cual filtro se usara segun lo seleccion dell combo box
+    int columna = 0;
+    switch (criterio) {
+        case "Id empleado":
+            columna = 0;
+            break;
+        case "Turno":
+            columna = 1;
+            break;
+        case "Puesto":
+            columna = 4;
+            break;
+        case "Nombre":
+            columna = 5;
+            break;
+    }
+
+    sorter.setRowFilter(RowFilter.regexFilter("(?i)" + texto, columna));//se aplica el filtro ignorando mayus/minus
+}
+
+    
+    public void LimpiarTabla(){
+        //se recorre la tabla con el for y se eliminan las filas una por una
+        for (int i = 0; i < model.getRowCount(); i++) {
+            model.removeRow(i);//se elimina la fila actual
+            i = i-1;//se ajusta el indice por que la tabla se recorre dinamiccamente
+        }
     }
 
     /**
@@ -33,11 +114,8 @@ public class Administrador extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         tablaEmpleado = new javax.swing.JTable();
-        btnEliminarE2 = new javax.swing.JButton();
-        btnNuevoE2 = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        btnActualizarE2 = new javax.swing.JButton();
+        txtBuscarE = new javax.swing.JTextField();
+        comboFiltroE = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         txtIdEmpleado = new javax.swing.JTextField();
         txtNombreE = new javax.swing.JTextField();
@@ -54,6 +132,9 @@ public class Administrador extends javax.swing.JInternalFrame {
         txtContrasenaE1 = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnActualizarE2 = new javax.swing.JButton();
+        btnEliminarE2 = new javax.swing.JButton();
+        btnNuevoE2 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -68,46 +149,27 @@ public class Administrador extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Codigo", "Nombre", "Direccion", "RFC", "Telefono"
+                "Id Empleado", "Turno", "Contraseña", "Correo", "Puesto", "Nombre"
             }
-        ));
-        jScrollPane7.setViewportView(tablaEmpleado);
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, true, true, true, true
+            };
 
-        btnEliminarE2.setBackground(new java.awt.Color(7, 16, 24));
-        btnEliminarE2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnEliminarE2.setForeground(new java.awt.Color(255, 255, 255));
-        btnEliminarE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar16px.png"))); // NOI18N
-        btnEliminarE2.setText("Eliminar");
-        btnEliminarE2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnEliminarE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        btnNuevoE2.setBackground(new java.awt.Color(7, 16, 24));
-        btnNuevoE2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnNuevoE2.setForeground(new java.awt.Color(255, 255, 255));
-        btnNuevoE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/nuevo16px.png"))); // NOI18N
-        btnNuevoE2.setText("Nuevo");
-        btnNuevoE2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnNuevoE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox1.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
-        jComboBox1.setForeground(new java.awt.Color(102, 102, 102));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar", "ID Empleado", "Nombre", "Puesto", "Turno" }));
-
-        btnActualizarE2.setBackground(new java.awt.Color(7, 16, 24));
-        btnActualizarE2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btnActualizarE2.setForeground(new java.awt.Color(255, 255, 255));
-        btnActualizarE2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/actualizar16px.png"))); // NOI18N
-        btnActualizarE2.setText("Actualizar");
-        btnActualizarE2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnActualizarE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnActualizarE2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarE2ActionPerformed(evt);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
+        tablaEmpleado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaEmpleadoMouseClicked(evt);
+            }
+        });
+        jScrollPane7.setViewportView(tablaEmpleado);
+
+        comboFiltroE.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
+        comboFiltroE.setForeground(new java.awt.Color(102, 102, 102));
+        comboFiltroE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar", "ID Empleado", "Turno", "Puesto", "Nombre" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -118,15 +180,9 @@ public class Administrador extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 629, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(btnActualizarE2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(74, 74, 74)
-                        .addComponent(btnEliminarE2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57)
-                        .addComponent(btnNuevoE2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscarE, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(comboFiltroE, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(66, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -134,16 +190,11 @@ public class Administrador extends javax.swing.JInternalFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(66, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBuscarE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(comboFiltroE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(106, 106, 106)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminarE2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevoE2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnActualizarE2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(46, 46, 46))
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(48, 48, 48))
         );
 
         jPanel5.setBackground(new java.awt.Color(56, 80, 106));
@@ -212,71 +263,123 @@ public class Administrador extends javax.swing.JInternalFrame {
         jLabel40.setForeground(new java.awt.Color(255, 255, 255));
         jLabel40.setText("Confirmar contraseña");
 
+        btnActualizarE2.setBackground(new java.awt.Color(7, 16, 24));
+        btnActualizarE2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnActualizarE2.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarE2.setText("Actualizar");
+        btnActualizarE2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnActualizarE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnActualizarE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarE2ActionPerformed(evt);
+            }
+        });
+
+        btnEliminarE2.setBackground(new java.awt.Color(7, 16, 24));
+        btnEliminarE2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnEliminarE2.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminarE2.setText("Eliminar");
+        btnEliminarE2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnEliminarE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnEliminarE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarE2ActionPerformed(evt);
+            }
+        });
+
+        btnNuevoE2.setBackground(new java.awt.Color(7, 16, 24));
+        btnNuevoE2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnNuevoE2.setForeground(new java.awt.Color(255, 255, 255));
+        btnNuevoE2.setText("Nuevo");
+        btnNuevoE2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnNuevoE2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnNuevoE2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoE2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(80, 80, 80)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel37)
-                        .addComponent(jLabel36)
-                        .addComponent(jLabel35)
-                        .addComponent(jLabel34)
-                        .addComponent(txtNombreE)
-                        .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel38)
-                        .addGap(183, 183, 183))
-                    .addComponent(jLabel39)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(txtContrasenaE1, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(comboTurnoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(comboPuestoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtCorreoE)
-                        .addComponent(txtContrasenaE, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addGap(36, 36, 36)
-                .addComponent(jLabel2)
-                .addContainerGap(54, Short.MAX_VALUE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(80, 80, 80)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel37)
+                                .addComponent(jLabel36)
+                                .addComponent(jLabel35)
+                                .addComponent(jLabel34)
+                                .addComponent(txtNombreE)
+                                .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel38)
+                                .addGap(183, 183, 183))
+                            .addComponent(jLabel39)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txtContrasenaE1, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(comboTurnoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(comboPuestoE, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtCorreoE)
+                                .addComponent(txtContrasenaE, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel40, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addGap(36, 36, 36)
+                        .addComponent(jLabel2))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(btnActualizarE2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(btnEliminarE2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37)
+                        .addComponent(btnNuevoE2, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(52, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(454, 454, 454))
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel35)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombreE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel36)
-                .addGap(5, 5, 5)
-                .addComponent(comboPuestoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel37)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(comboTurnoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel38)
-                .addGap(2, 2, 2)
-                .addComponent(txtCorreoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel39)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtContrasenaE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel40)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtContrasenaE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap(52, Short.MAX_VALUE)
+                        .addComponent(jLabel2)
+                        .addGap(375, 375, 375))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIdEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel35)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNombreE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel36)
+                        .addGap(5, 5, 5)
+                        .addComponent(comboPuestoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel37)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(comboTurnoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel38)
+                        .addGap(2, 2, 2)
+                        .addComponent(txtCorreoE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel39)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtContrasenaE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel40)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtContrasenaE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnEliminarE2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevoE2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizarE2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -285,7 +388,7 @@ public class Administrador extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(0, 0, 0)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
@@ -318,7 +421,43 @@ public class Administrador extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtContrasenaE1ActionPerformed
 
     private void btnActualizarE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarE2ActionPerformed
-        int fila = tablaEmpleado.getSelectedRow();
+        //si el campo id esta vacio, muestra un mensaje pidiendo seleccionar una fila
+        if ("".equals(txtIdEmpleado.getText())) {
+            JOptionPane.showMessageDialog(null, "Seleccione una fila");
+        } else {
+             
+            //verificamos  que los campos esten llenos y los combos seleccionados
+            if (!"".equals(txtNombreE.getText())
+                    && comboPuestoE.getSelectedItem() != null
+                    && comboTurnoE.getSelectedItem() != null
+                    && !"".equals(txtCorreoE.getText())
+                    && !"".equals(txtContrasenaE.getText())
+                    && !"".equals(txtContrasenaE1.getText())) {
+
+                if (!txtContrasenaE.getText().equals(txtContrasenaE1.getText())) {//verificamos que las contraseñas coinsidan
+                    JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden.");
+                    return;//sale del metodo si son diferentes
+                }
+                //si esta todo bien se asignan los datos al objeto empleado
+                clem.setIdEmpleado(Integer.parseInt(txtIdEmpleado.getText()));
+                clem.setTurno(comboTurnoE.getSelectedItem().toString());
+                clem.setContrasena(txtContrasenaE.getText());
+                clem.setCorreo(txtCorreoE.getText());
+                clem.setPuesto(comboPuestoE.getSelectedItem().toString());
+                clem.setNombre(txtNombreE.getText());
+
+                ce.actualizarEmpleado(clem);//se actualiza en la base de datos
+                //se llaman los metodos para limpiar la tabla, campos y se vuelve a listar
+                LimpiarTabla();
+                LimpiarCampos();
+                ListarEmpleado();
+            } else {
+                JOptionPane.showMessageDialog(null, "Campos vacíos, favor de llenar.");//si algun campo esta vacio se muestra este mensaje
+            }
+}
+
+        
+        /*        int fila = tablaEmpleado.getSelectedRow();
         if(fila>=0){
         txtIdEmpleado.setText(model.getValueAt(tablaEmpleado.getSelectedRow(), tablaEmpleado.getSelectedColumn()).toString());
         txtNombreE.setText(model.getValueAt(tablaEmpleado.getSelectedRow(), tablaEmpleado.getSelectedColumn()).toString());
@@ -327,18 +466,47 @@ public class Administrador extends javax.swing.JInternalFrame {
         txtContrasenaE1.setText(model.getValueAt(tablaEmpleado.getSelectedRow(), tablaEmpleado.getSelectedColumn()).toString());
         }
         else{
-            JOptionPane.showMessageDialog(null, "Selecciona una fila");
-        }
+        JOptionPane.showMessageDialog(null, "Selecciona una fila");
+        }*/
     }//GEN-LAST:event_btnActualizarE2ActionPerformed
+
+    private void btnEliminarE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarE2ActionPerformed
+        if (!"".equals(txtIdEmpleado.getText())) {//si hay un id seleccionado se pregunta si se quiere eliminar
+            int pregunta = JOptionPane.showConfirmDialog(null, "¿Seguro de que quieres eliminar?");//mensaje de confirmacion
+            if (pregunta == 0) {// si elige "si"
+                int idEmpleado = Integer.parseInt(txtIdEmpleado.getText());
+                ce.borrarEmpleado(idEmpleado);//se borra el empleado
+                LimpiarTabla();//se llaman metodos para limpiar tabla, campos y vuelve a listar
+                LimpiarCampos();
+                ListarEmpleado();
+            }
+        }
+    }//GEN-LAST:event_btnEliminarE2ActionPerformed
+
+    private void tablaEmpleadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaEmpleadoMouseClicked
+        int fila = tablaEmpleado.rowAtPoint(evt.getPoint());// se obtiene la fila en la que se hacd click
+        //se pasan los datos de la fila a los textfield
+        txtIdEmpleado.setText(tablaEmpleado.getValueAt(fila, 0).toString());
+        txtNombreE.setText(tablaEmpleado.getValueAt(fila, 5).toString());
+        comboPuestoE.setSelectedItem(tablaEmpleado.getValueAt(fila, 4).toString());
+        comboTurnoE.setSelectedItem(tablaEmpleado.getValueAt(fila, 1).toString());
+        txtCorreoE.setText(tablaEmpleado.getValueAt(fila, 3).toString());
+        txtContrasenaE.setText(tablaEmpleado.getValueAt(fila, 2).toString());
+        txtContrasenaE1.setText(tablaEmpleado.getValueAt(fila, 2).toString());
+    }//GEN-LAST:event_tablaEmpleadoMouseClicked
+
+    private void btnNuevoE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoE2ActionPerformed
+        LimpiarCampos();
+    }//GEN-LAST:event_btnNuevoE2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarE2;
     private javax.swing.JButton btnEliminarE2;
     private javax.swing.JButton btnNuevoE2;
+    private javax.swing.JComboBox<String> comboFiltroE;
     private javax.swing.JComboBox<String> comboPuestoE;
     private javax.swing.JComboBox<String> comboTurnoE;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
@@ -350,12 +518,23 @@ public class Administrador extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tablaEmpleado;
+    private javax.swing.JTextField txtBuscarE;
     private javax.swing.JTextField txtContrasenaE;
     private javax.swing.JTextField txtContrasenaE1;
     private javax.swing.JTextField txtCorreoE;
     private javax.swing.JTextField txtIdEmpleado;
     private javax.swing.JTextField txtNombreE;
     // End of variables declaration//GEN-END:variables
+
+    void LimpiarCampos(){
+        txtIdEmpleado.setText("");
+        txtNombreE.setText("");
+        comboPuestoE.setSelectedItem("Selecciona");
+        comboTurnoE.setSelectedItem("Selecciona");
+        txtCorreoE.setText("");
+        txtContrasenaE.setText("");
+        txtContrasenaE1.setText("");
+        
+    }
 }
