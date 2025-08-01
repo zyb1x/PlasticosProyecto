@@ -7,6 +7,7 @@ package Vista;
 import Controllers.ControllersCliente;
 import Controllers.ControllersDetalleVenta;
 import Controllers.ControllersEmpleado;
+import Controllers.ControllersProductos;
 import Controllers.ControllersVenta;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -315,7 +316,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         int IDVenta = venta.getIdVenta(idCliente);
 
         ControllersDetalleVenta detalle = new ControllersDetalleVenta(IdProducto, Cant, Precio, total);//Para crear el array
-        
+        ControllersProductos p = new ControllersProductos();
         //Crear detalleVenta
         
         for(int i=0; i<detalles.size(); i++){
@@ -323,8 +324,10 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
             int Cantidad = detalles.get(i).getCantidad();
             double PRECIO = detalles.get(i).getPrecio();
             double TOTAL = detalles.get(i).getTotal();
-            
             detalle.crearDetalle(IDVenta, IDProducto, Cantidad, PRECIO, TOTAL);
+            int stock = p.getStock(IDProducto);
+            int newStock = stock-Cantidad;
+            p.setStock(IDProducto, newStock);
         }
         
         
