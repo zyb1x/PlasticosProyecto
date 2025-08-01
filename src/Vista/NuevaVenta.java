@@ -7,8 +7,10 @@ package Vista;
 import Controllers.ControllersCliente;
 import Controllers.ControllersDetalleVenta;
 import Controllers.ControllersEmpleado;
+import Controllers.ControllersProductos;
 import Controllers.ControllersVenta;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -326,7 +328,6 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         ControllersCliente cliente = new ControllersCliente();
         cliente.crearCliente(rfc.getText(), nombreCliente.getText(), domicilio.getText(), telefono.getText());
         int idCliente = cliente.getIdCliente(nombreCliente.getText(), telefono.getText());
-        System.out.println(idCliente);
         //Obtener idEmpleado
         ControllersEmpleado empleado = new ControllersEmpleado();
         String correo = Login.email.getText();
@@ -339,6 +340,9 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         int newidVenta = venta.getIdVenta(idCliente);
         venta.crearVenta(IdEmpleado, idCliente);
 
+        //Acceder a la clase producto
+        ControllersProductos p = new ControllersProductos();
+        
         int IDVenta = venta.getIdVenta(idCliente);
         try{
         ControllersDetalleVenta detalle = new ControllersDetalleVenta(IdProducto, Cant, Precio, total);//Para crear el array
@@ -348,9 +352,14 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                 int Cantidad = detalles.get(i).getCantidad();
                 double PRECIO = detalles.get(i).getPrecio();
                 double TOTAL = detalles.get(i).getTotal();
+                int stock = p.getStock(IDProducto);
 
+                if(Cantidad<stock){
                 detalle.crearDetalle(newidVenta, IDProducto, Cantidad, PRECIO, TOTAL);
                 detalle.crearDetalle(IDVenta, IDProducto, Cantidad, PRECIO, TOTAL);
+                int newStock = stock-Cantidad;
+                p.setStock(newStock, IDProducto);    
+                }
             }
 
         }

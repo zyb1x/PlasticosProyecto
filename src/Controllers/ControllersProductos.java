@@ -3,6 +3,7 @@ package Controllers;
 import Modelo.connection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class ControllersProductos {
@@ -133,9 +134,40 @@ public class ControllersProductos {
         }
     }
 
-
-    public void buscarProducto(){
-      
+//Lo necesito para ventas no borrar
+    public int getStock(int idProducto){
+      String sql = "SELECT stock FORM PRODUCTOS WHERE idProductos=?";
+      int stock=-1;
+      try(Connection conn = connection.getConnection();
+              PreparedStatement pstmt = conn.prepareStatement(sql)){
+          pstmt.setInt(1, idProducto);
+          
+          try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                stock = rs.getInt("stock");
+                System.out.println("Stock: " + stock);
+            } else {
+                System.out.println("No se encontró el producto: " + idProducto);
+            }
+        }
+      }
+      catch(SQLException e){
+          
+      }
+      return stock;
+    }
+    
+    public void setStock(int newStock, int idProducto){
+        String sql = "UPDATE PRODUCTOS SET stock=? WHERE idProductos=?";
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, newStock);
+            pstmt.setInt(2, idProducto);
+            System.out.println("Stock actualizado: "+ newStock);
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
     }
     public void desactivarProducto(){
 
