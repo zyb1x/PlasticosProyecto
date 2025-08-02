@@ -83,9 +83,6 @@ public class ControllersProveedor {
     }
 }
     
-    public void buscarProveedor(){
-
-    }
     
     public List<ControllersProveedor> listarProveedor() {
     List<ControllersProveedor> listaPr = new ArrayList();
