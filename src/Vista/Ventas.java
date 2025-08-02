@@ -4,6 +4,8 @@
  */
 package Vista;
 import Controllers.ControllersVenta;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -12,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 public class Ventas extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     ControllersVenta v = new ControllersVenta();
+    ArrayList<Controllers.Ventas> listar = v.todasLasVentas();
     
     public Ventas() {
         initComponents();
@@ -44,7 +47,7 @@ public class Ventas extends javax.swing.JInternalFrame {
 
         jPanel1.setBackground(new java.awt.Color(121, 145, 168));
 
-        buscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar Por", "Nombre", "ID Venta", "ID Cliente", "Fecha" }));
+        buscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar Por", "ID Venta", "ID Cliente", "Fecha", "ID Empleado" }));
 
         txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
         txtBuscar.setForeground(new java.awt.Color(56, 80, 106));
@@ -142,8 +145,34 @@ public class Ventas extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
-
-     
+        ControllersVenta v = new ControllersVenta();
+        switch(buscarPor.getSelectedIndex()){
+            case 0:
+                //Seleccionar
+                v.CargarDatos(ventas, modelo);
+                break;
+            case 1: 
+                //idVenta
+                int idVenta = Integer.parseInt(txtBuscar.getText());
+                v.buscarVentaId(idVenta, ventas, modelo);
+                break;
+            case 2:
+                //idCliente
+                int idCliente=Integer.parseInt(txtBuscar.getText());
+                v.buscarPorIdCliente(idCliente, modelo, ventas);
+                break;
+            case 3:
+                //fecha
+                txtBuscar.setEnabled(false);
+                Date fechaSeleccionada = chooser.getDate();
+                v.buscarPorFecha(fechaSeleccionada, modelo, ventas);
+                break;
+            case 4: 
+                //idEmpleado
+                int idEmpleado = Integer.parseInt(txtBuscar.getText());
+                v.buscarPorIdEmpleado(idEmpleado, modelo, ventas);
+                break;
+        } 
     }//GEN-LAST:event_buscarActionPerformed
 
     private void guardar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardar2ActionPerformed

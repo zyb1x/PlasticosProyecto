@@ -8,6 +8,7 @@ import Modelo.connection;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ControllersVenta {
@@ -39,8 +40,7 @@ public class ControllersVenta {
         System.out.println("Error al conectar con la base de datos");
         e.printStackTrace();
        }
-    }
-    
+    }   
     public void eliminarVenta(int idVenta){
         String sql = "DELETE FROM VENTA WHERE idVenta=?";
 
@@ -56,34 +56,109 @@ public class ControllersVenta {
             System.out.println("Error al conectar con la base de datos" + e.getMessage());
         }
     }
-
-    public void buscarVenta(int idVenta, JTable table){
+    public void buscarVentaId(int idVenta, JTable table, DefaultTableModel modelo){
         String sql = "SELECT * FROM VENTA WHERE idVenta=?";
-        DefaultTableModel modelo = new DefaultTableModel();
 
-        modelo.addColumn("Id Venta");
+        modelo.addColumn("ID Venta");
+        modelo.addColumn("ID Empleado");
         modelo.addColumn("Fecha");
         modelo.addColumn("ID Cliente");
 
-        table.setModel(modelo);
-
+        Object[] datos = new Object[4];
+        
         try (Connection conn = connection.getConnection();
             Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql)){
-
             while (rs.next()) {
-                String[] datos = new String[3];
-                datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
+                datos[0]=rs.getInt("idVenta");
+                datos[1]=rs.getInt("idEmpleado");
+                datos[2]=rs.getDate("fecha");
+                datos[3]=rs.getInt("idCliente");
                 modelo.addRow(datos);
             }
-
+            table.setModel(modelo);
         } catch (Exception e) {
             System.out.println("Error al conectar con la base de datos" + e.getMessage());
         }
     }
-
+    public void buscarPorIdEmpleado(int idEmpleado, DefaultTableModel model, JTable table){
+        String sql = "SELECT * FROM VENTA WHERE idEmpleado=?";
+        
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idEmpleado);
+        try(ResultSet rs = pstmt.executeQuery()){
+            Object[] ventas = new Object[4];
+            model =  (DefaultTableModel) table.getModel();
+            while(rs.next()){
+                ventas[0] = rs.getInt("idVenta");
+                ventas[1] = rs.getInt("idEmpleado");
+                ventas[2] = rs.getDate("fecha");
+                ventas[3] = rs.getInt("idCliente");
+                model.addRow(ventas);
+            }
+            table.setModel(model);
+        }
+         }
+        catch(SQLException e){
+            System.out.println("No se pudo conectar con la base al cargar datos");
+        }
+        
+    }
+    public void buscarPorFecha(Date fecha, DefaultTableModel model, JTable table){
+        String sql = "SELECT * FROM VENTA WHERE Date(fecha)=?";
+        model =  (DefaultTableModel) table.getModel();
+        model.addColumn("ID Venta");
+        model.addColumn("ID Empleado");
+        model.addColumn("Fecha");
+        model.addColumn("ID Cliente");
+        try(Connection conn = connection.getConnection();
+              PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setDate(1, (java.sql.Date) fecha);
+            Object[] datos = new Object[4];
+            try(ResultSet rs = pstmt.executeQuery()){
+                while(rs.next()){ 
+                    datos[0]=rs.getInt("idVenta");
+                    datos[1]=rs.getInt("idEmpleado");
+                    datos[2]=rs.getDate("fecha");
+                    datos[3]=rs.getInt("idCliente");
+                    
+                    model.addRow(datos);
+                }
+                table.setModel(model);
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
+    public void buscarPorIdCliente(int idCliente, DefaultTableModel model, JTable table){
+        String sql = "SELECT * FROM VENTA WHERE idCliente=?";
+        model =  (DefaultTableModel) table.getModel();
+        model.addColumn("ID Venta");
+        model.addColumn("ID Empleado");
+        model.addColumn("Fecha");
+        model.addColumn("ID Cliente");
+        try(Connection conn = connection.getConnection();
+              PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idCliente);
+            Object[] datos = new Object[4];
+            try(ResultSet rs = pstmt.executeQuery()){
+                while(rs.next()){ 
+                    datos[0]=rs.getInt("idVenta");
+                    datos[1]=rs.getInt("idEmpleado");
+                    datos[2]=rs.getDate("fecha");
+                    datos[3]=rs.getInt("idCliente");
+                    
+                    model.addRow(datos);
+                }
+                table.setModel(model);
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
     public void listarVentas(){
         String sql = "SELECT * FROM venta";
         try (Connection conn = connection.getConnection();
@@ -98,7 +173,6 @@ public class ControllersVenta {
             e.printStackTrace();
         }
     }
-    
     public void setIdVenta(int idCliente, int idVenta){
         String sql = "UPDATE VENTA SET idVenta=? WHERE idCliente=?";
         
@@ -114,7 +188,6 @@ public class ControllersVenta {
             System.out.println("Error al cambiar el id de venta" + e.getMessage());
         }
     }
-
     public int getIdVenta(int idCliente) {
     String sql = "SELECT idVenta FROM VENTA WHERE idCliente=?";
     int idVenta = -1; // Valor por defecto que indica no encontrado
@@ -224,6 +297,29 @@ public class ControllersVenta {
         catch(SQLException e){
             System.out.println("No se pudo conectar con la base al cargar datos");
         }
+    }
+    public ArrayList<Ventas> todasLasVentas(){
+        ArrayList<Ventas> ventas = new ArrayList<>();
+        String sql = "SELECT idVenta, idEmpleado, fecha, idCliente FROM VENTA";
+        
+        try(Connection conn = connection.getConnection();
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(sql)){
+            
+            while (rs.next()) {
+                Ventas venta = new Ventas();
+                venta.setIdVenta(rs.getInt("idVenta"));
+                venta.setIdEmpleado(rs.getInt("idEmpleado"));
+                venta.setFecha(rs.getTimestamp("fecha"));
+                venta.setIdCliente(rs.getInt("idCliente"));
+                
+                ventas.add(venta);
+            }
+        }
+        catch(SQLException e){
+            
+        }
+        return ventas;
     }
 
 }
