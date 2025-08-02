@@ -117,6 +117,12 @@ public class Proveedores extends javax.swing.JInternalFrame {
         jLabel5.setForeground(new java.awt.Color(220, 225, 235));
         jLabel5.setText("Teléfono");
 
+        telefono.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                telefonoKeyTyped(evt);
+            }
+        });
+
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/proveedor.png"))); // NOI18N
         jLabel7.setText("\n");
 
@@ -463,6 +469,17 @@ public class Proveedores extends javax.swing.JInternalFrame {
     }
 
     }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyTyped
+        // validacion de numeros
+    char key = evt.getKeyChar();
+     boolean numero = (key >= '0' && key <= '9') || key == 8; // solo números y backspace
+
+     if (!numero) {
+     evt.consume();
+       JOptionPane.showMessageDialog(null, "Solo se permiten números en el teléfono");
+     }
+    }//GEN-LAST:event_telefonoKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
