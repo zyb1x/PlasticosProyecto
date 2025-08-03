@@ -1,16 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vista;
 import Controllers.ControllersVenta;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.table.DefaultTableModel;
-/**
- *
- * @author LENOVO
- */
+
 public class Ventas extends javax.swing.JInternalFrame {
     DefaultTableModel modelo = new DefaultTableModel();
     ControllersVenta v = new ControllersVenta();
