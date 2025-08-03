@@ -33,10 +33,9 @@ public class ControllersProductos {
         System.out.println("Error al conectar con la base de datos" + e.getMessage());
        }
     }
-    
-    public void Mostrar(JTable table){
+    public void Mostrar(DefaultTableModel model, JTable table){
         String sql = "SELECT * FROM PRODUCTO";
-        DefaultTableModel model = new DefaultTableModel();
+        model = (DefaultTableModel) table.getModel();
         try(Connection conn = connection.getConnection();
                 Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql)){
@@ -66,8 +65,7 @@ public class ControllersProductos {
         catch(SQLException e){
             e.printStackTrace();
         }
-    } 
-    
+    }  
     public void actualizarProducto(double newPrecio, int newStock, double newCosto, String tamannio, int idProducto){
         String sql = "UPDATE PRODUCTOs SET precio=?, stock=?, costo=?, tamannio=? WHERE idProductos=?";
         try(Connection conn = connection.getConnection();
