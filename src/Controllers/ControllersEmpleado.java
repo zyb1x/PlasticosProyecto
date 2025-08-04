@@ -66,8 +66,27 @@ public class ControllersEmpleado {
     }
     }*/
     
-    public void buscarEmpleado(){
-
+    public String getPuesto(int id){
+        String sql = "SELECT puesto FROM EMPLEADO WHERE idEmpleado=?";
+        String puesto = null;
+        try(Connection conn = connection.getConnection();
+              PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1,id);
+            
+            try(ResultSet re = pstmt.executeQuery()){
+                if (rs.next()) {
+                puesto = rs.getString("puesto");
+                System.out.println("Puesto obtenido " + puesto);
+                
+            } else {
+                System.out.println("No se encontró el empleado: " + id);
+            }
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return puesto;
     }
     public boolean actualizarEmpleado(ClaseEmpleado clem){
         String sql = "UPDATE empleado SET turno=?, password=?, correo=?, puesto=?, nombre=? WHERE idEmpleado=?";//consulta sql para actualizar segun el id

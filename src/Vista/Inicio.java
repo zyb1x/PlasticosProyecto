@@ -1,13 +1,35 @@
 
 package Vista;
 
+import Controllers.ControllersEmpleado;
 import Modelo.ClaseEmpleado;
 
 
 public class Inicio extends javax.swing.JFrame {
-
+    ControllersEmpleado e = new ControllersEmpleado();
+    
     public Inicio() {
         initComponents();
+        int id = e.getIdEmpleado(Login.email.getText());
+        String puesto = e.getPuesto(id);
+        switch(puesto){
+            case "Administrador":
+                venta.setEnabled(true);
+                productos.setEnabled(true);
+                produccion.setEnabled(true);
+                proveedores.setEnabled(true);
+                administracion.setEnabled(true);
+                break;
+            case "Vendedor":
+                produccion.setEnabled(false);
+                productos.setEnabled(false);
+                administracion.setEnabled(false);
+                break;
+            case "Almacenista":
+                venta.setEnabled(false);
+                administracion.setEnabled(false);
+                break;
+        }
     }
 
     /**
@@ -22,7 +44,6 @@ public class Inicio extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        login = new javax.swing.JButton();
         venta = new javax.swing.JButton();
         produccion = new javax.swing.JButton();
         productos = new javax.swing.JButton();
@@ -57,16 +78,6 @@ public class Inicio extends javax.swing.JFrame {
         );
 
         jPanel3.setBackground(new java.awt.Color(56, 80, 106));
-
-        login.setBackground(new java.awt.Color(121, 145, 168));
-        login.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
-        login.setForeground(new java.awt.Color(7, 16, 24));
-        login.setText("Iniciar Sesion");
-        login.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginActionPerformed(evt);
-            }
-        });
 
         venta.setBackground(new java.awt.Color(121, 145, 168));
         venta.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
@@ -135,16 +146,13 @@ public class Inicio extends javax.swing.JFrame {
                     .addComponent(productos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(produccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(venta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(login, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(login)
-                .addGap(18, 18, 18)
+                .addGap(65, 65, 65)
                 .addComponent(venta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(produccion)
@@ -200,13 +208,6 @@ public class Inicio extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-       Login L = new Login();
-       L.setVisible(true);
-       L.show();
-       L.pack();
-    }//GEN-LAST:event_loginActionPerformed
 
     private void ventaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ventaActionPerformed
 
@@ -290,7 +291,6 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JButton login;
     public static javax.swing.JPanel principal;
     private javax.swing.JButton produccion;
     private javax.swing.JButton productos;
