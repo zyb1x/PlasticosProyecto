@@ -87,7 +87,7 @@ public class ControllersProductos {
             e.printStackTrace();
         }
     }
-     public int getStock(int idProducto){
+    public int getStock(int idProducto){
         String sql = "SELECT stock FROM PRODUCTOS WHERE idProductos=?";
         int stock=-1;
         try(Connection conn = connection.getConnection();
@@ -107,7 +107,7 @@ public class ControllersProductos {
         }
         return stock;
     }
-     public void setStock(int idProducto, int newStock){
+    public void setStock(int idProducto, int newStock){
          String sql = "UPDATE PRODUCTOS SET stock=? WHERE idProductos=?";
          try(Connection conn = connection.getConnection();
                  PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -121,4 +121,52 @@ public class ControllersProductos {
              e.printStackTrace();
          }
      }
+    public void buscar(int idProducto, DefaultTableModel modelo, JTable table){
+        String sql = "SELECT * FROM PRODUCTOS WHERE idProductos=?";
+        modelo.addColumn("idProductos");
+        modelo.addColumn("idCategoria");
+        modelo.addColumn("tipo");
+        modelo.addColumn("nombre");
+        modelo.addColumn("stock");
+        modelo.addColumn("precio");
+        modelo.addColumn("costo");
+        modelo.addColumn("tamannio");
+        Object[] datos = new Object[4];
+        
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idProducto);
+            try(ResultSet rs = pstmt.executeQuery()){
+                while(rs.next()){
+                    datos[0] = rs.getInt("idProductos");
+                    datos[1] = rs.getInt("idCategoria");
+                    datos[2] = rs.getString("tipo");
+                    datos[3] = rs.getString("nombre");
+                    datos[4] = rs.getInt("stock");
+                    datos[5] = rs.getDouble("precio");
+                    datos[6] = rs.getDouble("costo");
+                    datos[7] = rs.getString("tamannio");
+                    modelo.addRow(datos);                }
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+            table.setModel(modelo);
+    }
+    public void actualizar(int idProductos, double precio, double costo){
+        String sql = "UPDATE PRODUCTOS SET precio=?, costo=? WHERE idProductos=?";
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idProductos);
+            pstmt.setDouble(2, precio);
+            pstmt.setDouble(3,costo);
+            
+            pstmt.execute();
+            System.out.println("Producto actualizado");
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }
 }
