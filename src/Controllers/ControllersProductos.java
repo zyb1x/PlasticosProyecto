@@ -4,175 +4,170 @@ import Modelo.connection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.sql.SQLException;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class ControllersProductos {
-    private int codigo, existencia;
-    private String nombre, tipo, categoria;
-    private double venta, costo_articulo, porcentaje_ganancia;
 
     public ControllersProductos(){
-      
+
     }
-    public ControllersProductos(int codigo, int existencia, String nombre, String tipo, String categoria, double venta, double costo_articulo, double porcentaje_ganancia) {
-        this.codigo = codigo;
-        this.existencia = existencia;
-        this.nombre = nombre;
-        this.tipo = tipo;
-        this.categoria = categoria;
-        this.venta = venta;
-        this.costo_articulo = costo_articulo;
-        this.porcentaje_ganancia = porcentaje_ganancia;
+    public void registrarProducto(int idProducto, int idCategoria,String tipo, String nombre, int stock, double precio, double costo, String tamannio){
+        String sql = "INSERT INTO PRODUCTOS (idProductos,idCategoria,tipo,nombre,precio,stock,costo,tamannio)"
+                +"VALUES(?,?,?,?,?,?,?,?)";
+        try(Connection conn = connection.getConnection();
+        PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        pstmt.setInt(1, idProducto);
+        pstmt.setInt(2, idCategoria);
+        pstmt.setString(3, tipo);
+        pstmt.setString(4, nombre);
+        pstmt.setDouble(5, precio);
+        pstmt.setInt(6, stock);
+        pstmt.setDouble(7, costo);
+        pstmt.setString(8, tamannio);
+
+        pstmt.executeUpdate();
+        System.out.println("Producto agregado");
+       } catch (Exception e) {
+        System.out.println("Error al conectar con la base de datos" + e.getMessage());
+       }
     }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
-
-    public int getExistencia() {
-        return existencia;
-    }
-
-    public void setExistencia(int existencia) {
-        this.existencia = existencia;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public double getVenta() {
-        return venta;
-    }
-
-    public void setVenta(double venta) {
-        this.venta = venta;
-    }
-
-    public double getCosto_articulo() {
-        return costo_articulo;
-    }
-
-    public void setCosto_articulo(double costo_articulo) {
-        this.costo_articulo = costo_articulo;
-    }
-
-    public double getPorcentaje_ganancia() {
-        return porcentaje_ganancia;
-    }
-
-    public void setPorcentaje_ganancia(double porcentaje_ganancia) {
-        this.porcentaje_ganancia = porcentaje_ganancia;
-    }
-    
- 
-    /*public void registrarProducto(int idProductos, int idCategoria, String nombre, double precio, int stock, String tamannio){
-    String sql = "INSERT INTO PRODUCTOS (idProductos, idCategoria, nombre, precio, stock, tamannio)"
-    +"VALUES(?,?,?,?,?,?)";
-    try(Connection conn = connection.getConnection();
-    PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    pstmt.setInt(1, idProductos);
-    pstmt.setInt(2, idCategoria);
-    pstmt.setString(3, nombre);
-    pstmt.setDouble(4, precio);
-    pstmt.setInt(5, stock);
-    pstmt.setString(6, tamannio);
-    
-    
-    pstmt.executeUpdate();
-    } catch (Exception e) {
-    System.out.println("Error al conectar con la base de datos" + e.getMessage());
-    }
-    }*/
-   
-    // Método para insertar un producto
-    public boolean insertarProducto() {
-        String sql = "INSERT INTO productos VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-
-        try (Connection conn = connection.getConnection();
-             PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, this.codigo);
-            ps.setString(2, this.nombre);
-            ps.setString(3, this.tipo);
-            ps.setString(4, this.categoria);
-            ps.setInt(5, this.existencia);
-            ps.setDouble(6, this.venta);
-            ps.setDouble(7, this.costo_articulo);
-            ps.setDouble(8, this.porcentaje_ganancia);
-
-            ps.executeUpdate();
-            return true;
-
-        } catch (SQLException e) {
-            System.out.println("Error al insertar: " + e.getMessage());
-            return false;
-        }
-    }
-
-//Lo necesito para ventas no borrar
-    public int getStock(int idProducto){
-      String sql = "SELECT stock FORM PRODUCTOS WHERE idProductos=?";
-      int stock=-1;
-      try(Connection conn = connection.getConnection();
-              PreparedStatement pstmt = conn.prepareStatement(sql)){
-          pstmt.setInt(1, idProducto);
-          
-          try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                stock = rs.getInt("stock");
-                System.out.println("Stock: " + stock);
-            } else {
-                System.out.println("No se encontró el producto: " + idProducto);
+    public void CargarDatos(JTable tabla, DefaultTableModel modelo){
+        String sql = "SELECT * FROM PRODUCTOS";
+        
+        try(Connection conn = connection.getConnection();
+                Statement st = conn.createStatement();
+                ResultSet rs = st.executeQuery(sql)){
+            Object[] datos = new Object[8];
+            modelo =  (DefaultTableModel) tabla.getModel();
+            
+            while(rs.next()){
+                datos[0] = rs.getInt("idProducto");
+                datos[1] = rs.getInt("idCategoria");
+                datos[2] = rs.getString("tipo");
+                datos[3] = rs.getString("nombre");
+                datos[4] = rs.getInt("stock");
+                datos[5] = rs.getDouble("precio");
+                datos[6] = rs.getDouble("costo");
+                datos[7] = rs.getString("tamannio");
+                modelo.addRow(datos);
             }
+            tabla.setModel(modelo);
         }
-      }
-      catch(SQLException e){
-          
-      }
-      return stock;
+        catch(SQLException e){
+            System.out.println("No se pudo conectar con la base al cargar datos");
+            e.printStackTrace();
+        }
     }
-    
-    public void setStock(int newStock, int idProducto){
-        String sql = "UPDATE PRODUCTOS SET stock=? WHERE idProductos=?";
+    public void desactivarProducto(int idProducto){
+        String sql = "update productos set stock=0 where idProductos=?";
         try(Connection conn = connection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setInt(1, newStock);
-            pstmt.setInt(2, idProducto);
-            System.out.println("Stock actualizado: "+ newStock);
+            pstmt.setInt(1, idProducto);
+            
+            pstmt.executeUpdate();
+            System.out.println("Producto desactivado");
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+    }  
+    public void actualizarProducto(double newPrecio, int newStock, double newCosto, String tamannio, int idProducto){
+        String sql = "UPDATE PRODUCTOs SET precio=?, stock=?, costo=?, tamannio=? WHERE idProductos=?";
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setDouble(1, newPrecio);
+            pstmt.setInt(2, newStock);
+            pstmt.setDouble(3, newCosto);
+            pstmt.setString(4, tamannio);
+            pstmt.setInt(5, idProducto);
+            pstmt.executeUpdate();
+            System.out.println("Producto actualizado");
         }
         catch(SQLException e){
             e.printStackTrace();
         }
     }
-    public void desactivarProducto(){
-
-    } 
-    public void actualizarProducto(){
+    public int getStock(int idProducto){
+        String sql = "SELECT stock FROM PRODUCTOS WHERE idProductos=?";
+        int stock=-1;
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idProducto);
+            try(ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()) {
+                stock = rs.getInt("stock");
+                System.out.println("Nuevo stock " + stock);
+            } else {
+                System.out.println("No se encontro el stock del id del producto: " + idProducto);
+            }
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return stock;
+    }
+    public void setStock(int idProducto, int newStock){
+         String sql = "UPDATE PRODUCTOS SET stock=? WHERE idProductos=?";
+         try(Connection conn = connection.getConnection();
+                 PreparedStatement pstmt = conn.prepareStatement(sql)){
+             pstmt.setInt(1, idProducto);
+             pstmt.setInt(2, newStock);
+             
+             pstmt.executeUpdate();
+             System.out.println("Stock cambiado: " +  newStock);
+         }
+         catch(SQLException e){
+             e.printStackTrace();
+         }
+     }
+    public void buscar(int idProducto, DefaultTableModel modelo, JTable table){
+        String sql = "SELECT * FROM PRODUCTOS WHERE idProductos=?";
+        modelo.addColumn("idProductos");
+        modelo.addColumn("idCategoria");
+        modelo.addColumn("tipo");
+        modelo.addColumn("nombre");
+        modelo.addColumn("stock");
+        modelo.addColumn("precio");
+        modelo.addColumn("costo");
+        modelo.addColumn("tamannio");
+        Object[] datos = new Object[4];
         
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idProducto);
+            try(ResultSet rs = pstmt.executeQuery()){
+                while(rs.next()){
+                    datos[0] = rs.getInt("idProductos");
+                    datos[1] = rs.getInt("idCategoria");
+                    datos[2] = rs.getString("tipo");
+                    datos[3] = rs.getString("nombre");
+                    datos[4] = rs.getInt("stock");
+                    datos[5] = rs.getDouble("precio");
+                    datos[6] = rs.getDouble("costo");
+                    datos[7] = rs.getString("tamannio");
+                    modelo.addRow(datos);                }
+            }
+        }
+        catch (SQLException e){
+            e.printStackTrace();
+        }
+            table.setModel(modelo);
+    }
+    public void activar(int idProducto, int stock){
+        String sql = "UPDATE PRODUCTOS stock=? WHERE idProductos=?";
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+      pstmt.setInt(1, idProducto);
+      pstmt.setInt(2, stock);
+      
+      pstmt.executeUpdate();
+        }
+        catch(SQLException e){
+            
+        }
     }
 }
