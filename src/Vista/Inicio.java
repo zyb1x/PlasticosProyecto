@@ -96,6 +96,11 @@ public class Inicio extends javax.swing.JFrame {
         productos.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
         productos.setForeground(new java.awt.Color(7, 16, 24));
         productos.setText("Productos");
+        productos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                productosActionPerformed(evt);
+            }
+        });
 
         proveedores.setBackground(new java.awt.Color(121, 145, 168));
         proveedores.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
@@ -209,6 +214,14 @@ public class Inicio extends javax.swing.JFrame {
         p.pack();
         p.setVisible(true);
     }//GEN-LAST:event_produccionActionPerformed
+
+    private void productosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productosActionPerformed
+        // TODO add your handling code here:
+        Productos p = new Productos();
+        principal.add(p);
+        p.pack();
+        p.setVisible(true);
+    }//GEN-LAST:event_productosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

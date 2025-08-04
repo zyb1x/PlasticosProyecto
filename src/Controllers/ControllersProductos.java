@@ -14,21 +14,22 @@ public class ControllersProductos {
     public ControllersProductos(){
 
     }
-    public void registrarProducto(int idProducto, int idCategoria, String nombre, int stock, double precio, double costo, String tamannio){
-        String sql = "INSERT INTO PRODUCTOS (idProductos,categoria, nombre,precio,stock,costo,tamannio)"
-                +"VALUES(?,?,?,?,?,?,?)";
+    public void registrarProducto(int idProducto, int idCategoria,String tipo, String nombre, int stock, double precio, double costo, String tamannio){
+        String sql = "INSERT INTO PRODUCTOS (idProductos,idCategoria,tipo,nombre,precio,stock,costo,tamannio)"
+                +"VALUES(?,?,?,?,?,?,?,?)";
         try(Connection conn = connection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setInt(1, idProducto);
         pstmt.setInt(2, idCategoria);
-        pstmt.setString(3, nombre);
-        pstmt.setDouble(4, precio);
-        pstmt.setInt(5, stock);
-        pstmt.setDouble(6, costo);
-        pstmt.setString(7, tamannio);
-
+        pstmt.setString(3, tipo);
+        pstmt.setString(4, nombre);
+        pstmt.setDouble(5, precio);
+        pstmt.setInt(6, stock);
+        pstmt.setDouble(7, costo);
+        pstmt.setString(8, tamannio);
 
         pstmt.executeUpdate();
+        System.out.println("Producto agregado");
        } catch (Exception e) {
         System.out.println("Error al conectar con la base de datos" + e.getMessage());
        }
@@ -36,22 +37,26 @@ public class ControllersProductos {
     public void Mostrar(DefaultTableModel model, JTable table){
         String sql = "SELECT * FROM PRODUCTO";
         model = (DefaultTableModel) table.getModel();
+        
+        Object[] datos = new Object[8];
         try(Connection conn = connection.getConnection();
                 Statement st = conn.createStatement();
         ResultSet rs = st.executeQuery(sql)){
             while(rs.next()){
-                String[] datos = new String[6];
-                datos[0] = rs.getString(1);
-                datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
-                datos[3] = rs.getString(4);
-                datos[4] = rs.getString(5);
-                datos[5] = rs.getString(6);
+                datos[0] = rs.getInt("idProductos");
+                datos[1] = rs.getInt("idCategoria");
+                datos[2] = rs.getString("tipo");
+                datos[3] = rs.getString("nombre");
+                datos[4] = rs.getDouble("precio");
+                datos[5] = rs.getInt("stock");
+                datos[6] = rs.getDouble("costo");
+                datos[7] = rs.getString("tamannio");
+                model.addRow(datos);
             }
-            
+            table.setModel(model);
         }catch(SQLException e){
                     e.printStackTrace();
-                    }
+        }
     }
     public void desactivarProducto(int idProducto){
         String sql = "update productos set stock=0 where idProductos=?";
