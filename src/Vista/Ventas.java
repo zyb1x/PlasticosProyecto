@@ -31,10 +31,10 @@ public class Ventas extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         ventas = new javax.swing.JTable();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        buscarPor = new javax.swing.JComboBox<>();
         venta = new javax.swing.JButton();
         Buscar = new javax.swing.JButton();
 
@@ -45,8 +45,8 @@ public class Ventas extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(121, 145, 168));
         jPanel1.setForeground(new java.awt.Color(7, 16, 24));
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setForeground(new java.awt.Color(56, 80, 106));
+        txtBuscar.setBackground(new java.awt.Color(255, 255, 255));
+        txtBuscar.setForeground(new java.awt.Color(56, 80, 106));
 
         ventas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -61,7 +61,7 @@ public class Ventas extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(ventas);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar Por", "Nombre", "ID Venta", "ID Cliente" }));
+        buscarPor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buscar Por", "Nombre", "ID Venta", "ID Cliente" }));
 
         venta.setBackground(new java.awt.Color(83, 120, 161));
         venta.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
@@ -92,9 +92,9 @@ public class Ventas extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Buscar))
                     .addComponent(venta, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -105,8 +105,8 @@ public class Ventas extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(114, 114, 114)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buscarPor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Buscar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,16 +139,47 @@ public class Ventas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_ventaActionPerformed
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
-        
+           //Ventas+
+
+//Esto va en botón buscar
+
+ControllersVenta v = new ControllersVenta();
+        switch(buscarPor.getSelectedIndex()){
+            case 0:
+                //Seleccionar
+                v.CargarDatos(ventas, modelo);
+                break;
+            case 1: 
+                //idVenta
+                int idVenta = Integer.parseInt(txtBuscar.getText());
+                v.buscarVentaId(idVenta, ventas, modelo);
+                break;
+            case 2:
+                //idCliente
+                int idCliente=Integer.parseInt(txtBuscar.getText());
+                v.buscarPorIdCliente(idCliente, modelo, ventas);
+                break;
+            case 3:
+                //fecha
+               /* txtBuscar.setEnabled(false);
+                Date fechaSeleccionada = chooser.getDate();
+                v.buscarPorFecha(fechaSeleccionada, modelo, ventas);*/
+                break;
+            case 4: 
+                //idEmpleado
+                int idEmpleado = Integer.parseInt(txtBuscar.getText());
+                v.buscarPorIdEmpleado(idEmpleado, modelo, ventas);
+                break;
+        } 
     }//GEN-LAST:event_BuscarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Buscar;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> buscarPor;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JButton venta;
     private javax.swing.JTable ventas;
     // End of variables declaration//GEN-END:variables
