@@ -34,28 +34,31 @@ public class ControllersProductos {
         System.out.println("Error al conectar con la base de datos" + e.getMessage());
        }
     }
-    public void Mostrar(DefaultTableModel model, JTable table){
-        String sql = "SELECT * FROM PRODUCTO";
-        model = (DefaultTableModel) table.getModel();
+    public void CargarDatos(JTable tabla, DefaultTableModel modelo){
+        String sql = "SELECT * FROM PRODUCTOS";
         
-        Object[] datos = new Object[8];
         try(Connection conn = connection.getConnection();
                 Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(sql)){
+                ResultSet rs = st.executeQuery(sql)){
+            Object[] datos = new Object[8];
+            modelo =  (DefaultTableModel) tabla.getModel();
+            
             while(rs.next()){
-                datos[0] = rs.getInt("idProductos");
+                datos[0] = rs.getInt("idProducto");
                 datos[1] = rs.getInt("idCategoria");
                 datos[2] = rs.getString("tipo");
                 datos[3] = rs.getString("nombre");
-                datos[4] = rs.getDouble("precio");
-                datos[5] = rs.getInt("stock");
+                datos[4] = rs.getInt("stock");
+                datos[5] = rs.getDouble("precio");
                 datos[6] = rs.getDouble("costo");
                 datos[7] = rs.getString("tamannio");
-                model.addRow(datos);
+                modelo.addRow(datos);
             }
-            table.setModel(model);
-        }catch(SQLException e){
-                    e.printStackTrace();
+            tabla.setModel(modelo);
+        }
+        catch(SQLException e){
+            System.out.println("No se pudo conectar con la base al cargar datos");
+            e.printStackTrace();
         }
     }
     public void desactivarProducto(int idProducto){
@@ -154,19 +157,17 @@ public class ControllersProductos {
         }
             table.setModel(modelo);
     }
-    public void actualizar(int idProductos, double precio, double costo){
-        String sql = "UPDATE PRODUCTOS SET precio=?, costo=? WHERE idProductos=?";
+    public void activar(int idProducto, int stock){
+        String sql = "UPDATE PRODUCTOS stock=? WHERE idProductos=?";
         try(Connection conn = connection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setInt(1, idProductos);
-            pstmt.setDouble(2, precio);
-            pstmt.setDouble(3,costo);
-            
-            pstmt.execute();
-            System.out.println("Producto actualizado");
+      pstmt.setInt(1, idProducto);
+      pstmt.setInt(2, stock);
+      
+      pstmt.executeUpdate();
         }
         catch(SQLException e){
-            e.printStackTrace();
+            
         }
     }
 }

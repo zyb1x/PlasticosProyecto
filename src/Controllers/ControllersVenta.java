@@ -57,7 +57,7 @@ public class ControllersVenta {
         }
     }
     public void buscarVentaId(int idVenta, JTable table, DefaultTableModel modelo){
-        String sql = "SELECT * FROM VENTA WHERE idVenta=?";
+        String sql = "SELECT idVenta,idEmpleado,fecha,idCliente FROM VENTA WHERE idVenta=?";
 
         modelo.addColumn("ID Venta");
         modelo.addColumn("ID Empleado");
@@ -65,10 +65,11 @@ public class ControllersVenta {
         modelo.addColumn("ID Cliente");
 
         Object[] datos = new Object[4];
-        
-        try (Connection conn = connection.getConnection();
-            Statement st = conn.createStatement();
-        ResultSet rs = st.executeQuery(sql)){
+        try(Connection conn = connection.getConnection();
+               PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, idVenta);
+            
+            try (ResultSet rs = pstmt.executeQuery()){
             while (rs.next()) {
                 datos[0]=rs.getInt("idVenta");
                 datos[1]=rs.getInt("idEmpleado");
@@ -77,7 +78,9 @@ public class ControllersVenta {
                 modelo.addRow(datos);
             }
             table.setModel(modelo);
-        } catch (Exception e) {
+        }
+        }
+         catch (Exception e) {
             System.out.println("Error al conectar con la base de datos" + e.getMessage());
         }
     }
