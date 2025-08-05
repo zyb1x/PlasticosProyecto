@@ -10,7 +10,7 @@ public class Inicio extends javax.swing.JFrame {
     
     public Inicio() {
         initComponents();
-        int id = e.getIdEmpleado(Login.email.getText());
+       /* int id = e.getIdEmpleado(Login.email.getText());
         String puesto = e.getPuesto(id);
         switch(puesto){
             case "Administrador":
@@ -29,7 +29,7 @@ public class Inicio extends javax.swing.JFrame {
                 venta.setEnabled(false);
                 administracion.setEnabled(false);
                 break;
-        }
+        }*/
     }
 
     /**

@@ -143,9 +143,9 @@ public class ControllersEmpleado {
         
         pstmt.setString(1, correo);
         
-        try (ResultSet rs = pstmt.executeQuery()) {
-            if (rs.next()) {
-                idEmpleado = rs.getInt("idEmpleado");
+        try (ResultSet res = pstmt.executeQuery()) {
+            if (res.next()) {
+                idEmpleado = res.getInt("idEmpleado");
                 System.out.println("ID de Empleado: " + idEmpleado);
             } else {
                 System.out.println("No se encontró el cliente con el correo: " + correo);

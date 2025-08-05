@@ -11,10 +11,8 @@ import javax.swing.table.DefaultTableModel;
 
 public class ControllersProductos {
 
-    public ControllersProductos(){
-
-    }
-    public void registrarProducto(int idProducto, int idCategoria,String tipo, String nombre, int stock, double precio, double costo, String tamannio){
+    public ControllersProductos(){}
+    public void registrarProducto(int idProducto, int idCategoria,String tipo, String nombre, double precio ,int stock, double costo, String tamannio){
         String sql = "INSERT INTO PRODUCTOS (idProductos,idCategoria,tipo,nombre,precio,stock,costo,tamannio)"
                 +"VALUES(?,?,?,?,?,?,?,?)";
         try(Connection conn = connection.getConnection();
@@ -48,8 +46,8 @@ public class ControllersProductos {
                 datos[1] = rs.getInt("idCategoria");
                 datos[2] = rs.getString("tipo");
                 datos[3] = rs.getString("nombre");
-                datos[4] = rs.getInt("stock");
-                datos[5] = rs.getDouble("precio");
+                datos[4] = rs.getDouble("precio");
+                datos[5] = rs.getInt("stock");
                 datos[6] = rs.getDouble("costo");
                 datos[7] = rs.getString("tamannio");
                 modelo.addRow(datos);
