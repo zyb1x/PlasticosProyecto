@@ -3,6 +3,8 @@ package Vista;
 
 import Controllers.ControllersProductos;
 import Controllers.ControllersProveedor;
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -10,10 +12,203 @@ import javax.swing.table.DefaultTableModel;
 public class Productos extends javax.swing.JInternalFrame {
     ControllersProductos p = new ControllersProductos();
     DefaultTableModel model = new DefaultTableModel();
+    
+    public void categoria1(){
+        ArrayList<String> Items = new ArrayList<>();
+//Termoestables
+        Items.add("Limpieza");
+        Items.add("Hogar y cocina");
+        
+        categoria.removeAllItems();
+        
+        for (String categorias: Items) {
+            categoria.addItem(categorias);
+        }
+    }
+    public void categoria2(){
+        ArrayList<String> Items = new ArrayList<>();
+//Termoplasticos
+        Items.add("Bolsas y empaques");
+        Items.add("Descartables y alimentos");
+        
+        categoria.removeAllItems();
+        
+        for (String categorias: Items) {
+            categoria.addItem(categorias);
+        }
+    }
+    public void nombre1(){
+        ArrayList<String> Items = new ArrayList<>();
+  /*
+  Limpieza
+  -cubeta()
+  •5 galones
+  •2 galones
+  •1/4 de galón
+-recojedores
+-escobas con mango plástico 
+-bote de basura
+  •10 galones
+  •7 galones
+  •3 galones
+  •tapa balancín 
+  •flowell
+*/
+        Items.add("Cubeta");
+        Items.add("Recojedores");
+        Items.add("Escobas con mango de plastico");
+        Items.add("Bote de basura");
+        
+        nombre.removeAllItems();
+        
+        for (String categorias: Items) {
+            nombre.addItem(categorias);
+        }
+    }
+    
+    public void nombre2(){
+         ArrayList<String> Items = new ArrayList<>();
+  /*
+  Hogar y cocina       
+  -contenedores con tapa
+  •Chico
+  •Mediano
+  •Grande
+-coladores
+  •Chico
+  •Mediano
+  •Grande
+-organizadores
+-cajas multiuso
+  •Chica
+  •Mediana
+  •Grande
+*/
+        Items.add("Contenedores con tapa");
+        Items.add("Coladores");
+        Items.add("Organizadores");
+        Items.add("Cajas multiusos");
+        
+        nombre.removeAllItems();
+        
+        for (String categorias: Items) {
+            nombre.addItem(categorias);
+        }
+    }
+    
+    public void nombre3(){
+        ArrayList<String> Items = new ArrayList<>();
+        //termoplasticos
+        /*
+  Bolsas y empaques
+  -Bolsas camiseta
+  •Chica
+  •Mediana
+  •Grande
+-bolsa de basura
+  •Chica
+  •Mediana
+  •Grande
+  •Jumbo
+-rollo de polietileno
+-rollo de bolsa
+*/
+        Items.add("Bolsa de camiseta");
+        Items.add("Bolsa de basura");
+        Items.add("Rollo de polietileno");
+        Items.add("Rollo de bolsa");
+        
+        nombre.removeAllItems();
+        
+        for (String categorias: Items) {
+            nombre.addItem(categorias);
+        }
+    }
+    
+    public void nombre4(){
+        ArrayList<String> Items = new ArrayList<>();
+        /*
+        Descartables alimentos
+        -vasos térmicos
+  •VT4A
+  •VT6
+  •VT12
+  •VT16
+  •VT1LT
+  •VT60
+-tenedores, cucharas y cuchillos
+-platos y Charolas 
+ •CH8535
+ •CH066MA
+  •CH007
+  •CH8S
+  •CH5D
+  •PT006
+  •PH6
+  •PH10
+-vaso plástico 
+  •VP8
+  •VP10
+  •VP12
+  •VP14
+  •VP16A
+  •VP16L
+  •ENV1/4LT
+  •ENV1/2LT
+  •ENV1LT
+        */
+        Items.add("Vasos termicos");
+        Items.add("Tenedores, cucharas y cuchillos");
+        Items.add("Platos y charolas");
+        Items.add("Vawso plastico");
+        
+        nombre.removeAllItems();
+        
+        for (String categorias: Items) {
+            nombre.addItem(categorias);
+        }
+    }
 
     public Productos() {
         initComponents();
         p.CargarDatos(tabla, model);
+        
+        switch(seleccionar.getSelectedIndex()){
+            case 0:
+                //seleccionar
+                JOptionPane.showMessageDialog(null, "Elige una opcion");
+                break;
+            case 1:
+                //Crear
+                break;
+            case 2:
+                precio.setEnabled(false);
+                existencia.setEnabled(false);
+                costo.setEnabled(false);
+                ganancia.setEnabled(false);
+                break;
+            case 3:
+                //Actualizar
+                idProducto.setEnabled(false);
+                tipo.setEnabled(false);
+                categoria.setEnabled(false);
+                nombre.setEnabled(false);
+                break;
+            case 4:
+                //Eliminar
+                break;
+            case 5:
+                //ActivarProducto
+                JOptionPane.showMessageDialog(null, "Ingresa el id del producto que quieres activar y el numero de productos");
+                tipo.setEnabled(false);
+                categoria.setEnabled(false);
+                nombre.setEnabled(false);
+                tamanio.setEnabled(false);
+                precio.setEnabled(false);
+                costo.setEnabled(false);
+                ganancia.setEnabled(false);
+                break;
+        }
     }
     /*public void listarProveedor() { empezar desde aqui**
     List<ControllersProveedor> ListarPr = pr.listarProveedor();
@@ -57,7 +252,6 @@ public class Productos extends javax.swing.JInternalFrame {
         existencia = new javax.swing.JTextField();
         precio = new javax.swing.JTextField();
         costo = new javax.swing.JTextField();
-        ganancia = new javax.swing.JTextField();
         guardar = new javax.swing.JButton();
         seleccionar = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
@@ -67,6 +261,7 @@ public class Productos extends javax.swing.JInternalFrame {
         nombre = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         tamanio = new javax.swing.JComboBox<>();
+        ganancia = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -118,7 +313,7 @@ public class Productos extends javax.swing.JInternalFrame {
 
         jLabel7.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("PORCENTAJE GANANCIA");
+        jLabel7.setText("GANANCIA");
 
         jLabel8.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -130,6 +325,8 @@ public class Productos extends javax.swing.JInternalFrame {
             }
         });
 
+        guardar.setBackground(new java.awt.Color(7, 16, 24));
+        guardar.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
         guardar.setText("GUARDAR");
         guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,8 +345,23 @@ public class Productos extends javax.swing.JInternalFrame {
         jLabel11.setText("CATEGORIA");
 
         tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Termoestable", "Termoplasticos" }));
+        tipo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                tipoItemStateChanged(evt);
+            }
+        });
+        tipo.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                tipoPropertyChange(evt);
+            }
+        });
 
         categoria.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Limpieza", "Hogar", "Bolsas", "Descartables" }));
+        categoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                categoriaItemStateChanged(evt);
+            }
+        });
 
         nombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -159,6 +371,8 @@ public class Productos extends javax.swing.JInternalFrame {
 
         tamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        ganancia.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -167,14 +381,9 @@ public class Productos extends javax.swing.JInternalFrame {
                 .addGap(100, 100, 100)
                 .addComponent(jLabel2)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,9 +397,11 @@ public class Productos extends javax.swing.JInternalFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel11)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel7))
                         .addGap(120, 120, 120)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(idProducto)
                             .addComponent(tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(categoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -198,8 +409,8 @@ public class Productos extends javax.swing.JInternalFrame {
                             .addComponent(existencia)
                             .addComponent(precio)
                             .addComponent(costo)
-                            .addComponent(ganancia)
-                            .addComponent(tamanio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(tamanio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(ganancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -209,7 +420,7 @@ public class Productos extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(seleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
+                .addGap(35, 35, 35)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -243,11 +454,11 @@ public class Productos extends javax.swing.JInternalFrame {
                     .addComponent(tamanio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ganancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(ganancia, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(guardar)
-                .addGap(30, 30, 30))
+                .addContainerGap())
         );
 
         jPanel1.setBackground(new java.awt.Color(121, 145, 168));
@@ -297,12 +508,10 @@ public class Productos extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 33, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -313,43 +522,7 @@ public class Productos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_idProductoActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-      // Validar campos vacíos
-    /*if (codigo.getText().isEmpty() || nombre.getText().isEmpty() ||
-        tipo.getText().isEmpty() || categoria.getText().isEmpty() ||
-        existencia.getText().isEmpty() || venta.getText().isEmpty() ||
-        articulo.getText().isEmpty() || ganancia.getText().isEmpty()) {
-
-        JOptionPane.showMessageDialog(null, "Favor de llenar todos los campos");
-        return; // Sale del método si hay campos vacíos
-    }
-
-    // Asignar valores al objeto
-    p.setCodigo(Integer.parseInt(codigo.getText()));         
-    p.setNombre(nombre.getText());                          
-    p.setTipo(tipo.getText());                              
-    p.setCategoria(categoria.getText());                    
-    p.setExistencia(Integer.parseInt(existencia.getText())); 
-    p.setVenta(Double.parseDouble(venta.getText()));         
-    p.setCosto_articulo(Double.parseDouble(articulo.getText())); 
-    p.setPorcentaje_ganancia(Double.parseDouble(ganancia.getText()));
-
-    // Evaluar el resultado de insertarProducto()
-    if (p.insertarProducto()) {
-        JOptionPane.showMessageDialog(null, "Producto agregado correctamente");
-
-        // Limpiar campos
-        codigo.setText("");
-        nombre.setText("");
-        tipo.setText("");
-        categoria.setText("");
-        existencia.setText("");
-        venta.setText("");
-        articulo.setText("");
-        ganancia.setText("");
-
-    } else {
-        JOptionPane.showMessageDialog(null, "Error al agregar el producto");
-    }*/
+   
     int id = Integer.parseInt(idProducto.getText());
     int idCat = categoria.getSelectedIndex();
     String name = nombre.getSelectedItem().toString();
@@ -358,7 +531,8 @@ public class Productos extends javax.swing.JInternalFrame {
     double price = Double.parseDouble(precio.getText());
     double cost = Double.parseDouble(costo.getText());
     String tam = tamanio.getSelectedItem().toString();
-    double gana = Double.parseDouble(ganancia.getText());
+    Double gan = price - cost;
+    ganancia.setText(String.valueOf(gan));
     
      switch(seleccionar.getSelectedIndex()){
             case 0:
@@ -367,21 +541,13 @@ public class Productos extends javax.swing.JInternalFrame {
                 break;
             case 1:
                 //Crear
-        p.registrarProducto(id,idCat,type,name,price,stock,cost,tam);                
+        p.registrarProducto(id,idCat,type,name,price,stock,cost,tam,gan);                
                 break;
             case 2:
-                precio.setEnabled(false);
-                existencia.setEnabled(false);
-                costo.setEnabled(false);
-                ganancia.setEnabled(false);
                 p.buscar(id, model, tabla);
                 break;
             case 3:
                 //Actualizar
-                idProducto.setEnabled(false);
-                tipo.setEnabled(false);
-                categoria.setEnabled(false);
-                nombre.setEnabled(false);
                 p.actualizarProducto(price, stock, cost, tam, id);
                 break;
             case 4:
@@ -391,24 +557,70 @@ public class Productos extends javax.swing.JInternalFrame {
             case 5:
                 //ActivarProducto
                 JOptionPane.showMessageDialog(null, "Ingresa el id del producto que quieres activar y el numero de productos");
-                tipo.setEnabled(false);
-                categoria.setEnabled(false);
-                nombre.setEnabled(false);
-                tamanio.setEnabled(false);
-                precio.setEnabled(false);
-                costo.setEnabled(false);
-                ganancia.setEnabled(false);
                 p.activar(id, stock);
                 break;
         }
     }//GEN-LAST:event_guardarActionPerformed
+
+    private void tipoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tipoPropertyChange
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tipoPropertyChange
+
+    private void tipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoItemStateChanged
+        if(evt.getStateChange()==ItemEvent.SELECTED ){
+            if(this.categoria.getSelectedIndex()>0){
+                System.out.println(categoria.getSelectedItem().toString());
+            }
+        }
+        
+        switch(tipo.getSelectedIndex()){
+            case 0:
+                this.categoria.removeAllItems();
+                break;
+            case 1:
+                categoria1();
+                if(categoria.getSelectedIndex()==1){
+                    nombre1();
+                }else if(categoria.getSelectedIndex()==2){
+                    nombre2();
+                }
+                break;
+
+            case 2:
+                categoria2();
+                if(categoria.getSelectedIndex()==1){
+                    nombre3();
+                }else if(categoria.getSelectedIndex()==2){
+                    nombre4();
+                }
+                break;
+        }
+    }//GEN-LAST:event_tipoItemStateChanged
+
+    private void categoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_categoriaItemStateChanged
+        if(evt.getStateChange()==ItemEvent.SELECTED ){
+            if(this.nombre.getSelectedIndex()>0){
+                System.out.println(nombre.getSelectedItem().toString());
+            }
+        }
+        
+        switch(categoria.getSelectedIndex()){
+            case 0:
+                this.nombre.removeAllItems();
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+        }
+    }//GEN-LAST:event_categoriaItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> categoria;
     private javax.swing.JTextField costo;
     private javax.swing.JTextField existencia;
-    private javax.swing.JTextField ganancia;
+    private javax.swing.JLabel ganancia;
     private javax.swing.JButton guardar;
     private javax.swing.JTextField idProducto;
     private javax.swing.JLabel jLabel1;

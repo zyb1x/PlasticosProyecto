@@ -12,9 +12,9 @@ import javax.swing.table.DefaultTableModel;
 public class ControllersProductos {
 
     public ControllersProductos(){}
-    public void registrarProducto(int idProducto, int idCategoria,String tipo, String nombre, double precio ,int stock, double costo, String tamannio){
-        String sql = "INSERT INTO PRODUCTOS (idProductos,idCategoria,tipo,nombre,precio,stock,costo,tamannio)"
-                +"VALUES(?,?,?,?,?,?,?,?)";
+    public void registrarProducto(int idProducto, int idCategoria,String tipo, String nombre, double precio ,int stock, double costo, String tamannio, double ganancia){
+        String sql = "INSERT INTO PRODUCTOS (idProductos,idCategoria,tipo,nombre,precio,stock,costo,tamannio,ganancia)"
+                +"VALUES(?,?,?,?,?,?,?,?,?)";
         try(Connection conn = connection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setInt(1, idProducto);
@@ -25,7 +25,7 @@ public class ControllersProductos {
         pstmt.setInt(6, stock);
         pstmt.setDouble(7, costo);
         pstmt.setString(8, tamannio);
-
+        pstmt.setDouble(9, ganancia);
         pstmt.executeUpdate();
         System.out.println("Producto agregado");
        } catch (Exception e) {
@@ -42,7 +42,7 @@ public class ControllersProductos {
             modelo =  (DefaultTableModel) tabla.getModel();
             
             while(rs.next()){
-                datos[0] = rs.getInt("idProducto");
+                datos[0] = rs.getInt("idProductos");
                 datos[1] = rs.getInt("idCategoria");
                 datos[2] = rs.getString("tipo");
                 datos[3] = rs.getString("nombre");
