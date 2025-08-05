@@ -168,15 +168,26 @@ public class Productos extends javax.swing.JInternalFrame {
             nombre.addItem(categorias);
         }
     }
+    
+    public void tamannio1(){
+        
+    }
+    public void tamannio2(){
+        
+    }
+    public void tamannio3(){
+        
+    }
+    public void tamannio4(){
+        
+    }
 
     public Productos() {
         initComponents();
         p.CargarDatos(tabla, model);
         
-        switch(seleccionar.getSelectedIndex()){
+        /*switch(seleccionar.getSelectedIndex()){
             case 0:
-                //seleccionar
-                JOptionPane.showMessageDialog(null, "Elige una opcion");
                 break;
             case 1:
                 //Crear
@@ -208,7 +219,7 @@ public class Productos extends javax.swing.JInternalFrame {
                 costo.setEnabled(false);
                 ganancia.setEnabled(false);
                 break;
-        }
+        */
     }
     /*public void listarProveedor() { empezar desde aqui**
     List<ControllersProveedor> ListarPr = pr.listarProveedor();
@@ -581,6 +592,18 @@ public class Productos extends javax.swing.JInternalFrame {
                 categoria1();
                 if(categoria.getSelectedIndex()==1){
                     nombre1();
+                    switch(nombre.getSelectedIndex()){
+                        case 0:
+                            break;
+                        case 1:
+                            break;
+                        case 2:
+                            break;
+                        case 3:
+                            break;
+                        case 4:
+                            break;
+                    }
                 }else if(categoria.getSelectedIndex()==2){
                     nombre2();
                 }
@@ -598,21 +621,7 @@ public class Productos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tipoItemStateChanged
 
     private void categoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_categoriaItemStateChanged
-        if(evt.getStateChange()==ItemEvent.SELECTED ){
-            if(this.nombre.getSelectedIndex()>0){
-                System.out.println(nombre.getSelectedItem().toString());
-            }
-        }
-        
-        switch(categoria.getSelectedIndex()){
-            case 0:
-                this.nombre.removeAllItems();
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-        }
+ 
     }//GEN-LAST:event_categoriaItemStateChanged
 
 
