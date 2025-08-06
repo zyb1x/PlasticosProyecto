@@ -38,7 +38,7 @@ public class ControllersProductos {
         try(Connection conn = connection.getConnection();
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(sql)){
-            Object[] datos = new Object[8];
+            Object[] datos = new Object[9];
             modelo =  (DefaultTableModel) tabla.getModel();
             
             while(rs.next()){
@@ -50,6 +50,7 @@ public class ControllersProductos {
                 datos[5] = rs.getInt("stock");
                 datos[6] = rs.getDouble("costo");
                 datos[7] = rs.getString("tamannio");
+                datos[8] = rs.getDouble("ganancia");
                 modelo.addRow(datos);
             }
             tabla.setModel(modelo);
