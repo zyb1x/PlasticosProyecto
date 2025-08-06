@@ -255,7 +255,9 @@ public class RegistroEm extends javax.swing.JFrame {
     private void btnGuardarEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarEActionPerformed
         ControllersEmpleado ce = new ControllersEmpleado();
         Administrador adm = new Administrador();
-        Login l = new Login();
+            Inicio i = new Inicio();
+            i.pack();
+            i.setLocationRelativeTo(null);
         // Verificar que todos los campos estén llenos
         if (!"".equals(nombre.getText())
                 && puesto.getSelectedItem() != null
@@ -282,7 +284,7 @@ public class RegistroEm extends javax.swing.JFrame {
             if (ce.guardarEmpleado(clem)) {
                 JOptionPane.showMessageDialog(null, "Empleado registrado correctamente.");
                 this.dispose();
-                l.setVisible(true);
+                i.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Error al guardar el empleado.");
             }
