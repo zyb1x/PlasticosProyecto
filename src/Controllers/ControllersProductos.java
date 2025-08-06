@@ -73,15 +73,16 @@ public class ControllersProductos {
             e.printStackTrace();
         }
     }  
-    public void actualizarProducto(double newPrecio, int newStock, double newCosto, String tamannio, int idProducto){
-        String sql = "UPDATE PRODUCTOs SET precio=?, stock=?, costo=?, tamannio=? WHERE idProductos=?";
+    public void actualizarProducto(double newPrecio, int newStock, double newCosto, String tamannio,double ganancia, int idProducto){
+        String sql = "UPDATE PRODUCTOs SET precio=?, stock=?, costo=?, tamannio=? ganancia=? WHERE idProductos=?";
         try(Connection conn = connection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setDouble(1, newPrecio);
             pstmt.setInt(2, newStock);
             pstmt.setDouble(3, newCosto);
             pstmt.setString(4, tamannio);
-            pstmt.setInt(5, idProducto);
+            pstmt.setDouble(5, ganancia);
+            pstmt.setInt(6, idProducto);
             pstmt.executeUpdate();
             System.out.println("Producto actualizado");
         }
@@ -133,7 +134,8 @@ public class ControllersProductos {
         modelo.addColumn("precio");
         modelo.addColumn("costo");
         modelo.addColumn("tamannio");
-        Object[] datos = new Object[4];
+        modelo.addColumn("ganancia");
+        Object[] datos = new Object[9];
         
         try(Connection conn = connection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -148,6 +150,7 @@ public class ControllersProductos {
                     datos[5] = rs.getDouble("precio");
                     datos[6] = rs.getDouble("costo");
                     datos[7] = rs.getString("tamannio");
+                    datos[8] = rs.getDouble("ganancia");
                     modelo.addRow(datos);                }
             }
         }

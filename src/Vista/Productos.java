@@ -1,4 +1,3 @@
-
 package Vista;
 
 import Controllers.ControllersProductos;
@@ -10,241 +9,194 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class Productos extends javax.swing.JInternalFrame {
+
     ControllersProductos p = new ControllersProductos();
     DefaultTableModel model = new DefaultTableModel();
-    
-    public void categoria1(){
+
+    private void limpiarCampos() {
+    idProducto.setText("");
+    existencia.setText("");
+    precio.setText("");
+    costo.setText("");
+    ganancia.setText("");
+    tipo.setSelectedIndex(0);
+    categoria.setSelectedIndex(0);
+    nombre.setSelectedIndex(0);
+    tamanio.setSelectedIndex(0);
+}
+    public void categoria1() {
         ArrayList<String> Items = new ArrayList<>();
 //Termoestables
         Items.add("Limpieza");
         Items.add("Hogar y cocina");
-        
+
         categoria.removeAllItems();
-        
-        for (String categorias: Items) {
+
+        for (String categorias : Items) {
             categoria.addItem(categorias);
         }
     }
-    public void categoria2(){
+    public void categoria2() {
         ArrayList<String> Items = new ArrayList<>();
 //Termoplasticos
         Items.add("Bolsas y empaques");
         Items.add("Descartables y alimentos");
-        
+
         categoria.removeAllItems();
-        
-        for (String categorias: Items) {
+
+        for (String categorias : Items) {
             categoria.addItem(categorias);
         }
     }
-    public void nombre1(){
+    public void nombre1() {
         ArrayList<String> Items = new ArrayList<>();
-  /*
-  Limpieza
-  -cubeta()
-  •5 galones
-  •2 galones
-  •1/4 de galón
--recojedores
--escobas con mango plástico 
--bote de basura
-  •10 galones
-  •7 galones
-  •3 galones
-  •tapa balancín 
-  •flowell
-*/
         Items.add("Cubeta");
         Items.add("Recojedores");
         Items.add("Escobas con mango de plastico");
         Items.add("Bote de basura");
-        
+
         nombre.removeAllItems();
-        
-        for (String categorias: Items) {
+
+        for (String categorias : Items) {
             nombre.addItem(categorias);
         }
     }
-    
-    public void nombre2(){
-         ArrayList<String> Items = new ArrayList<>();
-  /*
-  Hogar y cocina       
-  -contenedores con tapa
-  •Chico
-  •Mediano
-  •Grande
--coladores
-  •Chico
-  •Mediano
-  •Grande
--organizadores
--cajas multiuso
-  •Chica
-  •Mediana
-  •Grande
-*/
+    public void nombre2() {
+        ArrayList<String> Items = new ArrayList<>();
         Items.add("Contenedores con tapa");
         Items.add("Coladores");
         Items.add("Organizadores");
-        Items.add("Cajas multiusos");
-        
+        Items.add("Cajas multiuso");
+
         nombre.removeAllItems();
-        
-        for (String categorias: Items) {
+
+        for (String categorias : Items) {
             nombre.addItem(categorias);
         }
     }
-    
-    public void nombre3(){
+    public void nombre3() {
         ArrayList<String> Items = new ArrayList<>();
-        //termoplasticos
-        /*
-  Bolsas y empaques
-  -Bolsas camiseta
-  •Chica
-  •Mediana
-  •Grande
--bolsa de basura
-  •Chica
-  •Mediana
-  •Grande
-  •Jumbo
--rollo de polietileno
--rollo de bolsa
-*/
-        Items.add("Bolsa de camiseta");
+        Items.add("Bolsa camiseta");
         Items.add("Bolsa de basura");
         Items.add("Rollo de polietileno");
         Items.add("Rollo de bolsa");
-        
+
         nombre.removeAllItems();
-        
-        for (String categorias: Items) {
+
+        for (String categorias : Items) {
             nombre.addItem(categorias);
         }
     }
-    
-    public void nombre4(){
+    public void nombre4() {
         ArrayList<String> Items = new ArrayList<>();
-        /*
-        Descartables alimentos
-        -vasos térmicos
-  •VT4A
-  •VT6
-  •VT12
-  •VT16
-  •VT1LT
-  •VT60
--tenedores, cucharas y cuchillos
--platos y Charolas 
- •CH8535
- •CH066MA
-  •CH007
-  •CH8S
-  •CH5D
-  •PT006
-  •PH6
-  •PH10
--vaso plástico 
-  •VP8
-  •VP10
-  •VP12
-  •VP14
-  •VP16A
-  •VP16L
-  •ENV1/4LT
-  •ENV1/2LT
-  •ENV1LT
-        */
         Items.add("Vasos termicos");
         Items.add("Tenedores, cucharas y cuchillos");
         Items.add("Platos y charolas");
-        Items.add("Vawso plastico");
-        
+        Items.add("Vaso plastico");
+
         nombre.removeAllItems();
-        
-        for (String categorias: Items) {
+
+        for (String categorias : Items) {
             nombre.addItem(categorias);
         }
     }
-    
-    public void tamannio1(){
-        
-    }
-    public void tamannio2(){
-        
-    }
-    public void tamannio3(){
-        
-    }
-    public void tamannio4(){
-        
-    }
+    public void cubeta() {
+ArrayList<String> Items = new ArrayList<>();
+        Items.add("5 galones");
+        Items.add("2 galones");
+        Items.add("1/4 de galon");
 
+        nombre.removeAllItems();
+
+        for (String categorias : Items) {
+            nombre.addItem(categorias);
+        }
+    }
+    public void boteBasura() {
+        ArrayList<String> Items = new ArrayList<>();
+        Items.add("10 galones");
+        Items.add("7 galones");
+        Items.add("3 galones");
+        Items.add("1/4 de galon");
+
+        nombre.removeAllItems();
+
+        for (String categorias : Items) {
+            nombre.addItem(categorias);
+        }
+    }
+    public void vasoTermico(){
+       ArrayList<String> Items = new ArrayList<>();
+        Items.add("VT4A");
+        Items.add("VT6");
+        Items.add("VT12");
+        Items.add("VT16");
+        Items.add("VT1LT");
+        Items.add("VT60");
+        tamanio.removeAllItems();
+
+        for (String nombres : Items) {
+            tamanio.addItem(nombres);
+        } 
+    }
+    public void TamannioNormal() {
+        ArrayList<String> Items = new ArrayList<>();
+        Items.add("Chico");
+        Items.add("Mediano");
+        Items.add("Grande");
+       
+        tamanio.removeAllItems();
+
+        for (String nombres : Items) {
+            tamanio.addItem(nombres);
+        }
+    }
+    public void vasoPlastico() {
+ArrayList<String> Items = new ArrayList<>();
+        Items.add("VP8");
+        Items.add("VP10");
+        Items.add("VP12");
+        Items.add("VP14");
+        Items.add("VP16A");
+        Items.add("ENV1/4LT");
+        Items.add("ENV1/2LT");
+        Items.add("ENV1LT");
+        tamanio.removeAllItems();
+
+        for (String nombres : Items) {
+            tamanio.addItem(nombres);
+        }
+    }
+    public void platos(){
+        ArrayList<String> Items = new ArrayList<>();
+        Items.add("CH8535");
+        Items.add("CH066MA");
+        Items.add("CH007");
+        Items.add("CH8S");
+        Items.add("CH5D");
+        Items.add("PT006");
+        Items.add("PH6");
+        Items.add("PH10");
+        tamanio.removeAllItems();
+
+        for (String nombres : Items) {
+            tamanio.addItem(nombres);
+        }
+    }
+    private boolean validarCampos() {
+        if (idProducto.getText().isEmpty() || existencia.getText().isEmpty()
+                || precio.getText().isEmpty() || costo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios");
+            return false;
+        }
+        return true;
+    }
     public Productos() {
         initComponents();
         p.CargarDatos(tabla, model);
         
-        /*switch(seleccionar.getSelectedIndex()){
-            case 0:
-                break;
-            case 1:
-                //Crear
-                break;
-            case 2:
-                precio.setEnabled(false);
-                existencia.setEnabled(false);
-                costo.setEnabled(false);
-                ganancia.setEnabled(false);
-                break;
-            case 3:
-                //Actualizar
-                idProducto.setEnabled(false);
-                tipo.setEnabled(false);
-                categoria.setEnabled(false);
-                nombre.setEnabled(false);
-                break;
-            case 4:
-                //Eliminar
-                break;
-            case 5:
-                //ActivarProducto
-                JOptionPane.showMessageDialog(null, "Ingresa el id del producto que quieres activar y el numero de productos");
-                tipo.setEnabled(false);
-                categoria.setEnabled(false);
-                nombre.setEnabled(false);
-                tamanio.setEnabled(false);
-                precio.setEnabled(false);
-                costo.setEnabled(false);
-                ganancia.setEnabled(false);
-                break;
-        */
     }
-    /*public void listarProveedor() { empezar desde aqui**
-    List<ControllersProveedor> ListarPr = pr.listarProveedor();
-    DefaultTableModel modelo = (DefaultTableModel) TablaProveedor.getModel();
-    Object[] ob = new Object[5];
-    
-    modelo.setRowCount(0); // limpia la tabla antes de llenarla
-    
-    for (int i = 0; i < ListarPr.size(); i++) {
-    ob[0] = ListarPr.get(i).getId();
-    ob[1] = ListarPr.get(i).getNombre();
-    ob[2] = ListarPr.get(i).getRfc();
-    ob[3] = ListarPr.get(i).getDireccion();
-    ob[4] = ListarPr.get(i).getTelefono();
-    modelo.addRow(ob);
-    }
-    
-    TablaProveedor.setModel(modelo);
-    }*/
 
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -345,7 +297,7 @@ public class Productos extends javax.swing.JInternalFrame {
             }
         });
 
-        seleccionar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CREAR", "BUSCAR", "ACTUALIZAR", "ELIMINAR" }));
+        seleccionar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CREAR", "BUSCAR", "ACTUALIZAR", "ELIMINAR", "ACTIVAR" }));
 
         jLabel10.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -375,6 +327,11 @@ public class Productos extends javax.swing.JInternalFrame {
         });
 
         nombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        nombre.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                nombreItemStateChanged(evt);
+            }
+        });
 
         jLabel9.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
@@ -412,7 +369,6 @@ public class Productos extends javax.swing.JInternalFrame {
                             .addComponent(jLabel7))
                         .addGap(120, 120, 120)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(guardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(idProducto)
                             .addComponent(tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(categoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -421,7 +377,8 @@ public class Productos extends javax.swing.JInternalFrame {
                             .addComponent(precio)
                             .addComponent(costo)
                             .addComponent(tamanio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ganancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(ganancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -467,19 +424,16 @@ public class Productos extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(ganancia, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(guardar)
-                .addContainerGap())
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(121, 145, 168));
 
         tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+
             },
             new String [] {
                 "CÓDIGO", "NOMBRE", "TIPO", "CATEGORÍA", "EXISTENCIA", "PRECIO ", "COSTO", "TAMAÑO"
@@ -501,7 +455,7 @@ public class Productos extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(172, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -520,9 +474,8 @@ public class Productos extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
 
         pack();
@@ -533,42 +486,54 @@ public class Productos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_idProductoActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-   
-    int id = Integer.parseInt(idProducto.getText());
-    int idCat = categoria.getSelectedIndex();
-    String name = nombre.getSelectedItem().toString();
-    String type = tipo.getSelectedItem().toString();
-    int stock = Integer.parseInt(existencia.getText());
-    double price = Double.parseDouble(precio.getText());
-    double cost = Double.parseDouble(costo.getText());
-    String tam = tamanio.getSelectedItem().toString();
-    Double gan = price - cost;
-    ganancia.setText(String.valueOf(gan));
-    
-     switch(seleccionar.getSelectedIndex()){
+
+        switch (seleccionar.getSelectedIndex()) {
             case 0:
                 //seleccionar
                 JOptionPane.showMessageDialog(null, "Elige una opcion");
                 break;
             case 1:
                 //Crear
-        p.registrarProducto(id,idCat,type,name,price,stock,cost,tam,gan);                
+                int id = Integer.parseInt(idProducto.getText());
+                int idCat = categoria.getSelectedIndex();
+                String name = nombre.getSelectedItem().toString();
+                String type = tipo.getSelectedItem().toString();
+                int stock = Integer.parseInt(existencia.getText());
+                double price = Double.parseDouble(precio.getText());
+                double cost = Double.parseDouble(costo.getText());
+                String tam = tamanio.getSelectedItem().toString();
+                Double gan = price - cost;
+                ganancia.setText(String.valueOf(gan));
+                validarCampos();
+                p.registrarProducto(id, idCat, type, name, price, stock, cost, tam, gan);
+                limpiarCampos();
                 break;
             case 2:
-                p.buscar(id, model, tabla);
+                //Buscar
+                int idBuscar = Integer.parseInt(idProducto.getText());
+                p.buscar(idBuscar, model, tabla);
                 break;
             case 3:
                 //Actualizar
-                p.actualizarProducto(price, stock, cost, tam, id);
+                double newPrice = Double.parseDouble(precio.getText());
+                int newStock = Integer.parseInt(existencia.getText());
+                double newCosto = Double.parseDouble(costo.getText());
+                String tama = tamanio.getSelectedItem().toString();
+                Double newGanancia = newPrice - newCosto;
+                int Id = Integer.parseInt(idProducto.getText());
+                p.actualizarProducto(newPrice, newStock, newCosto, tama,newGanancia, Id);
                 break;
             case 4:
                 //Eliminar
-                p.desactivarProducto(id);
+                int idDesactivar = Integer.parseInt(idProducto.getText());
+                p.desactivarProducto(idDesactivar);
                 break;
             case 5:
                 //ActivarProducto
+                int idActivar = Integer.parseInt(idProducto.getText());
+                int stockActivar = Integer.parseInt(existencia.getText());
                 JOptionPane.showMessageDialog(null, "Ingresa el id del producto que quieres activar y el numero de productos");
-                p.activar(id, stock);
+                p.activar(idActivar, stockActivar);
                 break;
         }
     }//GEN-LAST:event_guardarActionPerformed
@@ -578,51 +543,106 @@ public class Productos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_tipoPropertyChange
 
     private void tipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoItemStateChanged
-        if(evt.getStateChange()==ItemEvent.SELECTED ){
-            if(this.categoria.getSelectedIndex()>0){
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (this.categoria.getSelectedIndex() > 0) {
                 System.out.println(categoria.getSelectedItem().toString());
             }
         }
-        
-        switch(tipo.getSelectedIndex()){
+
+        switch (tipo.getSelectedIndex()) {
             case 0:
                 this.categoria.removeAllItems();
                 break;
             case 1:
                 categoria1();
-                if(categoria.getSelectedIndex()==1){
-                    nombre1();
-                    switch(nombre.getSelectedIndex()){
-                        case 0:
-                            break;
-                        case 1:
-                            break;
-                        case 2:
-                            break;
-                        case 3:
-                            break;
-                        case 4:
-                            break;
-                    }
-                }else if(categoria.getSelectedIndex()==2){
-                    nombre2();
-                }
                 break;
 
             case 2:
                 categoria2();
-                if(categoria.getSelectedIndex()==1){
-                    nombre3();
-                }else if(categoria.getSelectedIndex()==2){
-                    nombre4();
-                }
                 break;
         }
     }//GEN-LAST:event_tipoItemStateChanged
 
     private void categoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_categoriaItemStateChanged
- 
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            if (this.categoria.getSelectedIndex() > 0) {
+                System.out.println(categoria.getSelectedItem().toString());
+            }
+        }
+
+        switch (categoria.getSelectedItem().toString().toUpperCase()) {
+            case "LIMPIEZA":
+                nombre1();
+                break;
+            case "HOGAR Y COCINA":
+                nombre2();
+                break;
+            case "BOLSAS Y EMPAQUES":
+                nombre3();
+                break;
+            case "DESCARTABLES Y ALIMENTOS":
+                nombre4();
+                break;
+        }
     }//GEN-LAST:event_categoriaItemStateChanged
+
+    private void nombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nombreItemStateChanged
+        if(evt.getStateChange() == ItemEvent.SELECTED){
+            if(this.nombre.getSelectedIndex()> 0 ){
+                System.out.println(categoria.getSelectedItem().toString());
+            }
+        }
+        switch (nombre.getSelectedItem().toString().toUpperCase()) {
+            case "CUBETA":
+                cubeta();
+                break;
+            case "RECOJEDORES":
+                 this.tamanio.addItem("Sin tamannio");
+                break;
+            case "ESCOBAS CON MANGO DE PLASTICO":
+                 this.tamanio.addItem("Sin tamannio");                
+                break;
+            case "BOTE DE BASURA":
+                boteBasura();
+                break;
+            case "CONTENEDORES CON TAPA":
+                TamannioNormal();
+                break;
+            case "COLADORES":
+                TamannioNormal();
+                break;
+            case "ORGANIZADOREZ":
+                this.tamanio.addItem("Sin tamannio");
+                break;
+            case "CAJAS MULTIUSO":
+                TamannioNormal();
+                break;
+            case "BOLSAS CAMISETA":
+                TamannioNormal();
+                break;
+            case "BOLSA DE BASURA":
+                TamannioNormal();
+                break;
+            case "ROLLO DE POLIETILENO":
+                 this.tamanio.addItem("Sin tamannio");
+                break;
+            case "ROLLO DE BOLSA":
+                 this.tamanio.addItem("Sin tamannio");
+                break;
+            case "VASOS TERMICOS":
+                vasoTermico();
+                break;
+            case "TENEDORES, CUCHARAS Y CUCHILLOS":
+                this.tamanio.addItem("Sin tamannio");
+                break;
+            case "PLATOS Y CHAROLAS":
+                platos();
+                break;
+            case "VASO PLASTICO":
+                vasoPlastico();
+                break;
+        }
+    }//GEN-LAST:event_nombreItemStateChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

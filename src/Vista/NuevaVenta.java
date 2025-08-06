@@ -18,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
  * @author viann
  */
 public class NuevaVenta extends javax.swing.JInternalFrame {
+
     DefaultTableModel model = new DefaultTableModel();
     ArrayList<ControllersDetalleVenta> detalles = new ArrayList<>();
 
@@ -300,7 +301,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         double subtotal = cant * Precio;
         double impuesto = subtotal * 0.16;
         double total = subtotal + impuesto;
-        ControllersDetalleVenta v = new ControllersDetalleVenta(Id,cant,Precio,total);        
+        ControllersDetalleVenta v = new ControllersDetalleVenta(Id, cant, Precio, total);
         model.addRow(new Object[]{
             Id, nombre, cant, Precio, total
         });
@@ -324,7 +325,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         double subtotal = Cant * Precio;
         double impuesto = subtotal * 0.16;
         double total = subtotal + impuesto;
-        
+
         ControllersCliente cliente = new ControllersCliente();
         cliente.crearCliente(rfc.getText(), nombreCliente.getText(), domicilio.getText(), telefono.getText());
         int idCliente = cliente.getIdCliente(nombreCliente.getText(), telefono.getText());
@@ -342,10 +343,10 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
         //Acceder a la clase producto
         ControllersProductos p = new ControllersProductos();
-        
+
         int IDVenta = venta.getIdVenta(idCliente);
-        try{
-        ControllersDetalleVenta detalle = new ControllersDetalleVenta(IdProducto, Cant, Precio, total);//Para crear el array
+        try {
+            ControllersDetalleVenta detalle = new ControllersDetalleVenta(IdProducto, Cant, Precio, total);//Para crear el array
 
             for (int i = 0; i < detalles.size(); i++) {
                 int IDProducto = detalles.get(i).getId();
@@ -354,18 +355,17 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                 double TOTAL = detalles.get(i).getTotal();
                 int stock = p.getStock(IDProducto);
 
-                if(Cantidad<stock){
-                detalle.crearDetalle(newidVenta, IDProducto, Cantidad, PRECIO, TOTAL);
-                detalle.crearDetalle(IDVenta, IDProducto, Cantidad, PRECIO, TOTAL);
-                int newStock = stock-Cantidad;
-                p.setStock(newStock, IDProducto);    
+                if (Cantidad < stock) {
+                    detalle.crearDetalle(newidVenta, IDProducto, Cantidad, PRECIO, TOTAL);
+                    detalle.crearDetalle(IDVenta, IDProducto, Cantidad, PRECIO, TOTAL);
+                    int newStock = stock - Cantidad;
+                    p.setStock(newStock, IDProducto);
                 }
             }
 
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        catch(Exception e){
-            System.out.println(e);  
-}
     }//GEN-LAST:event_guardarActionPerformed
 
 
