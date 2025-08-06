@@ -16,6 +16,38 @@ public class ControllersMateriaPrima {
     private int cantidad;
     private String tipo;
     private String proveedor;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public String getUnidad() {
+        return unidad;
+    }
+
+    public String getMedida() {
+        return medida;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public String getProveedor() {
+        return proveedor;
+    }
+
+    public String getFechaingreso() {
+        return fechaingreso;
+    }
     private String fechaingreso;
 
     public ControllersMateriaPrima(String nombre, String codigo, String unidad, String medida, int cantidad, String tipo, String proveedor, String fechaingreso) {

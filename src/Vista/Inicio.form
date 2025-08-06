@@ -99,12 +99,20 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="23" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="1" attributes="0">
-                      <Component id="venta" min="-2" pref="116" max="-2" attributes="0"/>
-                      <Component id="produccion" min="-2" pref="116" max="-2" attributes="0"/>
-                      <Component id="productos" min="-2" pref="116" max="-2" attributes="0"/>
-                      <Component id="proveedores" min="-2" pref="116" max="-2" attributes="0"/>
-                      <Component id="administracion" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton7" min="-2" pref="116" max="-2" attributes="0"/>
+                      <Component id="material" min="-2" pref="116" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                              <Component id="venta" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="produccion" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="productos" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="proveedores" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="jButton7" min="-2" pref="116" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                              <Component id="administracion" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
@@ -122,8 +130,10 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="proveedores" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="material" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="administracion" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="442" max="32767" attributes="0"/>
+                  <EmptySpace pref="401" max="32767" attributes="0"/>
                   <Component id="jButton7" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
               </Group>
@@ -229,6 +239,23 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Salir"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="material">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="a8" green="91" red="79" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Gadugi" size="12" style="1"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="18" green="10" red="7" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Material"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="materialActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
