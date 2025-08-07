@@ -5,6 +5,7 @@
 package plasticosproyecto;
 
 import Controllers.ControllersCliente;
+import Vista.Login;
 
 /**
  *
@@ -16,7 +17,10 @@ public class PlasticosProyecto {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-      
+      Login l = new Login();
+      l.setVisible(true);
+      l.pack();
+      l.setLocationRelativeTo(null);
     }
     
 }

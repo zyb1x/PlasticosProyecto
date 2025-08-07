@@ -125,13 +125,13 @@ public class ControllersProductos {
          }
      }
     public void buscar(int idProducto, DefaultTableModel modelo, JTable table){
-        String sql = "SELECT * FROM PRODUCTOS WHERE idProductos=?";
+        String sql = "SELECT FROM PRODUCTOS WHERE idProductos=?";
         modelo.addColumn("idProductos");
         modelo.addColumn("idCategoria");
         modelo.addColumn("tipo");
         modelo.addColumn("nombre");
-        modelo.addColumn("stock");
         modelo.addColumn("precio");
+        modelo.addColumn("existencia");
         modelo.addColumn("costo");
         modelo.addColumn("tamannio");
         modelo.addColumn("ganancia");
@@ -146,8 +146,8 @@ public class ControllersProductos {
                     datos[1] = rs.getInt("idCategoria");
                     datos[2] = rs.getString("tipo");
                     datos[3] = rs.getString("nombre");
-                    datos[4] = rs.getInt("stock");
-                    datos[5] = rs.getDouble("precio");
+                    datos[4] = rs.getDouble("precio");
+                    datos[5] = rs.getInt("stock");
                     datos[6] = rs.getDouble("costo");
                     datos[7] = rs.getString("tamannio");
                     datos[8] = rs.getDouble("ganancia");

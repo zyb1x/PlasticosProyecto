@@ -436,7 +436,7 @@ ArrayList<String> Items = new ArrayList<>();
 
             },
             new String [] {
-                "CÓDIGO", "NOMBRE", "TIPO", "CATEGORÍA", "EXISTENCIA", "PRECIO ", "COSTO", "TAMAÑO"
+                "CÓDIGO", "CATEGORIA", "TIPO", "NOMBRE", "PRECIO", "EXISTENCIA", "COSTO", "TAMAÑO", "GANANCIA"
             }
         ));
         jScrollPane1.setViewportView(tabla);
