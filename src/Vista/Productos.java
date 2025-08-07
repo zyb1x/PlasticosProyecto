@@ -27,6 +27,7 @@ public class Productos extends javax.swing.JInternalFrame {
     public void categoria1() {
         ArrayList<String> Items = new ArrayList<>();
 //Termoestables
+        Items.add("Seleccionar");
         Items.add("Limpieza");
         Items.add("Hogar y cocina");
 
@@ -39,6 +40,7 @@ public class Productos extends javax.swing.JInternalFrame {
     public void categoria2() {
         ArrayList<String> Items = new ArrayList<>();
 //Termoplasticos
+        Items.add("Seleccionar");
         Items.add("Bolsas y empaques");
         Items.add("Descartables y alimentos");
 
@@ -50,6 +52,7 @@ public class Productos extends javax.swing.JInternalFrame {
     }
     public void nombre1() {
         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
         Items.add("Cubeta");
         Items.add("Recojedores");
         Items.add("Escobas con mango de plastico");
@@ -63,6 +66,7 @@ public class Productos extends javax.swing.JInternalFrame {
     }
     public void nombre2() {
         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccioar");
         Items.add("Contenedores con tapa");
         Items.add("Coladores");
         Items.add("Organizadores");
@@ -76,6 +80,7 @@ public class Productos extends javax.swing.JInternalFrame {
     }
     public void nombre3() {
         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
         Items.add("Bolsa camiseta");
         Items.add("Bolsa de basura");
         Items.add("Rollo de polietileno");
@@ -89,6 +94,7 @@ public class Productos extends javax.swing.JInternalFrame {
     }
     public void nombre4() {
         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
         Items.add("Vasos termicos");
         Items.add("Tenedores, cucharas y cuchillos");
         Items.add("Platos y charolas");
@@ -102,31 +108,34 @@ public class Productos extends javax.swing.JInternalFrame {
     }
     public void cubeta() {
 ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
         Items.add("5 galones");
         Items.add("2 galones");
         Items.add("1/4 de galon");
 
-        nombre.removeAllItems();
+        tamanio.removeAllItems();
 
         for (String categorias : Items) {
-            nombre.addItem(categorias);
+            tamanio.addItem(categorias);
         }
     }
     public void boteBasura() {
         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
         Items.add("10 galones");
         Items.add("7 galones");
         Items.add("3 galones");
         Items.add("1/4 de galon");
 
-        nombre.removeAllItems();
+        tamanio.removeAllItems();
 
         for (String categorias : Items) {
-            nombre.addItem(categorias);
+            tamanio.addItem(categorias);
         }
     }
     public void vasoTermico(){
        ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
         Items.add("VT4A");
         Items.add("VT6");
         Items.add("VT12");
@@ -141,6 +150,7 @@ ArrayList<String> Items = new ArrayList<>();
     }
     public void TamannioNormal() {
         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
         Items.add("Chico");
         Items.add("Mediano");
         Items.add("Grande");
@@ -153,6 +163,7 @@ ArrayList<String> Items = new ArrayList<>();
     }
     public void vasoPlastico() {
 ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
         Items.add("VP8");
         Items.add("VP10");
         Items.add("VP12");
@@ -169,6 +180,7 @@ ArrayList<String> Items = new ArrayList<>();
     }
     public void platos(){
         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
         Items.add("CH8535");
         Items.add("CH066MA");
         Items.add("CH007");
@@ -326,7 +338,7 @@ ArrayList<String> Items = new ArrayList<>();
             }
         });
 
-        nombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        nombre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
         nombre.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 nombreItemStateChanged(evt);
@@ -337,7 +349,7 @@ ArrayList<String> Items = new ArrayList<>();
         jLabel9.setForeground(new java.awt.Color(255, 255, 255));
         jLabel9.setText("TAMAÑO");
 
-        tamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        tamanio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
 
         ganancia.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
 
@@ -492,6 +504,7 @@ ArrayList<String> Items = new ArrayList<>();
                 //seleccionar
                 JOptionPane.showMessageDialog(null, "Elige una opcion");
                 break;
+                
             case 1:
                 //Crear
                 int id = Integer.parseInt(idProducto.getText());
@@ -536,6 +549,7 @@ ArrayList<String> Items = new ArrayList<>();
                 p.activar(idActivar, stockActivar);
                 break;
         }
+        
     }//GEN-LAST:event_guardarActionPerformed
 
     private void tipoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tipoPropertyChange
@@ -543,13 +557,7 @@ ArrayList<String> Items = new ArrayList<>();
     }//GEN-LAST:event_tipoPropertyChange
 
     private void tipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoItemStateChanged
-        if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (this.categoria.getSelectedIndex() > 0) {
-                System.out.println(categoria.getSelectedItem().toString());
-            }
-        }
-
-        switch (tipo.getSelectedIndex()) {
+       switch (tipo.getSelectedIndex()) {
             case 0:
                 this.categoria.removeAllItems();
                 break;
@@ -565,41 +573,44 @@ ArrayList<String> Items = new ArrayList<>();
 
     private void categoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_categoriaItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-            if (this.categoria.getSelectedIndex() > 0) {
-                System.out.println(categoria.getSelectedItem().toString());
+        Object selected = categoria.getSelectedItem();
+        if (selected != null && !"Seleccionar".equals(selected.toString())) {
+            System.out.println(selected.toString());
+            
+            switch (selected.toString().toUpperCase()) {
+                case "LIMPIEZA":
+                    nombre1();
+                    break;
+                case "HOGAR Y COCINA":
+                    nombre2();
+                    break;
+                case "BOLSAS Y EMPAQUES":
+                    nombre3();
+                    break;
+                case "DESCARTABLES Y ALIMENTOS":
+                    nombre4();
+                    break;
             }
         }
-
-        switch (categoria.getSelectedItem().toString().toUpperCase()) {
-            case "LIMPIEZA":
-                nombre1();
-                break;
-            case "HOGAR Y COCINA":
-                nombre2();
-                break;
-            case "BOLSAS Y EMPAQUES":
-                nombre3();
-                break;
-            case "DESCARTABLES Y ALIMENTOS":
-                nombre4();
-                break;
-        }
+    }
     }//GEN-LAST:event_categoriaItemStateChanged
 
     private void nombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nombreItemStateChanged
-        if(evt.getStateChange() == ItemEvent.SELECTED){
-            if(this.nombre.getSelectedIndex()> 0 ){
-                System.out.println(categoria.getSelectedItem().toString());
-            }
-        }
-        switch (nombre.getSelectedItem().toString().toUpperCase()) {
-            case "CUBETA":
+       if(evt.getStateChange() == ItemEvent.SELECTED){
+        Object selected = nombre.getSelectedItem();
+        if(selected != null && !"Seleccionar".equals(selected.toString())){
+            System.out.println(selected.toString());
+            
+            switch (selected.toString().toUpperCase()) {
+                case "CUBETA":
                 cubeta();
                 break;
             case "RECOJEDORES":
+                this.tamanio.removeAllItems();
                  this.tamanio.addItem("Sin tamannio");
                 break;
             case "ESCOBAS CON MANGO DE PLASTICO":
+                this.tamanio.removeAllItems();
                  this.tamanio.addItem("Sin tamannio");                
                 break;
             case "BOTE DE BASURA":
@@ -612,6 +623,7 @@ ArrayList<String> Items = new ArrayList<>();
                 TamannioNormal();
                 break;
             case "ORGANIZADOREZ":
+                this.tamanio.removeAllItems();
                 this.tamanio.addItem("Sin tamannio");
                 break;
             case "CAJAS MULTIUSO":
@@ -624,15 +636,18 @@ ArrayList<String> Items = new ArrayList<>();
                 TamannioNormal();
                 break;
             case "ROLLO DE POLIETILENO":
+                this.tamanio.removeAllItems();
                  this.tamanio.addItem("Sin tamannio");
                 break;
             case "ROLLO DE BOLSA":
+                this.tamanio.removeAllItems();
                  this.tamanio.addItem("Sin tamannio");
                 break;
             case "VASOS TERMICOS":
                 vasoTermico();
                 break;
             case "TENEDORES, CUCHARAS Y CUCHILLOS":
+                this.tamanio.removeAllItems();
                 this.tamanio.addItem("Sin tamannio");
                 break;
             case "PLATOS Y CHAROLAS":
@@ -641,7 +656,9 @@ ArrayList<String> Items = new ArrayList<>();
             case "VASO PLASTICO":
                 vasoPlastico();
                 break;
+            }
         }
+    }
     }//GEN-LAST:event_nombreItemStateChanged
 
 
