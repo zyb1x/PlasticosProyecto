@@ -4,6 +4,11 @@
  */
 package Controllers;
 
+import Modelo.connection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 /**
  *
  * @author Are
@@ -57,4 +62,55 @@ public class ControllersMateriaPrima {
         return new Object[]{ nombre, unidad, medida, cantidad, tipo, proveedor};
     }
     
+    
+    public int getCodigo(String nombre){
+        String sql = "SELECT codigo FROM ALMACEN_MATERIAL WHERE nombre=?";
+        int codigo = -1;
+        try(Connection conn = connection.getConnection();
+              PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setString(1, nombre);
+            try(ResultSet rs = pstmt.executeQuery()){
+                if (rs.next()) {
+                codigo = rs.getInt("codigo");
+                System.out.println("Codigo obtenido" + codigo);
+                
+            } else {
+                System.out.println("No se encontró codigo para " + nombre);
+            }
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return codigo;
+    }
+    public void setExistencia(int newStock, int codigo){
+        String sql = "UPDATE ALMACEN_MATERIAL SET cantidad=? WHERE codigo=?";
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(2, codigo);
+            pstmt.setInt(1, newStock);
+        }
+        catch(SQLException e){
+            
+        }
+    }
+    public int getExistencia(int codigo){
+        String sql = "SELECT cantidad FROM ALMACEN_MATERIAL WHERE codigo=?";
+        int cantidad = -1;
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, codigo);
+            try(ResultSet rs = pstmt.executeQuery()){
+                if(rs.next()){
+                    cantidad = rs.getInt("cantidad");
+                    System.out.println("Cantidad" + cantidad);
+                }
+            }
+        }
+        catch(SQLException e){
+            e.printStackTrace();
+        }
+        return cantidad;
+    }
 }

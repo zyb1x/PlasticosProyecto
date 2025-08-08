@@ -4,15 +4,90 @@
  */
 package Vista;
 
+import java.awt.event.ItemEvent;
+import java.util.ArrayList;
+
 /**
  *
  * @author viann
  */
 public class Produccion extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form Produccion
-     */
+    public void nombre1(){
+        //Vasos, cuchara y bandejas
+         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
+        Items.add("Vasos termicos");
+        Items.add("Tenedores, cucharas y cuchillos");
+        Items.add("Charolas");
+        Items.add("Vaso plastico");
+
+        nombreProducto.removeAllItems();
+
+        for (String categorias : Items) {
+            nombreProducto.addItem(categorias);
+        }
+    }
+    public void nombre2(){
+        //Bolsas,bolsa de basura, rollo de polietileno,rollo de bolsa
+        ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
+        Items.add("Bolsa camiseta");
+        Items.add("Bolsa de basura");
+        Items.add("Rollo de polietileno");
+        Items.add("Rollo de bolsa");
+        Items.add("Tenedores, cucharas y cuchillos");
+        
+        nombreProducto.removeAllItems();
+
+        for (String categorias : Items) {
+            nombreProducto.addItem(categorias);
+        }
+    }
+    public void nombre4(){
+        //Utensilios de cocina y cajas
+        ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
+        Items.add("Contenedores con tapa");
+        Items.add("Coladores");
+        Items.add("Organizadores");
+        Items.add("Cajas Multiuso");
+
+        nombreProducto.removeAllItems();
+
+        for (String categorias : Items) {
+            nombreProducto.addItem(categorias);
+        }
+    }
+    public void nombre5(){
+        ArrayList<String> Items = new ArrayList<>();
+        //Platos y cubiertos
+        Items.add("Seleccionar");
+        Items.add("Tenedores, cucharas y cuchillos");
+        Items.add("Charolas");
+        Items.add("Vaso plastico");
+
+        nombreProducto.removeAllItems();
+
+        for (String categorias : Items) {
+            nombreProducto.addItem(categorias);
+        }
+    }
+    public void nombre6(){
+        //utencilios de cocina
+        ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
+        Items.add("Contenedores con tapa");
+        Items.add("Coladores");
+        Items.add("Organizadores");
+        Items.add("Cajas Multiusios");
+
+        nombreProducto.removeAllItems();
+
+        for (String categorias : Items) {
+            nombreProducto.addItem(categorias);
+        }
+    }
     public Produccion() {
         initComponents();
     }
@@ -34,14 +109,15 @@ public class Produccion extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        telefono = new javax.swing.JTextField();
-        nombre = new javax.swing.JTextField();
-        rfc = new javax.swing.JTextField();
+        idEmpleado = new javax.swing.JTextField();
+        cantidad = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         agregar = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
-        id = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        materia = new javax.swing.JComboBox<>();
+        jLabel6 = new javax.swing.JLabel();
+        cantidadProducto = new javax.swing.JLabel();
+        nombreProducto = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
 
@@ -79,18 +155,18 @@ public class Produccion extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(56, 80, 130));
 
         jLabel2.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(220, 225, 235));
-        jLabel2.setText("Nombre");
+        jLabel2.setText("Ingresa tu ID");
 
         jLabel3.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(220, 225, 235));
-        jLabel3.setText("Producto solicitado");
+        jLabel3.setText("Nombre de producto");
 
         jLabel4.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(220, 225, 235));
@@ -98,13 +174,7 @@ public class Produccion extends javax.swing.JInternalFrame {
 
         jLabel5.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(220, 225, 235));
-        jLabel5.setText("Cantidad");
-
-        telefono.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                telefonoKeyTyped(evt);
-            }
-        });
+        jLabel5.setText("Cantidad de material");
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/proveedor.png"))); // NOI18N
         jLabel7.setText("\n");
@@ -124,11 +194,20 @@ public class Produccion extends javax.swing.JInternalFrame {
         jLabel9.setForeground(new java.awt.Color(220, 225, 235));
         jLabel9.setText("PRODUCCIÓN");
 
-        id.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        id.setForeground(new java.awt.Color(220, 225, 235));
-        id.setText("ID");
+        materia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "Poliestireno", "Polietileno", "Polietileno PEBD", "Polipropileno", "Resina de malanina", "Resina de silicona", "Resina fenolica" }));
+        materia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                materiaItemStateChanged(evt);
+            }
+        });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel6.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(220, 225, 235));
+        jLabel6.setText("Cantidad de productos");
+
+        cantidadProducto.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
+
+        nombreProducto.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -144,31 +223,33 @@ public class Produccion extends javax.swing.JInternalFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(113, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(id)
-                        .addGap(89, 89, 89))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(agregar)
-                        .addGap(110, 110, 110))))
+                .addComponent(agregar)
+                .addGap(110, 110, 110))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(nombre)
-                            .addComponent(rfc)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(idEmpleado)
+                            .addComponent(cantidad)
+                            .addComponent(materia, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(15, 15, 15))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addGap(18, 18, 18)
+                .addComponent(cantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,23 +263,26 @@ public class Produccion extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
                         .addComponent(jLabel2))
-                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idEmpleado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(materia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(rfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel6)
+                    .addComponent(cantidadProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(agregar)
-                .addGap(45, 45, 45)
-                .addComponent(id))
+                .addGap(65, 65, 65))
         );
 
         jPanel3.setBackground(new java.awt.Color(7, 16, 24));
@@ -247,25 +331,53 @@ public class Produccion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void telefonoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_telefonoKeyTyped
-       
-    }//GEN-LAST:event_telefonoKeyTyped
-
     private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
       
 
     }//GEN-LAST:event_agregarActionPerformed
 
+    private void materiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_materiaItemStateChanged
+         if (evt.getStateChange() == ItemEvent.SELECTED) {
+       
+             switch(materia.getSelectedIndex()){
+                 case 0:
+                     this.nombreProducto.removeAllItems();
+                     break;
+                 case 1: 
+                     nombre1();
+                     break;
+                 case 2: 
+                     nombre2();
+                     break;
+                 case 3:
+                     nombre2();
+                     break;
+                 case 4:
+                     break;
+                 case 5:
+                     break;
+                 case 6:
+                     break;
+                 case 7:
+                     break;
+                 case 8:
+                     break;
+             }
+    }
+    }//GEN-LAST:event_materiaItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
-    private javax.swing.JLabel id;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField cantidad;
+    private javax.swing.JLabel cantidadProducto;
+    private javax.swing.JTextField idEmpleado;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -273,8 +385,7 @@ public class Produccion extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField nombre;
-    private javax.swing.JTextField rfc;
-    private javax.swing.JTextField telefono;
+    private javax.swing.JComboBox<String> materia;
+    private javax.swing.JComboBox<String> nombreProducto;
     // End of variables declaration//GEN-END:variables
 }

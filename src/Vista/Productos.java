@@ -1,5 +1,6 @@
 package Vista;
 
+import Controllers.ControllersMateriaPrima;
 import Controllers.ControllersProductos;
 import Controllers.ControllersProveedor;
 import java.awt.event.ItemEvent;
@@ -195,6 +196,54 @@ ArrayList<String> Items = new ArrayList<>();
             tamanio.addItem(nombres);
         }
     }
+    public void materia1(){
+        ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
+        Items.add("Poliestireno");
+        //3 gramos por unidad
+        material.removeAllItems();
+
+        for (String nombres : Items) {
+            material.addItem(nombres);
+        }
+    }
+    public void material2(){
+        //Utensilios 
+         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
+        Items.add("Polietileno");
+        Items.add("Polipropileno");
+
+        material.removeAllItems();
+
+        for (String nombres : Items) {
+            material.addItem(nombres);
+        }
+    }
+    public  void material3(){
+         ArrayList<String> Items = new ArrayList<>();
+         //Bolsas y envolturas
+        Items.add("Seleccionar");
+        Items.add("Polietileno PEBD");
+
+        material.removeAllItems();
+
+        for (String nombres : Items) {
+            material.addItem(nombres);
+        }
+    }
+    public void material4(){
+        //Cocina
+         ArrayList<String> Items = new ArrayList<>();
+        Items.add("Seleccionar");
+        Items.add("Resina de silicona");
+        material.removeAllItems();
+
+        for (String nombres : Items) {
+            material.addItem(nombres);
+        }
+        
+    }
     private boolean validarCampos() {
         if (idProducto.getText().isEmpty() || existencia.getText().isEmpty()
                 || precio.getText().isEmpty() || costo.getText().isEmpty()) {
@@ -237,6 +286,8 @@ ArrayList<String> Items = new ArrayList<>();
         jLabel9 = new javax.swing.JLabel();
         tamanio = new javax.swing.JComboBox<>();
         ganancia = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        material = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
@@ -353,6 +404,17 @@ ArrayList<String> Items = new ArrayList<>();
 
         ganancia.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
 
+        jLabel12.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("MATERIAL");
+
+        material.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
+        material.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                materialItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -364,13 +426,6 @@ ArrayList<String> Items = new ArrayList<>();
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel8)))
                     .addComponent(seleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -378,19 +433,29 @@ ArrayList<String> Items = new ArrayList<>();
                             .addComponent(jLabel4)
                             .addComponent(jLabel11)
                             .addComponent(jLabel9)
-                            .addComponent(jLabel7))
-                        .addGap(120, 120, 120)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(idProducto)
-                            .addComponent(tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(categoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(nombre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(existencia)
-                            .addComponent(precio)
-                            .addComponent(costo)
-                            .addComponent(tamanio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ganancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel7)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(2, 2, 2)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel12))))
+                        .addGap(78, 78, 78)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(material, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(idProducto)
+                                .addComponent(tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(categoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(nombre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(existencia)
+                                .addComponent(precio)
+                                .addComponent(costo)
+                                .addComponent(tamanio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(ganancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(105, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -400,7 +465,7 @@ ArrayList<String> Items = new ArrayList<>();
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(seleccionar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(20, 20, 20)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -416,6 +481,10 @@ ArrayList<String> Items = new ArrayList<>();
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10))
+                .addGap(13, 13, 13)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel12)
+                    .addComponent(material, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(existencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -498,7 +567,7 @@ ArrayList<String> Items = new ArrayList<>();
     }//GEN-LAST:event_idProductoActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-
+        ControllersMateriaPrima mp = new ControllersMateriaPrima("","","",1,"","");
         switch (seleccionar.getSelectedIndex()) {
             case 0:
                 //seleccionar
@@ -517,6 +586,30 @@ ArrayList<String> Items = new ArrayList<>();
                 String tam = tamanio.getSelectedItem().toString();
                 Double gan = price - cost;
                 ganancia.setText(String.valueOf(gan));
+                String materia = material.getSelectedItem().toString();
+                int codigo = mp.getCodigo(materia);
+                int cantMateria = mp.getExistencia(codigo);
+                if(material.getSelectedItem().toString().toUpperCase().equals("POLIESTIRENO")){
+                    int resCantidad = stock * 3;
+                    int newCant = resCantidad - cantMateria;
+                    mp.setExistencia(newCant, codigo);
+                } else if(material.getSelectedItem().toString().toUpperCase().equals("POLIETILENO")){
+                    int resCantidad = stock * 30;
+                    int newCant = resCantidad -cantMateria;
+                    mp.setExistencia(newCant, codigo);
+                } else if (material.getSelectedItem().toString().toUpperCase().equals("POLIPROPILENO")){
+                    int resCantidad = stock * 3;
+                    int newCant = resCantidad -cantMateria;
+                    mp.setExistencia(newCant, codigo);                    
+                } else if(material.getSelectedItem().toString().toUpperCase().equals("POLIETILENO PEBD")){
+                    int resCantidad = stock * 3;
+                    int newCant = resCantidad -cantMateria;
+                    mp.setExistencia(newCant, codigo);
+                } else if(material.getSelectedItem().toString().toUpperCase().equals("RESINA DE SILICONA")){
+                    int resCantidad = stock * 3;
+                    int newCant = resCantidad -cantMateria;
+                    mp.setExistencia(newCant, codigo);
+                }
                 validarCampos();
                 p.registrarProducto(id, idCat, type, name, price, stock, cost, tam, gan);
                 limpiarCampos();
@@ -580,15 +673,19 @@ ArrayList<String> Items = new ArrayList<>();
             switch (selected.toString().toUpperCase()) {
                 case "LIMPIEZA":
                     nombre1();
+                    material2();
                     break;
                 case "HOGAR Y COCINA":
                     nombre2();
+                    material4();
                     break;
                 case "BOLSAS Y EMPAQUES":
                     nombre3();
+                    material3();
                     break;
                 case "DESCARTABLES Y ALIMENTOS":
                     nombre4();
+                    materia1();
                     break;
             }
         }
@@ -661,6 +758,10 @@ ArrayList<String> Items = new ArrayList<>();
     }
     }//GEN-LAST:event_nombreItemStateChanged
 
+    private void materialItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_materialItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_materialItemStateChanged
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> categoria;
@@ -672,6 +773,7 @@ ArrayList<String> Items = new ArrayList<>();
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -684,6 +786,7 @@ ArrayList<String> Items = new ArrayList<>();
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> material;
     private javax.swing.JComboBox<String> nombre;
     private javax.swing.JTextField precio;
     private javax.swing.JComboBox<String> seleccionar;
