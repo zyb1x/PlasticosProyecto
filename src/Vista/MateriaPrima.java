@@ -54,7 +54,7 @@ cargarProveedores();
         
        
         modeloTabla = new DefaultTableModel();
-        modeloTabla.setColumnIdentifiers(new String[]{"Nombre", "Codigo", "Unidad", "Medida", "Cantidad", "Tipo", "Proveedor"});
+        modeloTabla.setColumnIdentifiers(new String[]{"Nombre", "Unidad", "Medida", "Cantidad", "Tipo", "Proveedor"});
         existenciasmp.setModel(modeloTabla);
 
     }
@@ -115,7 +115,6 @@ cargarProveedores();
         jLabel18 = new javax.swing.JLabel();
         jPanel18 = new javax.swing.JPanel();
         jLabel115 = new javax.swing.JLabel();
-        codemp = new javax.swing.JTextField();
         namemp = new javax.swing.JTextField();
         cantmp = new javax.swing.JTextField();
         provmp = new javax.swing.JComboBox<>();
@@ -127,17 +126,14 @@ cargarProveedores();
         existenciasmp = new javax.swing.JTable();
         filtroProveedormp = new javax.swing.JComboBox<>();
         filtroTipomp = new javax.swing.JComboBox<>();
-        Tdodomp = new javax.swing.JButton();
-        datemp = new javax.swing.JTextField();
+        Todomp = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
-        jLabel124 = new javax.swing.JLabel();
         jLabel125 = new javax.swing.JLabel();
         jLabel126 = new javax.swing.JLabel();
         jLabel127 = new javax.swing.JLabel();
         jLabel128 = new javax.swing.JLabel();
         jLabel129 = new javax.swing.JLabel();
         jLabel130 = new javax.swing.JLabel();
-        jLabel131 = new javax.swing.JLabel();
         entermp = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(46, 54, 79));
@@ -151,12 +147,6 @@ cargarProveedores();
 
         jLabel115.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel115.setText("Nombre:");
-
-        codemp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codempjTextField1ActionPerformed(evt);
-            }
-        });
 
         namemp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,13 +167,13 @@ cargarProveedores();
         existenciasmp.setBackground(new java.awt.Color(204, 204, 204));
         existenciasmp.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Nombre", "Codigo", "Unidad", "Medida", "Cantidad", "Tipo", "Proveedor", "Fecha ing."
+                "Nombre", "Unidad", "Medida", "Cantidad", "Tipo", "Proveedor"
             }
         ));
         jScrollPane1.setViewportView(existenciasmp);
@@ -200,10 +190,10 @@ cargarProveedores();
             }
         });
 
-        Tdodomp.setText("Todo");
-        Tdodomp.addActionListener(new java.awt.event.ActionListener() {
+        Todomp.setText("Todo");
+        Todomp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TdodompActionPerformed(evt);
+                TodompActionPerformed(evt);
             }
         });
 
@@ -219,7 +209,7 @@ cargarProveedores();
                         .addGap(140, 140, 140)
                         .addComponent(filtroTipomp, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Tdodomp, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Todomp, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -230,18 +220,13 @@ cargarProveedores();
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(filtroProveedormp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filtroTipomp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Tdodomp))
+                    .addComponent(Todomp))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        datemp.setText("        /           /");
-
         jTextField1.setText("ID empleado");
-
-        jLabel124.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jLabel124.setText("Codigo: ");
 
         jLabel125.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel125.setText("Unidad: ");
@@ -261,9 +246,6 @@ cargarProveedores();
         jLabel130.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel130.setText("Solicitó: ");
 
-        jLabel131.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
-        jLabel131.setText("Fecha Ingreso: ");
-
         entermp.setBackground(new java.awt.Color(121, 145, 168));
         entermp.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
         entermp.setForeground(new java.awt.Color(7, 16, 24));
@@ -279,36 +261,34 @@ cargarProveedores();
         jPanel18Layout.setHorizontalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel124, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel115, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel129, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel130, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel131, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel125, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel126, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel127, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel128, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(typemp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cantmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(medmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(unitmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(provmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(namemp)
-                        .addComponent(codemp)
-                        .addComponent(datemp, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
-                        .addComponent(jTextField1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel115, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel129, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                            .addComponent(jLabel130, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel125, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel126, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel127, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel128, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(typemp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cantmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(medmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(unitmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(provmp, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(namemp)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGap(66, 66, 66)
+                        .addComponent(entermp, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0))
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(entermp, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel18Layout.setVerticalGroup(
             jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,42 +299,37 @@ cargarProveedores();
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel115)
                             .addComponent(namemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(26, 26, 26)
+                        .addGap(31, 31, 31)
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(codemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel124))
-                        .addGap(30, 30, 30)
+                            .addComponent(jLabel125)
+                            .addComponent(unitmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(38, 38, 38)
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(unitmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel125))
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(medmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel126))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(cantmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel127))
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(typemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel128))
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(provmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel129))
-                        .addGap(33, 33, 33)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(datemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel131))
-                        .addGap(26, 26, 26)
+                            .addComponent(jLabel126)
+                            .addComponent(medmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addGap(31, 31, 31)
+                                .addComponent(jLabel127))
+                            .addGroup(jPanel18Layout.createSequentialGroup()
+                                .addGap(40, 40, 40)
+                                .addComponent(cantmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(typemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel128))))
+                        .addGap(37, 37, 37)
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel130)))
+                            .addComponent(jLabel129)
+                            .addComponent(provmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel130)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(29, 29, 29)
+                        .addComponent(entermp))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(entermp)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -402,10 +377,6 @@ cargarProveedores();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void codempjTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codempjTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_codempjTextField1ActionPerformed
-
     private void namempjTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_namempjTextField3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_namempjTextField3ActionPerformed
@@ -438,39 +409,52 @@ cargarProveedores();
         Filtros();
     }//GEN-LAST:event_filtroTipompActionPerformed
 
-    private void TdodompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TdodompActionPerformed
+    private void entermpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entermpActionPerformed
+
+        try {
+            String nombre = namemp.getText().trim();
+            String unidad = unitmp.getSelectedItem().toString();
+            String medida = medmp.getSelectedItem().toString();
+            int cantidad = Integer.parseInt(cantmp.getText().trim());
+            String tipo = typemp.getSelectedItem().toString();
+            String proveedor = provmp.getSelectedItem().toString();
+            
+            ControllersMateriaPrima mp = new ControllersMateriaPrima(
+            nombre, unidad, medida, cantidad, tipo, proveedor
+            );
+            listaMateriaPrima.add(mp);
+            
+            modeloTabla.addRow(mp.toRow());
+            
+            namemp.setText("");
+            cantmp.setText("");
+            
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "Error al guardar los datos");
+        }
+    }//GEN-LAST:event_entermpActionPerformed
+
+    private void TodompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TodompActionPerformed
         filtroProveedormp.setSelectedItem("Filtrar por Proveedor");
         filtroTipomp.setSelectedItem("Filtrar por Tipo");
         Filtros();
-    }//GEN-LAST:event_TdodompActionPerformed
-
-    private void entermpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_entermpActionPerformed
-
-        NuevaVenta v = new NuevaVenta();
-        principal.add(v);
-        v.pack();
-        v.setVisible(true);
-    }//GEN-LAST:event_entermpActionPerformed
+    }//GEN-LAST:event_TodompActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Tdodomp;
+    private javax.swing.JButton Todomp;
     private javax.swing.JTextField cantmp;
-    private javax.swing.JTextField codemp;
-    private javax.swing.JTextField datemp;
     private javax.swing.JButton entermp;
     private javax.swing.JTable existenciasmp;
     private javax.swing.JComboBox<String> filtroProveedormp;
     private javax.swing.JComboBox<String> filtroTipomp;
     private javax.swing.JLabel jLabel115;
-    private javax.swing.JLabel jLabel124;
     private javax.swing.JLabel jLabel125;
     private javax.swing.JLabel jLabel126;
     private javax.swing.JLabel jLabel127;
     private javax.swing.JLabel jLabel128;
     private javax.swing.JLabel jLabel129;
     private javax.swing.JLabel jLabel130;
-    private javax.swing.JLabel jLabel131;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JPanel jPanel1;
