@@ -20,6 +20,11 @@ public class ControllersMateriaPrima {
     private int cantidad;
     private String tipo;
     private String proveedor;
+    private int codigo;
+    
+    public int getCodigo(){
+        return this.codigo;
+    }
 
     public String getNombre() {
         return nombre;
@@ -49,7 +54,16 @@ public class ControllersMateriaPrima {
 
     private String fechaingreso;
 
-    public ControllersMateriaPrima(String nombre, String unidad, String medida, int cantidad, String tipo, String proveedor) {
+    public ControllersMateriaPrima( String nombre, String unidad, String medida, int cantidad, String tipo, String proveedor) {
+        this.nombre = nombre;
+        this.unidad = unidad;
+        this.medida = medida;
+        this.cantidad = cantidad;
+        this.tipo = tipo;
+        this.proveedor = proveedor;
+        this.codigo = -1;
+    }
+        public ControllersMateriaPrima( int codigo, String nombre, String unidad, String medida, int cantidad, String tipo, String proveedor) {
         this.nombre = nombre;
         this.unidad = unidad;
         this.medida = medida;
@@ -59,7 +73,7 @@ public class ControllersMateriaPrima {
     }
     
     public Object[] toRow() {
-        return new Object[]{ nombre, unidad, medida, cantidad, tipo, proveedor};
+        return new Object[]{ codigo, nombre, unidad, medida, cantidad, tipo, proveedor};
     }
     
     

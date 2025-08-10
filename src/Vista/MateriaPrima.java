@@ -6,16 +6,18 @@ package Vista;
 
 import Controllers.ControllersMateriaPrima;
 import Controllers.ControllersProveedor;
+import Modelo.conexionMP;
 import static Vista.Inicio.principal;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.ResultSet;
 
-/**
- *
- * @author A
- */
+//A
 public class MateriaPrima extends javax.swing.JInternalFrame {
     private ArrayList<ControllersMateriaPrima> listaMateriaPrima = new ArrayList<>();
     private DefaultTableModel modeloTabla;
@@ -23,42 +25,48 @@ public class MateriaPrima extends javax.swing.JInternalFrame {
 public MateriaPrima(String nombre, String codigo, String unidad, String medida, int cantidad, String tipo, String proveedor, String fechaingreso) {
         
 }   
-        
     public MateriaPrima(){
         
         super("Materia Prima", true, true, true, true);
         initComponents();
         
+        modeloTabla = new DefaultTableModel();
+        modeloTabla.setColumnIdentifiers(new String []{"Codigo", "Nombre", "Unidad", "Medida", "Cantidad", "Tipo", "Proveedor"});
+        existenciasmp.setModel(modeloTabla);
         
-
+        existenciasmp.getColumnModel().getColumn(0).setMinWidth(0);
+        existenciasmp.getColumnModel().getColumn(0).setMaxWidth(0);
+        existenciasmp.getColumnModel().getColumn(0).setWidth(0);
+        
+        cargarProveedores();
+        cargarMateriaPrima();
+        
+        existenciasmp.getSelectionModel().addListSelectionListener(e -> {
+           if (!e.getValueIsAdjusting()) {
+            int fila = existenciasmp.getSelectedRow();
+            if (fila != -1) {
+                namemp.setText(modeloTabla.getValueAt(fila, 1).toString());
+                unitmp.setSelectedItem(modeloTabla.getValueAt(fila, 2).toString());
+                medmp.setSelectedItem(modeloTabla.getValueAt(fila, 3).toString());
+                cantmp.setText(modeloTabla.getValueAt(fila, 4).toString());
+                typemp.setSelectedItem(modeloTabla.getValueAt(fila, 5).toString());
+                provmp.setSelectedItem(modeloTabla.getValueAt(fila, 6).toString());
+            }
+        }
+        });
+        filtroProveedormp.removeAllItems();
 cargarProveedores();
-
-
-        
-        filtroProveedormp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
-            "Filtrar por Proveedor", "Plasticos Reunidos", "Petroquimica del Norte", "Industrias Resiplast", "Resinas del Bajio"
-        }));
-        
         filtroTipomp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
             "Filtrar por Tipo", "Termoestables", "Termoplasticos"
         }));
-       
         unitmp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
             "Liquido", "Laminas", "Granulos", "Pellets", "Pasta", "Polvo", "Preformas"
         }));
-        
         typemp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{
              "Termoestables", "Termoplasticos"
         }));
         
-        
-       
-        modeloTabla = new DefaultTableModel();
-        modeloTabla.setColumnIdentifiers(new String[]{"Nombre", "Unidad", "Medida", "Cantidad", "Tipo", "Proveedor"});
-        existenciasmp.setModel(modeloTabla);
-
     }
-    
     public void listaMateriaPrima() {
         modeloTabla.setRowCount(0);
         
@@ -66,26 +74,59 @@ cargarProveedores();
             modeloTabla.addRow(m.toRow());
         }
     }
-
-    
-    
-   
-    private void Filtros(){
-        String proveedorFiltro = filtroProveedormp.getSelectedItem().toString();
-        String tipoFiltro = filtroTipomp.getSelectedItem().toString();
+    private void cargarMateriaPrima() {
+        //List<ControllersMateriaPrima> lista = new ArrayList<>();
         
-        modeloTabla.setRowCount(0);
+        listaMateriaPrima.clear();
         
-        for (ControllersMateriaPrima m : listaMateriaPrima) {
-            boolean coincideProveedor = proveedorFiltro.equals("Filtrar por proveedor") || m.getProveedor().equals(proveedorFiltro);
-            boolean coincideTipo = tipoFiltro.equals("Filtarar por Tipo") || m.getTipo().equals(tipoFiltro);
+            String sql = "SELECT mp.codigo, mp.nombre, mp.unidad, mp.medida, mp.cantidad, mp.tipo, p.nombre AS proveedor " + 
+                    "FROM materia_prima mp " +
+                    "JOIN proveedor p ON mp.idProveedor = p.idProveedor ";
+try (Connection conn = conexionMP.getConnection()) {            
+PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            modeloTabla.setRowCount(0);
             
-            if (coincideProveedor && coincideTipo) {
+            while (rs.next()) {
+                int codigo = rs.getInt("codigo");
+                String nombre = rs.getString("nombre");
+                String unidad = rs.getString("unidad");
+                String medida = rs.getString("medida");
+                int cantidad = rs.getInt("cantidad");
+                String tipo = rs.getString("tipo");
+                String proveedor = rs.getString("proveedor");
+                
+                ControllersMateriaPrima mp = new ControllersMateriaPrima(codigo, nombre, unidad, medida, cantidad, tipo, proveedor);
+                listaMateriaPrima.add(mp);
+                modeloTabla.addRow(mp.toRow());
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al cargar los materiales desde la base de datos");
+        }
+    }
+    private void Filtros(){
+        Object proveedorObj = filtroProveedormp.getSelectedItem();
+        Object tipoObj = filtroTipomp.getSelectedItem();
+        
+        if (proveedorObj == null || tipoObj == null) {
+            return;
+        }
+            String proveedorFiltro = String.valueOf(proveedorObj);
+            String tipoFiltro = String.valueOf(tipoObj);
+            
+            modeloTabla.setRowCount(0);
+            
+            for (ControllersMateriaPrima m : listaMateriaPrima) {
+                boolean coincideProveedor = proveedorFiltro.equals("Filtrar por Proveedor") || m.getProveedor().equals(proveedorFiltro);
+                boolean coincideTipo = tipoFiltro.equals("Filtrar por Tipo") || m.getTipo().equals(tipoFiltro);
+                
+                if (coincideProveedor && coincideTipo) {
                 modeloTabla.addRow(m.toRow());
+            
             }
         }
     }
-    
     private void cargarProveedores() {
         ControllersProveedor proveedorDAO = new ControllersProveedor();
         List<ControllersProveedor> listProveedores = proveedorDAO.listarProveedor();
@@ -93,19 +134,34 @@ cargarProveedores();
         System.out.println("Proveedores encontrados" +listProveedores.size());
         
         provmp.removeAllItems();
-        
         provmp.addItem("Seleccionar proveedor");
+        
+        filtroProveedormp.removeAllItems();
+        filtroProveedormp.addItem("Filtrar por Proveedor");
         
         for (ControllersProveedor p : listProveedores) {
             provmp.addItem(p.getNombre());
+            filtroProveedormp.addItem(p.getNombre());
         }
     }
-
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+    private int obtenerIdProveedor(String nombreProveedor) {
+    int id = -1;
+    String sql = "SELECT idProveedor FROM proveedor WHERE nombre = ?";
+    
+    try (Connection conn = conexionMP.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)){
+        ps.setString(1, nombreProveedor.trim());
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            id = rs.getInt("idProveedor");
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+     return id;
+}
+   
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -124,9 +180,11 @@ cargarProveedores();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         existenciasmp = new javax.swing.JTable();
-        filtroProveedormp = new javax.swing.JComboBox<>();
         filtroTipomp = new javax.swing.JComboBox<>();
         Todomp = new javax.swing.JButton();
+        filtroProveedormp = new javax.swing.JComboBox<>();
+        actualizarmp = new javax.swing.JButton();
+        deletemp = new javax.swing.JButton();
         jTextField1 = new javax.swing.JTextField();
         jLabel125 = new javax.swing.JLabel();
         jLabel126 = new javax.swing.JLabel();
@@ -178,12 +236,6 @@ cargarProveedores();
         ));
         jScrollPane1.setViewportView(existenciasmp);
 
-        filtroProveedormp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                filtroProveedormpActionPerformed(evt);
-            }
-        });
-
         filtroTipomp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filtroTipompActionPerformed(evt);
@@ -197,6 +249,26 @@ cargarProveedores();
             }
         });
 
+        filtroProveedormp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroProveedormpActionPerformed(evt);
+            }
+        });
+
+        actualizarmp.setText("Actualizar");
+        actualizarmp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                actualizarmpActionPerformed(evt);
+            }
+        });
+
+        deletemp.setText("Eliminar");
+        deletemp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deletempActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -205,11 +277,15 @@ cargarProveedores();
                 .addGap(17, 17, 17)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(filtroProveedormp, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(140, 140, 140)
-                        .addComponent(filtroTipomp, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(actualizarmp)
+                        .addGap(52, 52, 52)
+                        .addComponent(deletemp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Todomp, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Todomp, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(filtroProveedormp, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(filtroTipomp, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 820, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
@@ -218,9 +294,11 @@ cargarProveedores();
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(filtroProveedormp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filtroTipomp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Todomp))
+                    .addComponent(Todomp)
+                    .addComponent(filtroProveedormp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(actualizarmp)
+                    .addComponent(deletemp))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(20, Short.MAX_VALUE))
@@ -307,17 +385,14 @@ cargarProveedores();
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel126)
                             .addComponent(medmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(jLabel127))
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addGap(40, 40, 40)
-                                .addComponent(cantmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(36, 36, 36)
-                                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(typemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel128))))
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cantmp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel127))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(typemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel128))
                         .addGap(37, 37, 37)
                         .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel129)
@@ -329,7 +404,7 @@ cargarProveedores();
                         .addGap(29, 29, 29)
                         .addComponent(entermp))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -339,7 +414,7 @@ cargarProveedores();
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jLabel18)
-                .addGap(30, 30, 30)
+                .addGap(224, 224, 224)
                 .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -347,17 +422,15 @@ cargarProveedores();
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(82, 82, 82))
+                .addGap(47, 47, 47))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -370,7 +443,7 @@ cargarProveedores();
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -401,10 +474,6 @@ cargarProveedores();
         }
     }//GEN-LAST:event_unitmpActionPerformed
 
-    private void filtroProveedormpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroProveedormpActionPerformed
-        Filtros();
-    }//GEN-LAST:event_filtroProveedormpActionPerformed
-
     private void filtroTipompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroTipompActionPerformed
         Filtros();
     }//GEN-LAST:event_filtroTipompActionPerformed
@@ -426,6 +495,35 @@ cargarProveedores();
             
             modeloTabla.addRow(mp.toRow());
             
+            Connection conn = conexionMP.getConnection();
+            String sql = "INSERT INTO materia_prima (nombre, unidad, medida, cantidad, tipo, idProveedor, idEmpleado) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            
+            try {
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setString(1, nombre);
+                ps.setString(2, unidad);
+                ps.setString(3, medida);
+                ps.setInt(4, cantidad);
+                ps.setString(5, tipo);
+                
+                int idProveedor = obtenerIdProveedor(proveedor);
+                if (idProveedor == -1){
+                    JOptionPane.showMessageDialog(null, "Error: el proveedor" + proveedor + "no existe en la base de datos");
+                    return; 
+                }
+                int idEmpleado = 1;
+                
+                ps.setInt(6, idProveedor);
+                ps.setInt(7, idEmpleado);
+                
+                ps.executeUpdate();
+                
+                JOptionPane.showMessageDialog(null, "Materia Prima registrada correctamente");
+                
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al guardar en la base de datos");
+            }
             namemp.setText("");
             cantmp.setText("");
             
@@ -437,13 +535,85 @@ cargarProveedores();
     private void TodompActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TodompActionPerformed
         filtroProveedormp.setSelectedItem("Filtrar por Proveedor");
         filtroTipomp.setSelectedItem("Filtrar por Tipo");
-        Filtros();
+        cargarMateriaPrima();
     }//GEN-LAST:event_TodompActionPerformed
+
+    private void filtroProveedormpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroProveedormpActionPerformed
+        Filtros();
+    }//GEN-LAST:event_filtroProveedormpActionPerformed
+
+    private void actualizarmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_actualizarmpActionPerformed
+      int filaSeleccionada = existenciasmp.getSelectedRow();
+      if (filaSeleccionada == -1) {
+          JOptionPane.showMessageDialog(null, "Seleccione una fila para actualizar");
+          return;
+      }
+      try {
+          String nombre = namemp.getText().trim();
+          String unidad = unitmp.getSelectedItem().toString();
+          String medida = medmp.getSelectedItem().toString();
+          int cantidad = Integer.parseInt(cantmp.getText().trim());
+          String tipo = typemp.getSelectedItem().toString();
+          String proveedor = provmp.getSelectedItem().toString();
+          
+          int idProveedor = obtenerIdProveedor(proveedor);
+          int idEmpleado = 1;
+          
+          int codigo = (int) modeloTabla.getValueAt(filaSeleccionada, 0);
+          
+          Connection conn = conexionMP.getConnection();
+          String sql = "UPDATE materia_prima SET nombre = ?, unidad = ?, medida = ?, cantidad = ?, tipo = ?, idProveedor = ?, idEmpleado = ? WHERE codigo = ?";
+          PreparedStatement ps = conn.prepareStatement(sql);
+          ps.setString(1, nombre);
+          ps.setString(2, unidad);
+          ps.setString(3, medida);
+          ps.setInt(4, cantidad);
+          ps.setString(5, tipo);
+          ps.setInt(6, idProveedor);
+          ps.setInt(7, idEmpleado);
+          ps.setInt(8, codigo);
+          
+          ps.executeUpdate();
+          JOptionPane.showMessageDialog(null, "Materia Prima acualizada correctamente");
+          
+          cargarMateriaPrima(); 
+      } catch (Exception e) {
+          e.printStackTrace();
+          JOptionPane.showMessageDialog(null, "Error al actualizar la Materia Prima");
+      }
+    }//GEN-LAST:event_actualizarmpActionPerformed
+
+    private void deletempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deletempActionPerformed
+       int filaSeleccionada = existenciasmp.getSelectedRow();
+       if (filaSeleccionada == -1) {
+           JOptionPane.showMessageDialog(null, "Seleccione una fila para eliminar");
+           return;
+       }
+        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar esta materia prima?", "Confirmar eliminacion", JOptionPane.YES_NO_OPTION);
+        if (confirmacion == JOptionPane.YES_OPTION){
+            try {
+                int codigo = (int) modeloTabla.getValueAt(filaSeleccionada, 0);
+                Connection conn = conexionMP.getConnection();
+                String sql = "DELETE FROM materia_prima WHERE codigo = ?";
+                PreparedStatement ps = conn.prepareStatement(sql);
+                ps.setInt(1, codigo);
+                ps.executeUpdate();
+                modeloTabla.removeRow(filaSeleccionada);
+                listaMateriaPrima.removeIf(mp -> mp.getCodigo() == codigo);
+                JOptionPane.showMessageDialog(null, "Materia Prima eliminada correctamente");
+            } catch (SQLException e) {
+                e.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Error al eliminar la materia prima");
+            }
+        }
+    }//GEN-LAST:event_deletempActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Todomp;
+    private javax.swing.JButton actualizarmp;
     private javax.swing.JTextField cantmp;
+    private javax.swing.JButton deletemp;
     private javax.swing.JButton entermp;
     private javax.swing.JTable existenciasmp;
     private javax.swing.JComboBox<String> filtroProveedormp;
