@@ -126,7 +126,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="78" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="material" max="32767" attributes="0"/>
+                              <Component id="material" pref="118" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                   <Component id="idProducto" max="32767" attributes="0"/>
                                   <Component id="tipo" alignment="0" max="32767" attributes="0"/>
@@ -142,7 +142,7 @@
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace pref="105" max="32767" attributes="0"/>
+                  <EmptySpace pref="101" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -439,8 +439,13 @@
         <Component class="javax.swing.JComboBox" name="material">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="1">
+              <StringArray count="6">
                 <StringItem index="0" value="Seleccionar"/>
+                <StringItem index="1" value="poliestireno"/>
+                <StringItem index="2" value="polietileno"/>
+                <StringItem index="3" value="polipropileno"/>
+                <StringItem index="4" value="polietileno PEBD"/>
+                <StringItem index="5" value="resina de silicona"/>
               </StringArray>
             </Property>
           </Properties>
@@ -491,7 +496,7 @@
             <Component class="javax.swing.JTable" name="tabla">
               <Properties>
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                  <Table columnCount="9" rowCount="0">
+                  <Table columnCount="10" rowCount="0">
                     <Column editable="true" title="C&#xd3;DIGO" type="java.lang.Object"/>
                     <Column editable="true" title="CATEGORIA" type="java.lang.Object"/>
                     <Column editable="true" title="TIPO" type="java.lang.Object"/>
@@ -501,10 +506,16 @@
                     <Column editable="true" title="COSTO" type="java.lang.Object"/>
                     <Column editable="true" title="TAMA&#xd1;O" type="java.lang.Object"/>
                     <Column editable="true" title="GANANCIA" type="java.lang.Object"/>
+                    <Column editable="true" title="MATERIAL" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                   <TableColumnModel selectionModel="0">
+                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                      <Title/>
+                      <Editor/>
+                      <Renderer/>
+                    </Column>
                     <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                       <Title/>
                       <Editor/>

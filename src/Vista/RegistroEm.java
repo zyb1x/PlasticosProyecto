@@ -15,14 +15,13 @@ import javax.swing.JOptionPane;
 public class RegistroEm extends javax.swing.JFrame {
 
     public void validar(){
-        if(nombre.getText().isEmpty() || id.getText().isEmpty() ||
+        if(nombre.getText().isEmpty() ||
                 correo.getText().isEmpty() || password.getText().isEmpty() ||
                 confPassword.getText().isEmpty()){
             if(puesto.getSelectedIndex()<=0 || turno.getSelectedIndex() <=0){
                 JOptionPane.showMessageDialog(null, "Llena los campos necesarios antes de continuar");
             }
             else{
-                id.setText("");
                 nombre.setText("");
                 correo.setText("");
                 password.setText("");
@@ -47,9 +46,7 @@ public class RegistroEm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel5 = new javax.swing.JPanel();
-        id = new javax.swing.JTextField();
         nombre = new javax.swing.JTextField();
-        jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         puesto = new javax.swing.JComboBox<>();
         turno = new javax.swing.JComboBox<>();
@@ -69,19 +66,12 @@ public class RegistroEm extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(56, 80, 106));
 
-        id.setEditable(false);
-        id.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED, new java.awt.Color(121, 145, 171), null));
-
         nombre.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(121, 145, 171), null));
         nombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombreActionPerformed(evt);
             }
         });
-
-        jLabel34.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel34.setText("ID Empleado");
 
         jLabel35.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel35.setForeground(new java.awt.Color(255, 255, 255));
@@ -157,9 +147,7 @@ public class RegistroEm extends javax.swing.JFrame {
                             .addComponent(jLabel37)
                             .addComponent(jLabel36)
                             .addComponent(jLabel35)
-                            .addComponent(jLabel34)
                             .addComponent(nombre)
-                            .addComponent(id)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel38)
                                 .addGap(183, 183, 183))
@@ -187,11 +175,7 @@ public class RegistroEm extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(36, 36, 36)
                 .addComponent(jLabel3)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(41, 41, 41)
                 .addComponent(jLabel35)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,7 +199,7 @@ public class RegistroEm extends javax.swing.JFrame {
                 .addComponent(jLabel40)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(confPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(30, 30, 30)
                 .addComponent(btnGuardarE, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -353,10 +337,8 @@ public class RegistroEm extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarE;
     private javax.swing.JPasswordField confPassword;
     private javax.swing.JTextField correo;
-    private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel34;
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;

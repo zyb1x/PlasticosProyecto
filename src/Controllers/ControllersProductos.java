@@ -12,9 +12,9 @@ import javax.swing.table.DefaultTableModel;
 public class ControllersProductos {
 
     public ControllersProductos(){}
-    public void registrarProducto(int idProducto, int idCategoria,String tipo, String nombre, double precio ,int stock, double costo, String tamannio, double ganancia){
-        String sql = "INSERT INTO PRODUCTOS (idProductos,idCategoria,tipo,nombre,precio,stock,costo,tamannio,ganancia)"
-                +"VALUES(?,?,?,?,?,?,?,?,?)";
+    public void registrarProducto(int idProducto, int idCategoria,String tipo, String nombre, double precio ,int stock, double costo, String tamannio, double ganancia,int codigoMaterial){
+        String sql = "INSERT INTO PRODUCTOS (idProductos,idCategoria,tipo,nombre,precio,stock,costo,tamannio,ganancia,codigoMaterial)"
+                +"VALUES(?,?,?,?,?,?,?,?,?,?)";
         try(Connection conn = connection.getConnection();
         PreparedStatement pstmt = conn.prepareStatement(sql)) {
         pstmt.setInt(1, idProducto);
@@ -26,9 +26,12 @@ public class ControllersProductos {
         pstmt.setDouble(7, costo);
         pstmt.setString(8, tamannio);
         pstmt.setDouble(9, ganancia);
+        pstmt.setInt(10, codigoMaterial);
+        
         pstmt.executeUpdate();
         System.out.println("Producto agregado");
        } catch (Exception e) {
+           System.out.println("Error en funcion guardar");
         System.out.println("Error al conectar con la base de datos" + e.getMessage());
        }
     }
@@ -38,7 +41,7 @@ public class ControllersProductos {
         try(Connection conn = connection.getConnection();
                 Statement st = conn.createStatement();
                 ResultSet rs = st.executeQuery(sql)){
-            Object[] datos = new Object[9];
+            Object[] datos = new Object[10];
             modelo =  (DefaultTableModel) tabla.getModel();
             
             while(rs.next()){
@@ -51,6 +54,7 @@ public class ControllersProductos {
                 datos[6] = rs.getDouble("costo");
                 datos[7] = rs.getString("tamannio");
                 datos[8] = rs.getDouble("ganancia");
+                datos[9] = rs.getInt("codigoMaterial");
                 modelo.addRow(datos);
             }
             tabla.setModel(modelo);
@@ -129,7 +133,7 @@ public class ControllersProductos {
         modelo = (DefaultTableModel) table.getModel();
         
         modelo.setRowCount(0);
-        Object[] datos = new Object[9];
+        Object[] datos = new Object[10];
         
         try(Connection conn = connection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -145,6 +149,7 @@ public class ControllersProductos {
                     datos[6] = rs.getDouble("costo");
                     datos[7] = rs.getString("tamannio");
                     datos[8] = rs.getDouble("ganancia");
+                    datos[9] = rs.getInt("codigoMaterial");
                     modelo.addRow(datos);                }
             }
         }
@@ -165,5 +170,49 @@ public class ControllersProductos {
         catch(SQLException e){
             
         }
+    }
+    public String getNombre(int id){
+        String sql = "SELECT nombre FROM PRODUCTOS WHERE idProductos=?";
+        String nombre = null;
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, id);
+            try(ResultSet rs = pstmt.executeQuery()){
+                if(rs.next()){
+                    nombre = rs.getString("nombre");
+                    System.out.println("Nombre encontrado");
+                }
+            }
+            catch(Exception e){
+                System.out.println("Error al encontrar el nombre");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Error al conectar con la base");
+            e.printStackTrace();
+        }
+        return nombre;
+    }
+    public double getPrecio(int id){
+        String sql = "SELECT nombre FROM PRODUCTOS WHERE idProductos=?";
+        double precio = 1;
+        try(Connection conn = connection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, id);
+            try(ResultSet rs = pstmt.executeQuery()){
+                if(rs.next()){
+                    precio = rs.getDouble("precio");
+                    System.out.println("Nombre encontrado");
+                }
+            }
+            catch(Exception e){
+                System.out.println("Error al encontrar el nombre");
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Error al conectar con la base");
+            e.printStackTrace();
+        }
+        return precio;
     }
 }

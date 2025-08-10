@@ -77,27 +77,29 @@ public class ControllersMateriaPrima {
     }
     
     
-    public int getCodigo(String nombre){
-        String sql = "SELECT codigo FROM ALMACEN_MATERIAL WHERE nombre=?";
-        int codigo = -1;
-        try(Connection conn = connection.getConnection();
-              PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setString(1, nombre);
-            try(ResultSet rs = pstmt.executeQuery()){
-                if (rs.next()) {
+    public int getCodigo(String nombre) {
+    String sql = "SELECT codigo FROM ALMACEN_MATERIAL WHERE nombre LIKE ?";
+    int codigo = 1;
+    try (Connection conn = connection.getConnection();
+         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+        
+        // Add the wildcards to the parameter value instead
+        pstmt.setString(1, "%" + nombre + "%");
+        
+        try (ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
                 codigo = rs.getInt("codigo");
-                System.out.println("Codigo obtenido" + codigo);
-                
+                System.out.println("Codigo obtenido: " + codigo);
             } else {
                 System.out.println("No se encontró codigo para " + nombre);
             }
-            }
         }
-        catch(SQLException e){
-            e.printStackTrace();
-        }
-        return codigo;
+    } catch (SQLException e) {
+        System.out.println("Error al obtener el codigo en funcion");
+        e.printStackTrace();
     }
+    return codigo;
+}
     public void setExistencia(int newStock, int codigo){
         String sql = "UPDATE ALMACEN_MATERIAL SET cantidad=? WHERE codigo=?";
         try(Connection conn = connection.getConnection();

@@ -110,6 +110,8 @@ public class Login extends javax.swing.JFrame {
         jPanel3.setForeground(new java.awt.Color(56, 80, 106));
 
         email.setBackground(new java.awt.Color(56, 80, 130));
+        email.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
+        email.setForeground(new java.awt.Color(255, 255, 255));
         email.setBorder(null);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -133,6 +135,7 @@ public class Login extends javax.swing.JFrame {
         jPanel4.setForeground(new java.awt.Color(56, 80, 130));
 
         password.setBackground(new java.awt.Color(56, 80, 130));
+        password.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
         password.setBorder(null);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -168,10 +171,10 @@ public class Login extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLabel7.setFont(new java.awt.Font("Gadugi", 0, 8)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Gadugi", 1, 8)); // NOI18N
         jLabel7.setText("USUARIO");
 
-        jLabel8.setFont(new java.awt.Font("Gadugi", 0, 8)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Gadugi", 1, 8)); // NOI18N
         jLabel8.setText("CONTRASEÑA");
 
         Registro.setBackground(new java.awt.Color(56, 80, 106));

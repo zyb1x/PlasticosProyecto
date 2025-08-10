@@ -1,10 +1,12 @@
 package Vista;
 
+import Controllers.ControllersAlmacen;
 import Controllers.ControllersMateriaPrima;
 import Controllers.ControllersProductos;
 import Controllers.ControllersProveedor;
 import java.awt.event.ItemEvent;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -20,10 +22,6 @@ public class Productos extends javax.swing.JInternalFrame {
     precio.setText("");
     costo.setText("");
     ganancia.setText("");
-    tipo.setSelectedIndex(0);
-    categoria.setSelectedIndex(0);
-    nombre.setSelectedIndex(0);
-    tamanio.setSelectedIndex(0);
 }
     public void categoria1() {
         ArrayList<String> Items = new ArrayList<>();
@@ -196,6 +194,7 @@ ArrayList<String> Items = new ArrayList<>();
             tamanio.addItem(nombres);
         }
     }
+    /*
     public void materia1(){
         ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
@@ -243,7 +242,7 @@ ArrayList<String> Items = new ArrayList<>();
             material.addItem(nombres);
         }
         
-    }
+    }*/
     private boolean validarCampos() {
         if (idProducto.getText().isEmpty() || existencia.getText().isEmpty()
                 || precio.getText().isEmpty() || costo.getText().isEmpty()) {
@@ -408,7 +407,7 @@ ArrayList<String> Items = new ArrayList<>();
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("MATERIAL");
 
-        material.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar" }));
+        material.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar", "poliestireno", "polietileno", "polipropileno", "polietileno PEBD", "resina de silicona" }));
         material.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 materialItemStateChanged(evt);
@@ -444,7 +443,7 @@ ArrayList<String> Items = new ArrayList<>();
                                     .addComponent(jLabel12))))
                         .addGap(78, 78, 78)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(material, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(material, 0, 118, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(idProducto)
                                 .addComponent(tipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -456,7 +455,7 @@ ArrayList<String> Items = new ArrayList<>();
                                 .addComponent(tamanio, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(ganancia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(guardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(101, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -517,7 +516,7 @@ ArrayList<String> Items = new ArrayList<>();
 
             },
             new String [] {
-                "CÓDIGO", "CATEGORIA", "TIPO", "NOMBRE", "PRECIO", "EXISTENCIA", "COSTO", "TAMAÑO", "GANANCIA"
+                "CÓDIGO", "CATEGORIA", "TIPO", "NOMBRE", "PRECIO", "EXISTENCIA", "COSTO", "TAMAÑO", "GANANCIA", "MATERIAL"
             }
         ));
         jScrollPane1.setViewportView(tabla);
@@ -586,6 +585,7 @@ ArrayList<String> Items = new ArrayList<>();
                 String tam = tamanio.getSelectedItem().toString();
                 Double gan = price - cost;
                 ganancia.setText(String.valueOf(gan));
+                try{
                 String materia = material.getSelectedItem().toString();
                 int codigo = mp.getCodigo(materia);
                 int cantMateria = mp.getExistencia(codigo);
@@ -611,8 +611,12 @@ ArrayList<String> Items = new ArrayList<>();
                     mp.setExistencia(newCant, codigo);
                 }
                 validarCampos();
-                p.registrarProducto(id, idCat, type, name, price, stock, cost, tam, gan);
-                limpiarCampos();
+                p.registrarProducto(id, idCat, type, name, price, stock, cost, tam, gan,codigo);
+                }
+                catch(Exception e) {
+                    System.out.println("Error en evento del boton");
+                    e.printStackTrace();
+                }
                 break;
             case 2:
                 //Buscar
@@ -635,13 +639,20 @@ ArrayList<String> Items = new ArrayList<>();
                 p.desactivarProducto(idDesactivar);
                 break;
             case 5:
+                JOptionPane.showMessageDialog(null, "Ingresa el id del producto que quieres activar y el numero de productos");
                 //ActivarProducto
                 int idActivar = Integer.parseInt(idProducto.getText());
                 int stockActivar = Integer.parseInt(existencia.getText());
-                JOptionPane.showMessageDialog(null, "Ingresa el id del producto que quieres activar y el numero de productos");
                 p.activar(idActivar, stockActivar);
                 break;
         }
+        
+        ControllersAlmacen a = new ControllersAlmacen();
+        int idPAlmacen = Integer.parseInt(idProducto.getText());
+        String fecha = String.valueOf(new Date());
+        a.guardarAlmacen(idPAlmacen, fecha, null);
+        
+        limpiarCampos();
         
     }//GEN-LAST:event_guardarActionPerformed
 
@@ -673,19 +684,15 @@ ArrayList<String> Items = new ArrayList<>();
             switch (selected.toString().toUpperCase()) {
                 case "LIMPIEZA":
                     nombre1();
-                    material2();
                     break;
                 case "HOGAR Y COCINA":
                     nombre2();
-                    material4();
                     break;
                 case "BOLSAS Y EMPAQUES":
                     nombre3();
-                    material3();
                     break;
                 case "DESCARTABLES Y ALIMENTOS":
                     nombre4();
-                    materia1();
                     break;
             }
         }
