@@ -36,12 +36,12 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
             Object[][] productos, double totalCompra) {
         try {
             // Ruta donde se guardará el PDF
-            String ruta = "C:\\Users\\LENOVO\\OneDrive\\Desktop\\PDF\\" + nombreCliente.replace(" ", "_") + ".pdf";
+            String ruta = "C:\\Users\\LENOVO\\Downloads\\Plasticos\\PlasticosProyecto\\PDF\\" + nombreCliente.replace(" ", "_") + ".pdf";
 
             PdfWriter writer = new PdfWriter(new File(ruta));
             PdfDocument pdf = new PdfDocument(writer);
             Document documento = new Document(pdf);
-
+            //Datos de la empresa
             // Encabezado
             documento.add(new Paragraph("Factura de Compra").simulateBold().setFontSize(18));
             documento.add(new Paragraph("======================================"));
