@@ -78,7 +78,7 @@ public class ControllersMateriaPrima {
     
     
     public int getCodigo(String nombre) {
-    String sql = "SELECT codigo FROM ALMACEN_MATERIAL WHERE nombre LIKE ?";
+    String sql = "SELECT codigo FROM MATERIA_PRIMA WHERE nombre LIKE ?";
     int codigo = 1;
     try (Connection conn = connection.getConnection();
          PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -101,7 +101,7 @@ public class ControllersMateriaPrima {
     return codigo;
 }
     public void setExistencia(int newStock, int codigo){
-        String sql = "UPDATE ALMACEN_MATERIAL SET cantidad=? WHERE codigo=?";
+        String sql = "UPDATE MATERIA_PRIMA SET cantidad=? WHERE codigo=?";
         try(Connection conn = connection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)){
             pstmt.setInt(2, codigo);
@@ -112,7 +112,7 @@ public class ControllersMateriaPrima {
         }
     }
     public int getExistencia(int codigo){
-        String sql = "SELECT cantidad FROM ALMACEN_MATERIAL WHERE codigo=?";
+        String sql = "SELECT cantidad FROM MATERIA_PRIMA WHERE codigo=?";
         int cantidad = -1;
         try(Connection conn = connection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)){

@@ -16,8 +16,10 @@ import java.io.File;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.layout.Document;
+import com.itextpdf.layout.borders.Border;
 import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.properties.TextAlignment;
 
 
 /**
@@ -31,19 +33,34 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form NuevaVenta
+     * @param nombreCliente
+     * @param domicilio
+     * @param telefono
+     * @param rfc
+     * @param productos
+     * @param totalCompra
      */
     public void generarFactura(String nombreCliente, String domicilio, String telefono, String rfc,
             Object[][] productos, double totalCompra) {
         try {
             // Ruta donde se guardará el PDF
-            String ruta = "C:\\Users\\LENOVO\\Downloads\\Plasticos\\PlasticosProyecto\\PDF\\" + nombreCliente.replace(" ", "_") + ".pdf";
+            String ruta = "factura_" + nombreCliente.replace(" ", "_") + ".pdf";
 
             PdfWriter writer = new PdfWriter(new File(ruta));
             PdfDocument pdf = new PdfDocument(writer);
             Document documento = new Document(pdf);
             //Datos de la empresa
+            documento.add(new Paragraph("EMPRESA DE PLASTICOS")
+                    .simulateBold()
+                    .setFontSize(18)
+                    .setTextAlignment(TextAlignment.CENTER));
+            documento.add(new Paragraph("EPL9402011A5").setTextAlignment(TextAlignment.CENTER));            
+            documento.add(new Paragraph("RÉGIMEN FISCAL: 601- General de Ley Personas Morales").setTextAlignment(TextAlignment.CENTER));
+            documento.add(new Paragraph("Av. de la Reforma #456, Colonia Centro 44100").setTextAlignment(TextAlignment.CENTER));
+            documento.add(new Paragraph("Guadalajara, Jalisco ").setTextAlignment(TextAlignment.CENTER));
+
             // Encabezado
-            documento.add(new Paragraph("Factura de Compra").simulateBold().setFontSize(18));
+            documento.add(new Paragraph("Factura de Compra"));
             documento.add(new Paragraph("======================================"));
             documento.add(new Paragraph(" "));
 
@@ -57,6 +74,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
             // Tabla de productos
             float[] anchoColumnas = {100F, 200F, 50F, 70F, 70F};
             Table tabla = new Table(anchoColumnas);
+            tabla.setBorder(Border.NO_BORDER);
             tabla.addCell("ID Producto");
             tabla.addCell("Nombre");
             tabla.addCell("Cantidad");
@@ -130,6 +148,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         stockP = new javax.swing.JLabel();
         agregar1 = new javax.swing.JButton();
         nombreProducto = new javax.swing.JLabel();
+        agregar2 = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -258,12 +277,22 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         nombreProducto.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
         nombreProducto.setText("Nombre");
 
+        agregar2.setBackground(new java.awt.Color(83, 120, 161));
+        agregar2.setFont(new java.awt.Font("Gadugi", 1, 12)); // NOI18N
+        agregar2.setForeground(new java.awt.Color(7, 16, 24));
+        agregar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eliminar16px.png"))); // NOI18N
+        agregar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                agregar2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 584, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,8 +345,10 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(agregar)))))))
-                .addGap(46, 109, Short.MAX_VALUE))
+                                        .addComponent(agregar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(agregar2)))))))
+                .addGap(46, 59, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -340,7 +371,8 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                     .addComponent(stockP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(agregar)
                     .addComponent(cantidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(nombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nombreProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(agregar2))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -368,9 +400,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -490,10 +520,22 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         stockP.setText(String.valueOf(stock));
     }//GEN-LAST:event_agregar1ActionPerformed
 
+    private void agregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregar2ActionPerformed
+        int fila = tablaNuevaVenta.getSelectedRow();
+        
+        if (fila >= 0) {
+            detalles.remove(fila);
+            model.removeRow(fila);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(null, "Selecciona un producto para eliminar de la venta");
+        }
+    }//GEN-LAST:event_agregar2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton agregar;
     private javax.swing.JButton agregar1;
+    private javax.swing.JButton agregar2;
     private javax.swing.JTextField cantidad;
     private javax.swing.JTextField domicilio;
     private javax.swing.JButton guardar;
