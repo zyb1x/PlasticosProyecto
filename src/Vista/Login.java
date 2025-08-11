@@ -15,8 +15,8 @@ import java.sql.SQLException;
  */
 public class Login extends javax.swing.JFrame {
     
-    public static boolean validarCredenciales(String password, String correo) {
-        String sql = "SELECT correo,password FROM EMPLEADO WHERE correo = ?";
+    public static boolean validarCredenciales(String correo,String password) {
+        String sql = "SELECT password,correo FROM EMPLEADO WHERE correo = ?";
 
         try (Connection con = connection.getConnection(); PreparedStatement pstmt = con.prepareStatement(sql)) {
 
@@ -292,7 +292,7 @@ public class Login extends javax.swing.JFrame {
         String corre = email.getText();
         String pwd = password.getText();
 
-        if (validarCredenciales(pwd, corre)) {
+        if (validarCredenciales(corre,pwd)) {
             this.dispose();
             Inicio i = new Inicio();
             i.setVisible(true);

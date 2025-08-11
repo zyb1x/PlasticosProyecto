@@ -374,6 +374,11 @@ public class Productos extends javax.swing.JInternalFrame {
         });
 
         seleccionar.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECCIONAR", "CREAR", "BUSCAR", "ACTUALIZAR", "ELIMINAR", "ACTIVAR" }));
+        seleccionar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                seleccionarMouseClicked(evt);
+            }
+        });
 
         jLabel10.setFont(new java.awt.Font("Gadugi", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
@@ -624,6 +629,20 @@ public class Productos extends javax.swing.JInternalFrame {
                         int newCant = resCantidad - cantMateria;
                         mp.setExistencia(newCant, codigo);
                     }
+                    try {
+                        ControllersAlmacen a = new ControllersAlmacen();
+                        int idPAlmacen = Integer.parseInt(idProducto.getText());
+                        Date fecha = new Date();
+
+                        // Puedes poner null si fechaSalida no es obligatoria
+                        a.guardarAlmacen(idPAlmacen, fecha, null);
+
+                    } catch (NumberFormatException e) {
+                        System.out.println("El ID del producto no es un número válido");
+                    } catch (Exception e) {
+                        System.out.println("Error al agregar información en almacén");
+                        e.printStackTrace(); // Para ver la causa real
+                    }
                     validarCampos();
                     p.registrarProducto(id, idCat, type, name, price, stock, cost, tam, gan, codigo);
                 } catch (Exception e) {
@@ -652,29 +671,13 @@ public class Productos extends javax.swing.JInternalFrame {
                 p.desactivarProducto(idDesactivar);
                 break;
             case 5:
-                JOptionPane.showMessageDialog(null, "Ingresa el id del producto que quieres activar y el numero de productos");
                 //ActivarProducto
                 int idActivar = Integer.parseInt(idProducto.getText());
                 int stockActivar = Integer.parseInt(existencia.getText());
                 p.activar(idActivar, stockActivar);
                 break;
         }
-
-        try {
-            ControllersAlmacen a = new ControllersAlmacen();
-            int idPAlmacen = Integer.parseInt(idProducto.getText());
-            Date fecha = new Date();
-
-            // Puedes poner null si fechaSalida no es obligatoria
-            a.guardarAlmacen(idPAlmacen, fecha, null);
-
-        } catch (NumberFormatException e) {
-            System.out.println("El ID del producto no es un número válido");
-        } catch (Exception e) {
-            System.out.println("Error al agregar información en almacén");
-            e.printStackTrace(); // Para ver la causa real
-        }
-
+        p.CargarDatos(tabla, model);
         limpiarCampos();
 
     }//GEN-LAST:event_guardarActionPerformed
@@ -791,6 +794,11 @@ public class Productos extends javax.swing.JInternalFrame {
     private void materialItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_materialItemStateChanged
         // TODO add your handling code here:
     }//GEN-LAST:event_materialItemStateChanged
+
+    private void seleccionarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_seleccionarMouseClicked
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "Para actualizar un producto debes ingresar el ID del producto, nuevo precio, existencia, costo y tamaño");
+    }//GEN-LAST:event_seleccionarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
