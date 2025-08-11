@@ -17,12 +17,13 @@ public class Productos extends javax.swing.JInternalFrame {
     DefaultTableModel model = new DefaultTableModel();
 
     private void limpiarCampos() {
-    idProducto.setText("");
-    existencia.setText("");
-    precio.setText("");
-    costo.setText("");
-    ganancia.setText("");
-}
+        idProducto.setText("");
+        existencia.setText("");
+        precio.setText("");
+        costo.setText("");
+        ganancia.setText("");
+    }
+
     public void categoria1() {
         ArrayList<String> Items = new ArrayList<>();
 //Termoestables
@@ -36,6 +37,7 @@ public class Productos extends javax.swing.JInternalFrame {
             categoria.addItem(categorias);
         }
     }
+
     public void categoria2() {
         ArrayList<String> Items = new ArrayList<>();
 //Termoplasticos
@@ -49,6 +51,7 @@ public class Productos extends javax.swing.JInternalFrame {
             categoria.addItem(categorias);
         }
     }
+
     public void nombre1() {
         ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
@@ -63,6 +66,7 @@ public class Productos extends javax.swing.JInternalFrame {
             nombre.addItem(categorias);
         }
     }
+
     public void nombre2() {
         ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccioar");
@@ -77,6 +81,7 @@ public class Productos extends javax.swing.JInternalFrame {
             nombre.addItem(categorias);
         }
     }
+
     public void nombre3() {
         ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
@@ -91,6 +96,7 @@ public class Productos extends javax.swing.JInternalFrame {
             nombre.addItem(categorias);
         }
     }
+
     public void nombre4() {
         ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
@@ -105,8 +111,9 @@ public class Productos extends javax.swing.JInternalFrame {
             nombre.addItem(categorias);
         }
     }
+
     public void cubeta() {
-ArrayList<String> Items = new ArrayList<>();
+        ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
         Items.add("5 galones");
         Items.add("2 galones");
@@ -118,6 +125,7 @@ ArrayList<String> Items = new ArrayList<>();
             tamanio.addItem(categorias);
         }
     }
+
     public void boteBasura() {
         ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
@@ -132,8 +140,9 @@ ArrayList<String> Items = new ArrayList<>();
             tamanio.addItem(categorias);
         }
     }
-    public void vasoTermico(){
-       ArrayList<String> Items = new ArrayList<>();
+
+    public void vasoTermico() {
+        ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
         Items.add("VT4A");
         Items.add("VT6");
@@ -145,23 +154,25 @@ ArrayList<String> Items = new ArrayList<>();
 
         for (String nombres : Items) {
             tamanio.addItem(nombres);
-        } 
+        }
     }
+
     public void TamannioNormal() {
         ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
         Items.add("Chico");
         Items.add("Mediano");
         Items.add("Grande");
-       
+
         tamanio.removeAllItems();
 
         for (String nombres : Items) {
             tamanio.addItem(nombres);
         }
     }
+
     public void vasoPlastico() {
-ArrayList<String> Items = new ArrayList<>();
+        ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
         Items.add("VP8");
         Items.add("VP10");
@@ -177,7 +188,8 @@ ArrayList<String> Items = new ArrayList<>();
             tamanio.addItem(nombres);
         }
     }
-    public void platos(){
+
+    public void platos() {
         ArrayList<String> Items = new ArrayList<>();
         Items.add("Seleccionar");
         Items.add("CH8535");
@@ -194,6 +206,7 @@ ArrayList<String> Items = new ArrayList<>();
             tamanio.addItem(nombres);
         }
     }
+
     /*
     public void materia1(){
         ArrayList<String> Items = new ArrayList<>();
@@ -251,10 +264,11 @@ ArrayList<String> Items = new ArrayList<>();
         }
         return true;
     }
+
     public Productos() {
         initComponents();
         p.CargarDatos(tabla, model);
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -566,13 +580,13 @@ ArrayList<String> Items = new ArrayList<>();
     }//GEN-LAST:event_idProductoActionPerformed
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
-        ControllersMateriaPrima mp = new ControllersMateriaPrima("","","",1,"","");
+        ControllersMateriaPrima mp = new ControllersMateriaPrima("", "", "", 1, "", "");
         switch (seleccionar.getSelectedIndex()) {
             case 0:
                 //seleccionar
                 JOptionPane.showMessageDialog(null, "Elige una opcion");
                 break;
-                
+
             case 1:
                 //Crear
                 int id = Integer.parseInt(idProducto.getText());
@@ -585,35 +599,34 @@ ArrayList<String> Items = new ArrayList<>();
                 String tam = tamanio.getSelectedItem().toString();
                 Double gan = price - cost;
                 ganancia.setText(String.valueOf(gan));
-                try{
-                String materia = material.getSelectedItem().toString();
-                int codigo = mp.getCodigo(materia);
-                int cantMateria = mp.getExistencia(codigo);
-                if(material.getSelectedItem().toString().toUpperCase().equals("POLIESTIRENO")){
-                    int resCantidad = stock * 3;
-                    int newCant = resCantidad - cantMateria;
-                    mp.setExistencia(newCant, codigo);
-                } else if(material.getSelectedItem().toString().toUpperCase().equals("POLIETILENO")){
-                    int resCantidad = stock * 30;
-                    int newCant = resCantidad -cantMateria;
-                    mp.setExistencia(newCant, codigo);
-                } else if (material.getSelectedItem().toString().toUpperCase().equals("POLIPROPILENO")){
-                    int resCantidad = stock * 3;
-                    int newCant = resCantidad -cantMateria;
-                    mp.setExistencia(newCant, codigo);                    
-                } else if(material.getSelectedItem().toString().toUpperCase().equals("POLIETILENO PEBD")){
-                    int resCantidad = stock * 3;
-                    int newCant = resCantidad -cantMateria;
-                    mp.setExistencia(newCant, codigo);
-                } else if(material.getSelectedItem().toString().toUpperCase().equals("RESINA DE SILICONA")){
-                    int resCantidad = stock * 3;
-                    int newCant = resCantidad -cantMateria;
-                    mp.setExistencia(newCant, codigo);
-                }
-                validarCampos();
-                p.registrarProducto(id, idCat, type, name, price, stock, cost, tam, gan,codigo);
-                }
-                catch(Exception e) {
+                try {
+                    String materia = material.getSelectedItem().toString();
+                    int codigo = mp.getCodigo(materia);
+                    int cantMateria = mp.getExistencia(codigo);
+                    if (material.getSelectedItem().toString().toUpperCase().equals("POLIESTIRENO")) {
+                        int resCantidad = stock * 3;
+                        int newCant = resCantidad - cantMateria;
+                        mp.setExistencia(newCant, codigo);
+                    } else if (material.getSelectedItem().toString().toUpperCase().equals("POLIETILENO")) {
+                        int resCantidad = stock * 30;
+                        int newCant = resCantidad - cantMateria;
+                        mp.setExistencia(newCant, codigo);
+                    } else if (material.getSelectedItem().toString().toUpperCase().equals("POLIPROPILENO")) {
+                        int resCantidad = stock * 3;
+                        int newCant = resCantidad - cantMateria;
+                        mp.setExistencia(newCant, codigo);
+                    } else if (material.getSelectedItem().toString().toUpperCase().equals("POLIETILENO PEBD")) {
+                        int resCantidad = stock * 3;
+                        int newCant = resCantidad - cantMateria;
+                        mp.setExistencia(newCant, codigo);
+                    } else if (material.getSelectedItem().toString().toUpperCase().equals("RESINA DE SILICONA")) {
+                        int resCantidad = stock * 3;
+                        int newCant = resCantidad - cantMateria;
+                        mp.setExistencia(newCant, codigo);
+                    }
+                    validarCampos();
+                    p.registrarProducto(id, idCat, type, name, price, stock, cost, tam, gan, codigo);
+                } catch (Exception e) {
                     System.out.println("Error en evento del boton");
                     e.printStackTrace();
                 }
@@ -631,7 +644,7 @@ ArrayList<String> Items = new ArrayList<>();
                 String tama = tamanio.getSelectedItem().toString();
                 Double newGanancia = newPrice - newCosto;
                 int Id = Integer.parseInt(idProducto.getText());
-                p.actualizarProducto(newPrice, newStock, newCosto, tama,newGanancia, Id);
+                p.actualizarProducto(newPrice, newStock, newCosto, tama, newGanancia, Id);
                 break;
             case 4:
                 //Eliminar
@@ -646,14 +659,24 @@ ArrayList<String> Items = new ArrayList<>();
                 p.activar(idActivar, stockActivar);
                 break;
         }
-        
-        ControllersAlmacen a = new ControllersAlmacen();
-        int idPAlmacen = Integer.parseInt(idProducto.getText());
-        String fecha = String.valueOf(new Date());
-        a.guardarAlmacen(idPAlmacen, fecha, null);
-        
+
+        try {
+            ControllersAlmacen a = new ControllersAlmacen();
+            int idPAlmacen = Integer.parseInt(idProducto.getText());
+            Date fecha = new Date();
+
+            // Puedes poner null si fechaSalida no es obligatoria
+            a.guardarAlmacen(idPAlmacen, fecha, null);
+
+        } catch (NumberFormatException e) {
+            System.out.println("El ID del producto no es un número válido");
+        } catch (Exception e) {
+            System.out.println("Error al agregar información en almacén");
+            e.printStackTrace(); // Para ver la causa real
+        }
+
         limpiarCampos();
-        
+
     }//GEN-LAST:event_guardarActionPerformed
 
     private void tipoPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_tipoPropertyChange
@@ -661,7 +684,7 @@ ArrayList<String> Items = new ArrayList<>();
     }//GEN-LAST:event_tipoPropertyChange
 
     private void tipoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_tipoItemStateChanged
-       switch (tipo.getSelectedIndex()) {
+        switch (tipo.getSelectedIndex()) {
             case 0:
                 this.categoria.removeAllItems();
                 break;
@@ -677,92 +700,92 @@ ArrayList<String> Items = new ArrayList<>();
 
     private void categoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_categoriaItemStateChanged
         if (evt.getStateChange() == ItemEvent.SELECTED) {
-        Object selected = categoria.getSelectedItem();
-        if (selected != null && !"Seleccionar".equals(selected.toString())) {
-            System.out.println(selected.toString());
-            
-            switch (selected.toString().toUpperCase()) {
-                case "LIMPIEZA":
-                    nombre1();
-                    break;
-                case "HOGAR Y COCINA":
-                    nombre2();
-                    break;
-                case "BOLSAS Y EMPAQUES":
-                    nombre3();
-                    break;
-                case "DESCARTABLES Y ALIMENTOS":
-                    nombre4();
-                    break;
+            Object selected = categoria.getSelectedItem();
+            if (selected != null && !"Seleccionar".equals(selected.toString())) {
+                System.out.println(selected.toString());
+
+                switch (selected.toString().toUpperCase()) {
+                    case "LIMPIEZA":
+                        nombre1();
+                        break;
+                    case "HOGAR Y COCINA":
+                        nombre2();
+                        break;
+                    case "BOLSAS Y EMPAQUES":
+                        nombre3();
+                        break;
+                    case "DESCARTABLES Y ALIMENTOS":
+                        nombre4();
+                        break;
+                }
             }
         }
-    }
     }//GEN-LAST:event_categoriaItemStateChanged
 
     private void nombreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_nombreItemStateChanged
-       if(evt.getStateChange() == ItemEvent.SELECTED){
-        Object selected = nombre.getSelectedItem();
-        if(selected != null && !"Seleccionar".equals(selected.toString())){
-            System.out.println(selected.toString());
-            
-            switch (selected.toString().toUpperCase()) {
-                case "CUBETA":
-                cubeta();
-                break;
-            case "RECOJEDORES":
-                this.tamanio.removeAllItems();
-                 this.tamanio.addItem("Sin tamannio");
-                break;
-            case "ESCOBAS CON MANGO DE PLASTICO":
-                this.tamanio.removeAllItems();
-                 this.tamanio.addItem("Sin tamannio");                
-                break;
-            case "BOTE DE BASURA":
-                boteBasura();
-                break;
-            case "CONTENEDORES CON TAPA":
-                TamannioNormal();
-                break;
-            case "COLADORES":
-                TamannioNormal();
-                break;
-            case "ORGANIZADOREZ":
-                this.tamanio.removeAllItems();
-                this.tamanio.addItem("Sin tamannio");
-                break;
-            case "CAJAS MULTIUSO":
-                TamannioNormal();
-                break;
-            case "BOLSAS CAMISETA":
-                TamannioNormal();
-                break;
-            case "BOLSA DE BASURA":
-                TamannioNormal();
-                break;
-            case "ROLLO DE POLIETILENO":
-                this.tamanio.removeAllItems();
-                 this.tamanio.addItem("Sin tamannio");
-                break;
-            case "ROLLO DE BOLSA":
-                this.tamanio.removeAllItems();
-                 this.tamanio.addItem("Sin tamannio");
-                break;
-            case "VASOS TERMICOS":
-                vasoTermico();
-                break;
-            case "TENEDORES, CUCHARAS Y CUCHILLOS":
-                this.tamanio.removeAllItems();
-                this.tamanio.addItem("Sin tamannio");
-                break;
-            case "PLATOS Y CHAROLAS":
-                platos();
-                break;
-            case "VASO PLASTICO":
-                vasoPlastico();
-                break;
+        if (evt.getStateChange() == ItemEvent.SELECTED) {
+            Object selected = nombre.getSelectedItem();
+            if (selected != null && !"Seleccionar".equals(selected.toString())) {
+                System.out.println(selected.toString());
+
+                switch (selected.toString().toUpperCase()) {
+                    case "CUBETA":
+                        cubeta();
+                        break;
+                    case "RECOJEDORES":
+                        this.tamanio.removeAllItems();
+                        this.tamanio.addItem("Sin tamannio");
+                        break;
+                    case "ESCOBAS CON MANGO DE PLASTICO":
+                        this.tamanio.removeAllItems();
+                        this.tamanio.addItem("Sin tamannio");
+                        break;
+                    case "BOTE DE BASURA":
+                        boteBasura();
+                        break;
+                    case "CONTENEDORES CON TAPA":
+                        TamannioNormal();
+                        break;
+                    case "COLADORES":
+                        TamannioNormal();
+                        break;
+                    case "ORGANIZADOREZ":
+                        this.tamanio.removeAllItems();
+                        this.tamanio.addItem("Sin tamannio");
+                        break;
+                    case "CAJAS MULTIUSO":
+                        TamannioNormal();
+                        break;
+                    case "BOLSAS CAMISETA":
+                        TamannioNormal();
+                        break;
+                    case "BOLSA DE BASURA":
+                        TamannioNormal();
+                        break;
+                    case "ROLLO DE POLIETILENO":
+                        this.tamanio.removeAllItems();
+                        this.tamanio.addItem("Sin tamannio");
+                        break;
+                    case "ROLLO DE BOLSA":
+                        this.tamanio.removeAllItems();
+                        this.tamanio.addItem("Sin tamannio");
+                        break;
+                    case "VASOS TERMICOS":
+                        vasoTermico();
+                        break;
+                    case "TENEDORES, CUCHARAS Y CUCHILLOS":
+                        this.tamanio.removeAllItems();
+                        this.tamanio.addItem("Sin tamannio");
+                        break;
+                    case "PLATOS Y CHAROLAS":
+                        platos();
+                        break;
+                    case "VASO PLASTICO":
+                        vasoPlastico();
+                        break;
+                }
             }
         }
-    }
     }//GEN-LAST:event_nombreItemStateChanged
 
     private void materialItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_materialItemStateChanged

@@ -12,6 +12,13 @@ import Controllers.ControllersVenta;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import java.io.File;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.element.Table;
+
 
 /**
  *
@@ -25,6 +32,59 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
     /**
      * Creates new form NuevaVenta
      */
+    public void generarFactura(String nombreCliente, String domicilio, String telefono, String rfc,
+            Object[][] productos, double totalCompra) {
+        try {
+            // Ruta donde se guardará el PDF
+            String ruta = "C:\\Users\\LENOVO\\OneDrive\\Desktop\\PDF\\" + nombreCliente.replace(" ", "_") + ".pdf";
+
+            PdfWriter writer = new PdfWriter(new File(ruta));
+            PdfDocument pdf = new PdfDocument(writer);
+            Document documento = new Document(pdf);
+
+            // Encabezado
+            documento.add(new Paragraph("Factura de Compra").simulateBold().setFontSize(18));
+            documento.add(new Paragraph("======================================"));
+            documento.add(new Paragraph(" "));
+
+            // Datos del cliente
+            documento.add(new Paragraph("Cliente: " + nombreCliente));
+            documento.add(new Paragraph("Domicilio: " + domicilio));
+            documento.add(new Paragraph("Teléfono: " + telefono));
+            documento.add(new Paragraph("RFC: " + rfc));
+            documento.add(new Paragraph(" "));
+
+            // Tabla de productos
+            float[] anchoColumnas = {100F, 200F, 50F, 70F, 70F};
+            Table tabla = new Table(anchoColumnas);
+            tabla.addCell("ID Producto");
+            tabla.addCell("Nombre");
+            tabla.addCell("Cantidad");
+            tabla.addCell("Precio");
+            tabla.addCell("Total");
+
+            for (Object[] prod : productos) {
+                tabla.addCell(prod[0].toString()); // ID
+                tabla.addCell(prod[1].toString()); // Nombre
+                tabla.addCell(prod[2].toString()); // Cantidad
+                tabla.addCell("$" + prod[3].toString()); // Precio
+                tabla.addCell("$" + prod[4].toString()); // Total
+            }
+
+            documento.add(tabla);
+
+            // Total final
+            documento.add(new Paragraph(" "));
+            documento.add(new Paragraph("Total de la compra: $" + totalCompra).simulateBold());
+
+            documento.close();
+            System.out.println("Factura generada en: " + ruta);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public NuevaVenta() {
         initComponents();
         model.addColumn("ID Producto");
@@ -389,6 +449,28 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
                     p.setStock(newStock, IDProducto);
                 }
             }
+            // --- Generar PDF después de la venta ---
+            Object[][] productosPDF = new Object[detalles.size()][5];
+            double totalCompra = 0;
+
+            for (int i = 0; i < detalles.size(); i++) {
+                int IDProducto = detalles.get(i).getId();
+                String nombreProd = p.getNombre(IDProducto); // Método que debes implementar
+                int Cantidad = detalles.get(i).getCantidad();
+                double PRECIO = detalles.get(i).getPrecio();
+                double TOTAL = detalles.get(i).getTotal();
+                productosPDF[i] = new Object[]{IDProducto, nombreProd, Cantidad, PRECIO, TOTAL};
+                totalCompra += TOTAL;
+            }
+
+            generarFactura(
+                    nombreCliente.getText(),
+                    domicilio.getText(),
+                    telefono.getText(),
+                    rfc.getText(),
+                    productosPDF,
+                    totalCompra
+            );
 
         } catch (Exception e) {
             System.out.println(e);
@@ -402,7 +484,7 @@ public class NuevaVenta extends javax.swing.JInternalFrame {
         int stock = p.getStock(id);
         double precio = p.getPrecio(id);
         String nombre = p.getNombre(id);
-        
+
         nombreProducto.setText(nombre);
         precioP.setText(String.valueOf(precio));
         stockP.setText(String.valueOf(stock));

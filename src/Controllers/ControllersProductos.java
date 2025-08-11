@@ -194,7 +194,7 @@ public class ControllersProductos {
         return nombre;
     }
     public double getPrecio(int id){
-        String sql = "SELECT nombre FROM PRODUCTOS WHERE idProductos=?";
+        String sql = "SELECT precio FROM PRODUCTOS WHERE idProductos=?";
         double precio = 1;
         try(Connection conn = connection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(sql)){
