@@ -29,6 +29,7 @@ public MateriaPrima(String nombre, String codigo, String unidad, String medida, 
         
         super("Materia Prima", true, true, true, true);
         initComponents();
+        actualizarmp.setVisible(false);
         
         modeloTabla = new DefaultTableModel();
         modeloTabla.setColumnIdentifiers(new String []{"Codigo", "Nombre", "Unidad", "Medida", "Cantidad", "Tipo", "Proveedor"});

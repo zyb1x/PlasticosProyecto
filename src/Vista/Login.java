@@ -172,7 +172,7 @@ public class Login extends javax.swing.JFrame {
         );
 
         jLabel7.setFont(new java.awt.Font("Gadugi", 1, 8)); // NOI18N
-        jLabel7.setText("USUARIO");
+        jLabel7.setText("CORREO");
 
         jLabel8.setFont(new java.awt.Font("Gadugi", 1, 8)); // NOI18N
         jLabel8.setText("CONTRASEÑA");
