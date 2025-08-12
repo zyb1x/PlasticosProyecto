@@ -250,8 +250,11 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_materialActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
+       this.dispose();
+            Login L= new Login();
+            L.setVisible(true);
+            L.pack();
+            L.setLocationRelativeTo(null);
     }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
